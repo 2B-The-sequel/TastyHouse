@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FoodMenuUtility\FoodMenuUtility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
