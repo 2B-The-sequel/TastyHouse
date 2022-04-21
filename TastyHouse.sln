@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TastyHouse", "TastyHouse\TastyHouse.csproj", "{E40AA76D-1143-41E5-A57D-3C208B6FB408}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneApp", "PhoneApp\PhoneApp.csproj", "{4D499D39-FAD7-47A2-B131-1BDA8B51B7CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminApp", "AdminApp\AdminApp.csproj", "{7D33C3E7-63FB-4A86-A3E6-8A94516C5B61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E40AA76D-1143-41E5-A57D-3C208B6FB408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E40AA76D-1143-41E5-A57D-3C208B6FB408}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E40AA76D-1143-41E5-A57D-3C208B6FB408}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E40AA76D-1143-41E5-A57D-3C208B6FB408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D499D39-FAD7-47A2-B131-1BDA8B51B7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D499D39-FAD7-47A2-B131-1BDA8B51B7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D499D39-FAD7-47A2-B131-1BDA8B51B7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D499D39-FAD7-47A2-B131-1BDA8B51B7CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D33C3E7-63FB-4A86-A3E6-8A94516C5B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D33C3E7-63FB-4A86-A3E6-8A94516C5B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D33C3E7-63FB-4A86-A3E6-8A94516C5B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D33C3E7-63FB-4A86-A3E6-8A94516C5B61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
