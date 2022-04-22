@@ -1,5 +1,3 @@
-using System;
-
 namespace FoodMenuUtility.Models
 {
     public class Order
