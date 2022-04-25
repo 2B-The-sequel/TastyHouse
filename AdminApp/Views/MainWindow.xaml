@@ -71,7 +71,40 @@
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
-                <!-- Indsæt her -->
+                <DockPanel Margin="5" DockPanel.Dock="Right">
+                    <StackPanel Margin="15">
+                        <Button Name="AddSideButton" Margin="0 0 0 15" Click="AddSideButton_Click">
+                            <StackPanel>
+                                <Image Source="/Resources/Add.png" Width="32"></Image>
+                                <TextBlock Text="Tilføj nyt tilbehør"></TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="RemoveSideButton" Margin="0 0 0 15" Click="RemoveSideButton_Click">
+                            <StackPanel>
+                                <Image Source="/Resources/Remove.png" Width="32"></Image>
+                                <TextBlock Text="Fjern tilbehør"></TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+                <ListBox Background="LightGray" ItemsSource="{Binding Sides}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+ 
             </DockPanel>
         </TabItem>
         <TabItem>
