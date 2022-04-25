@@ -7,15 +7,19 @@ namespace AdminApp.ViewModels
     {
         public ObservableCollection<OrderViewModel> Orders { get; set; }
 
+        public OrderViewModel SelectedOrder { get; set; }
+
         public MainViewModel()
         {
             Orders = new ObservableCollection<OrderViewModel>();
 
             //TESTING
-            Order order = new(10);
-            OrderViewModel ovm = new(order);
-
-            Orders.Add(ovm);
+            for (int i = 1; i <= 10; i++)
+            {
+                Order order = new(i);
+                OrderViewModel ovm = new(order);
+                Orders.Add(ovm);
+            }
             //END
         }
     }

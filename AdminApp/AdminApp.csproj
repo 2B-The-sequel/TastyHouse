@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
@@ -14,10 +13,7 @@
     <None Remove="Resources\Done.png" />
     <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\Order.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="\Resources\Icon.ico" />
+    <None Remove="Resources\Question.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +34,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Order.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Question.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
