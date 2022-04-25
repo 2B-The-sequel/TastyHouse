@@ -8,9 +8,12 @@ namespace FoodMenuUtility.Models
 
         public DateTime DoneTime { get; set; }
 
+        public OrderState State { get; set; }
+
         public Order(int Id)
         {
             this.Id = Id;
+            State = OrderState.Awaiting;
         }
     }
 }

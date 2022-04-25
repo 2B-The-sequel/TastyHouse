@@ -17,6 +17,21 @@ namespace AdminApp.ViewModels
             }
         }
 
+        public string Image
+        {
+            get
+            {
+                return State switch
+                {
+                    OrderState.Accepted => "/Resources/Accept.png",
+                    OrderState.Declined => "/Resources/Decline.png",
+                    OrderState.Awaiting => "/Resources/Question.png",
+                    OrderState.Done => "/Resources/Done.png",
+                    _ => null,
+                };
+            }
+        }
+
         public DateTime DoneTime
         {
             get
@@ -29,23 +44,20 @@ namespace AdminApp.ViewModels
             }
         }
 
-        private OrderState _state;
         public OrderState State 
         { 
             get
             {
-                return _state;
+                return model.State;
             }
             set
             {
-                _state = value;
+                model.State = value;
                 NotifyPropertyChanged(nameof(State));
+                NotifyPropertyChanged(nameof(Image));
             }
         }
 
-        public OrderViewModel(Order model) : base(model)
-        {
-            State = OrderState.Awaiting;
-        }
+        public OrderViewModel(Order model) : base(model) { }
     }
 }
