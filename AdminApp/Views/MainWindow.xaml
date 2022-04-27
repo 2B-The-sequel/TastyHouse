@@ -11,6 +11,7 @@
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
+                <!-- Order Start -->
                 <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
                     <StackPanel>
                         <Button Margin="0 0 0 10" Click="Accept_Click" IsEnabled="{Binding ElementName=Orders, Path=SelectedItems.Count}">
@@ -63,6 +64,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
+            <!-- Order End -->
         </TabItem>
         <TabItem>
             <TabItem.Header>
@@ -71,9 +73,64 @@
                     <TextBlock Text="Menuer" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
                 </DockPanel>
             </TabItem.Header>
-            <DockPanel Margin="10">
-                <!-- Indsæt her -->
-            </DockPanel>
+            
+                <!-- Menuer start-->
+                <DockPanel Margin="10">
+                    <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
+                        <StackPanel>
+                            <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}" Click="Button_Click">
+                                <StackPanel Margin="5">
+                                    <Image Source="/Resources/Order.png" Width="32"/>
+                                    <TextBlock Text="Ny Menu" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}" Click="Button_Click">
+                                <StackPanel Margin="5">
+                                    <Image Source="/Resources/Decline.png" Width="32"/>
+                                    <TextBlock Text="Slet Menu" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                                </StackPanel>
+                            </Button>
+                            <!--  <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}">
+                                <StackPanel Margin="5">
+                                    <Image Source="/Resources/Done.png" Width="32"/>
+                                    <TextBlock Text="Færdig" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                                </StackPanel>
+                            </Button>  -->
+                        </StackPanel>
+                    </DockPanel>
+                    <ListBox Name="Menus" Background="LightGray" ItemsSource="{Binding Menus}" SelectedItem="">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                </Style.Resources>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                    <DockPanel>
+                                        <Image Source="{Binding Image}" Width="32" Margin="0 0 5 0"/>
+                                        <TextBlock Text="Menu id: "/>
+                                        <TextBlock Text="{Binding Id}"/>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
+                </DockPanel>
+            <!-- Menuer start-->
         </TabItem>
         <TabItem>
             <TabItem.Header>
