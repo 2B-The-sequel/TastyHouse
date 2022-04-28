@@ -43,14 +43,18 @@ namespace AdminApp
 
         private void New_Menu(object sender, RoutedEventArgs e)
         {
-
+            NewMenu dialog = new();
+            if (dialog.ShowDialog() == true)
+            {
+                
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Er du sikker på at du vil afvise orderen?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                MVM.SelectedOrder.State = Menu.Declined;
+                
             }
         }
     }
