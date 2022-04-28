@@ -7,13 +7,18 @@ namespace AdminApp.ViewModels
     {
         public ObservableCollection<OrderViewModel> Orders { get; set; }
         public ObservableCollection<MenuViewModel> Menus { get; set; }
+        public ObservableCollection<ContentViewModel> Contents { get; set; }
+
 
         public OrderViewModel SelectedOrder { get; set; }
+
+
 
         public MainViewModel()
         {
             Orders = new ObservableCollection<OrderViewModel>();
             Menus = new ObservableCollection<MenuViewModel>();
+            Contents = new ObservableCollection<ContentViewModel>();
 
             //TESTING
             for (int i = 1; i <= 10; i++)
