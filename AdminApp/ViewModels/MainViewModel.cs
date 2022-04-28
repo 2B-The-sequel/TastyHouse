@@ -6,13 +6,13 @@ namespace AdminApp.ViewModels
     public class MainViewModel
     {
         public ObservableCollection<OrderViewModel> Orders { get; set; }
-        public ObservableCollection<SideViewModel> Sides { get; set; }
+        public ObservableCollection<ProductViewModel> Sides { get; set; }
 
         public MainViewModel()
         {
             Orders = new ObservableCollection<OrderViewModel>();
 
-            Sides = new ObservableCollection<SideViewModel> { };
+            Sides = new ObservableCollection<ProductViewModel> { };
 
             //TESTING
             Order order = new(10);

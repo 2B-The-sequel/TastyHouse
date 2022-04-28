@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace FoodMenuUtility.Models
 {
-    public class Side
+    public class Product
     {
         public string Name { get; set; }
 
         public int Price { get; set; }  
 
-        public Side (string name, int price)
+        public Product (string name, int price)
         {
             Name = name;
             Price = price;

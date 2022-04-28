@@ -1,4 +1,4 @@
-﻿<Window x:Class="AdminApp.Views.AddSideDialog"
+﻿<Window x:Class="AdminApp.Views.AddProductDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         Title="AddSideWindow" Height="350" Width="300" ResizeMode="NoResize">
     <Grid>
         <StackPanel Margin="10">
-            <Label Content="Tilføj nyt tilbehør" HorizontalAlignment="Center"></Label>
+            <Label Content="Tilføj ny vare" HorizontalAlignment="Center"></Label>
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Navn:"></Label>
@@ -23,10 +23,10 @@
                     <Button Name="OpenImageButton" Content="Gennemse" Width="150" HorizontalAlignment="Right" Click="OpenImageButton_Click"></Button>
                 </DockPanel>
                 <DockPanel>
-                    <Button Name="SaveSideButton" Margin="10" Click="SaveSideButton_Click">
+                    <Button Name="SaveSideButton" Margin="10" Click="SaveProductButton_Click" Width="89">
                         <StackPanel Margin="10">
                             <Image Source="/Resources/Accept.png" Width="32"></Image>
-                            <TextBlock Text="Tilføj tilbehør"></TextBlock>
+                            <TextBlock Text="Tilføj Vare"></TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Width="100" HorizontalAlignment="Right" Margin="10" Click="Button_Click">

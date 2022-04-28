@@ -19,18 +19,18 @@ namespace AdminApp
             DataContext = MVM;
         }
 
-        private void AddSideButton_Click(object sender, RoutedEventArgs e)
+        private void AddProductButton_Click(object sender, RoutedEventArgs e)
         {
-           AddSideDialog addSideDialog = new AddSideDialog();
+           AddProductDialog addSideDialog = new AddProductDialog();
            if (addSideDialog.ShowDialog() == true)
             {
-                Side side = new Side(addSideDialog.name, int.Parse(addSideDialog.price));
-                SideViewModel _side = new(side);
+                Product side = new Product(addSideDialog.name, int.Parse(addSideDialog.price));
+                ProductViewModel _side = new(side);
                 MVM.Sides.Add(_side);
             } 
         }
 
-        private void RemoveSideButton_Click(object sender, RoutedEventArgs e)
+        private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

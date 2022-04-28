@@ -18,9 +18,9 @@ namespace AdminApp.Views
     /// <summary>
     /// Interaction logic for AddSideWindow.xaml
     /// </summary>
-    public partial class AddSideDialog : Window
+    public partial class AddProductDialog : Window
     {
-        public AddSideDialog()
+        public AddProductDialog()
         {
             InitializeComponent();
             DataContext = this; 
@@ -40,7 +40,7 @@ namespace AdminApp.Views
                 
         }
 
-        private void SaveSideButton_Click(object sender, RoutedEventArgs e)
+        private void SaveProductButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }

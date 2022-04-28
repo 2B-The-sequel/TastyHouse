@@ -67,22 +67,22 @@
             <TabItem.Header>
                 <DockPanel Margin="5">
                     <Image Source="/Resources/Order.png" Width="32"/>
-                    <TextBlock Text="Tilbehør" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
+                    <TextBlock Text="Varer" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
                 <DockPanel Margin="5" DockPanel.Dock="Right">
                     <StackPanel Margin="15">
-                        <Button Name="AddSideButton" Margin="0 0 0 15" Click="AddSideButton_Click">
+                        <Button Margin="0 0 0 15" Click="AddProductButton_Click">
                             <StackPanel>
                                 <Image Source="/Resources/Add.png" Width="32"></Image>
-                                <TextBlock Text="Tilføj nyt tilbehør"></TextBlock>
+                                <TextBlock Text="Tilføj ny vare"></TextBlock>
                             </StackPanel>
                         </Button>
-                        <Button Name="RemoveSideButton" Margin="0 0 0 15" Click="RemoveSideButton_Click">
+                        <Button Margin="0 0 0 15" Click="RemoveProductButton_Click">
                             <StackPanel>
                                 <Image Source="/Resources/Remove.png" Width="32"></Image>
-                                <TextBlock Text="Fjern tilbehør"></TextBlock>
+                                <TextBlock Text="Fjern vare"></TextBlock>
                             </StackPanel>
                         </Button>
                     </StackPanel>
