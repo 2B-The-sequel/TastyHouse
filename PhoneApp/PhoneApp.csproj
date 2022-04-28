@@ -13,9 +13,17 @@
     <None Remove="Resources\Food.png" />
     <None Remove="Resources\Home.png" />
     <None Remove="Resources\Logo.png" />
+    <None Remove="Resources\Menu.png" />
+    <None Remove="Resources\Menu_Selected.png" />
     <None Remove="Resources\Phone.png" />
     <None Remove="Resources\PhoneIcon.png" />
     <None Remove="Resources\Profile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Menu_Selected.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +44,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Phone.png">
