@@ -14,7 +14,9 @@ namespace FoodMenuUtility.Persistence
         private List<Content> Contents;
         private string CnnStr = Properties.Settings.Default.WPF_Connection;
 
-
+        // ======================================================
+        // Constructor: Adding every Content entity from database to "Contents" list.
+        // ======================================================
         public ContentRepo()
         {
             Contents = new List<Content>();
