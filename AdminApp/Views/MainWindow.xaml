@@ -13,26 +13,26 @@
             <DockPanel Margin="10">
                 <!-- Order Start -->
                 <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
-                    <StackPanel>
-                        <Button Margin="0 0 0 10" Click="Accept_Click" IsEnabled="{Binding ElementName=Orders, Path=SelectedItems.Count}">
+                    <DockPanel>
+                        <Button Margin="0 0 0 10" Click="Accept_Click" IsEnabled="{Binding ElementName=Orders, Path=SelectedItems.Count}" DockPanel.Dock="Top">
                             <StackPanel Margin="5">
                                 <Image Source="/Resources/Accept.png" Width="32"/>
                                 <TextBlock Text="Acceptér" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="0 0 0 10" Click="Decline_Click" IsEnabled="{Binding ElementName=Orders, Path=SelectedItems.Count}">
-                            <StackPanel Margin="5">
-                                <Image Source="/Resources/Decline.png" Width="32"/>
-                                <TextBlock Text="Afvis" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
-                            </StackPanel>
-                        </Button>
-                        <Button Margin="0 0 0 10" Click="Done_Click" IsEnabled="{Binding ElementName=Orders, Path=SelectedItems.Count}">
+                        <Button Margin="0 0 0 10" Click="Done_Click" IsEnabled="{Binding ElementName=Orders, Path=SelectedItems.Count}" DockPanel.Dock="Top">
                             <StackPanel Margin="5">
                                 <Image Source="/Resources/Done.png" Width="32"/>
                                 <TextBlock Text="Færdig" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                    </StackPanel>
+                        <Button Click="Decline_Click" IsEnabled="{Binding ElementName=Orders, Path=SelectedItems.Count}" VerticalAlignment="Bottom">
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/Decline.png" Width="32"/>
+                                <TextBlock Text="Afvis" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
                 </DockPanel>
                 <ListBox Name="Orders" Background="LightGray" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}">
                     <ListBox.ItemContainerStyle>
