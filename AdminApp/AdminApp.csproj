@@ -9,11 +9,20 @@
 
   <ItemGroup>
     <None Remove="Resources\Accept.png" />
+    <None Remove="Resources\Add.png" />
     <None Remove="Resources\Decline.png" />
     <None Remove="Resources\Done.png" />
     <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\Order.png" />
+
+    <None Remove="Resources\Remove.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="\Resources\Icon.ico" />
+
     <None Remove="Resources\Question.png" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +31,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\Accept.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Decline.png">
@@ -36,7 +48,11 @@
     <Resource Include="Resources\Order.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+
+    <Resource Include="Resources\Remove.png">
+
     <Resource Include="Resources\Question.png">
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

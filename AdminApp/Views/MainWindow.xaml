@@ -136,11 +136,44 @@
             <TabItem.Header>
                 <DockPanel Margin="5">
                     <Image Source="/Resources/Order.png" Width="32"/>
-                    <TextBlock Text="Tilbehør" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
+                    <TextBlock Text="Varer" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
-                <!-- Indsæt her -->
+                <DockPanel Margin="5" DockPanel.Dock="Right">
+                    <StackPanel Margin="15">
+                        <Button Margin="0 0 0 15" Click="AddProductButton_Click">
+                            <StackPanel>
+                                <Image Source="/Resources/Add.png" Width="32"></Image>
+                                <TextBlock Text="Tilføj ny vare"></TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="0 0 0 15" Click="RemoveProductButton_Click">
+                            <StackPanel>
+                                <Image Source="/Resources/Remove.png" Width="32"></Image>
+                                <TextBlock Text="Fjern vare"></TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+                <ListBox Background="LightGray" ItemsSource="{Binding Sides}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+ 
             </DockPanel>
         </TabItem>
         <TabItem>
