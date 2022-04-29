@@ -14,11 +14,15 @@
     <None Remove="Resources\Done.png" />
     <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\Order.png" />
+
     <None Remove="Resources\Remove.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="\Resources\Icon.ico" />
+
+    <None Remove="Resources\Question.png" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -44,7 +48,11 @@
     <Resource Include="Resources\Order.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+
     <Resource Include="Resources\Remove.png">
+
+    <Resource Include="Resources\Question.png">
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

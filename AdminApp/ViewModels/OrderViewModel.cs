@@ -1,26 +1,63 @@
-﻿using FoodMenuUtility.Models;
+﻿using System;
+using FoodMenuUtility.Models;
 
 namespace AdminApp.ViewModels
 {
-    public class OrderViewModel
+    public class OrderViewModel : ViewModel<Order>
     {
-        private readonly Order order;
-
         public int Id 
         { 
             get
             {
-                return order.Id;
+                return model.Id;
             }
             set
             {
-                order.Id = value;
+                model.Id = value;
             }
         }
 
-        public OrderViewModel(Order order)
+        public string Image
         {
-            this.order = order;
+            get
+            {
+                return State switch
+                {
+                    OrderState.Accepted => "/Resources/Accept.png",
+                    OrderState.Declined => "/Resources/Decline.png",
+                    OrderState.Awaiting => "/Resources/Question.png",
+                    OrderState.Done => "/Resources/Done.png",
+                    _ => null,
+                };
+            }
         }
+
+        public DateTime DoneTime
+        {
+            get
+            {
+                return model.DoneTime;
+            }
+            set
+            {
+                model.DoneTime = value;
+            }
+        }
+
+        public OrderState State 
+        { 
+            get
+            {
+                return model.State;
+            }
+            set
+            {
+                model.State = value;
+                NotifyPropertyChanged(nameof(State));
+                NotifyPropertyChanged(nameof(Image));
+            }
+        }
+
+        public OrderViewModel(Order model) : base(model) { }
     }
 }
