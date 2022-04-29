@@ -130,7 +130,7 @@
 
 
                 </DockPanel>
-            <!-- Menuer start-->
+            <!-- Menuer slut-->
         </TabItem>
         <TabItem>
             <TabItem.Header>
@@ -151,7 +151,60 @@
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
-                <!-- Indsæt her -->
+                <!-- Content start -->
+                <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
+                    <StackPanel>
+                        <Button Margin="0 0 0 10" Click="AddNewContent">
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/Order.png" Width="32"/>
+                                <TextBlock Text="Nyt Indhold" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Contents, Path=SelectedItems.Count}" Click="DeleteContent">
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/Decline.png" Width="32"/>
+                                <TextBlock Text="Slet Indhold" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                            </StackPanel>
+                        </Button>
+                        <!--  <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}">
+                                <StackPanel Margin="5">
+                                    <Image Source="/Resources/Done.png" Width="32"/>
+                                    <TextBlock Text="Færdig" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                                </StackPanel>
+                            </Button>  -->
+                    </StackPanel>
+                </DockPanel>
+                <ListBox Name="Contents" Background="LightGray" ItemsSource="{Binding Contents}" SelectedItem="">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                            </Style.Resources>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                <DockPanel>
+                                    <Image Source="{Binding Image}" Width="32" Margin="0 0 5 0"/>
+                                    <TextBlock Text="Contents id: "/>
+                                    <TextBlock Text="{Binding Id}"/>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+             <!-- Content end -->
             </DockPanel>
         </TabItem>
     </TabControl>

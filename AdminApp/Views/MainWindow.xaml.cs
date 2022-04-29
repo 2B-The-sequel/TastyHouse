@@ -2,6 +2,7 @@
 using AdminApp.ViewModels;
 using AdminApp.Views;
 using FoodMenuUtility.Models;
+using FoodMenuUtility.Persistence;
 
 namespace AdminApp
 {
@@ -10,6 +11,7 @@ namespace AdminApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        ContentRepo CR = new ContentRepo();
         public MainViewModel MVM;
 
         public MainWindow()
@@ -46,9 +48,25 @@ namespace AdminApp
             NewMenu dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                
+
             }
         }
+        private void AddNewContent(object sender, RoutedEventArgs e)
+        {
+            NewContent dialog = new();
+            if (dialog.ShowDialog() == true)
+            {
+
+            }
+        }
+        private void DeleteContent(object sender, RoutedEventArgs e)
+        {
+            
+            int id = int.Parse(MVM.SelectedOrder.Id.ToString());
+            
+            CR.Remove(id);
+            
+        }        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

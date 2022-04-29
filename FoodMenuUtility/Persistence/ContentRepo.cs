@@ -37,13 +37,12 @@ namespace FoodMenuUtility.Persistence
                         double extraPrice = sqldatareader.GetDouble("Extra_Price");
 
                         /*
-                        if (!Convert.IsDBNull(sqldatareader["QR_Code"]))//crash if null
+                        if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
                         {
-                            QR_Code = (byte[])sqldatareader["QR_Code"];
+                            Image = (byte[])sqldatareader["Image"];
                         }
                         */
 
-                        // result = (someBool) ? if true : if false
                         Content cont = (id != -1)
                             ? new(id, name, extraPrice)
                             : new(name, extraPrice);
@@ -62,7 +61,7 @@ namespace FoodMenuUtility.Persistence
 
         public int Add(Content contents)
         {
-            int result = -1;
+            int result;
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
@@ -140,14 +139,20 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================
 
-        public void Remove(Content content)
+        public void Remove(int id)
         {
-            Contents.Remove(content);
+            foreach (Content cs in Contents)
+            {
+                if (cs.Id == id)
+                {
+                    Contents.Remove(cs);
+                }
+            }
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
                 string table = "Content";
-                string query = $"DELETE FROM {table} WHERE {content.Id} = Content_id";
+                string query = $"DELETE FROM {table} WHERE {id} = Content_id";
                 SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
             }

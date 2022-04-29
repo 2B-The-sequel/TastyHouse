@@ -22,7 +22,7 @@ namespace FoodMenuUtility.Models
         /// <summary>
         /// Used to notify UI of changes in a property.
         /// </summary>
-        /// <param name="propertyName">Name of the property changed.</param>
+        // <param name="propertyName">Name of the property changed.</param>
         protected void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

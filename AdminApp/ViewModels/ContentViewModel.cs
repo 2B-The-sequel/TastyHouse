@@ -6,8 +6,8 @@ namespace AdminApp.ViewModels
 {
     public class ContentViewModel : ViewModel<Content>
     {
-        MainViewModel MVM = new();
-        ContentRepo CR = new ContentRepo();
+        //MainViewModel MVM = new();
+        //ContentRepo CR = new ContentRepo();
         public int Id
         {
             get
@@ -44,24 +44,6 @@ namespace AdminApp.ViewModels
         }
 
         //public byte[] Image
-        
-
-
-       
-        public void AddContent(string name, double extraPrice)
-        {
-            Content content = new Content(name, extraPrice);
-            int addContent = CR.Add(content);
-            CR.GetAll();
-        }
-        public Content GetContent(int id)
-        {
-            Content content = null;
-            foreach (Content con in MVM.Contents)
-            {
-
-            }
-        }
 
         public ContentViewModel(Content model) : base(model) {
             
