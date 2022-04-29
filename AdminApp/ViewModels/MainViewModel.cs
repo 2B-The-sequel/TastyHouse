@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using FoodMenuUtility.Models;
 using FoodMenuUtility.Persistence;
 
@@ -9,10 +10,11 @@ namespace AdminApp.ViewModels
         public ObservableCollection<OrderViewModel> Orders { get; set; }
         public ObservableCollection<MenuViewModel> Menus { get; set; }
         public ObservableCollection<ContentViewModel> Contents { get; set; }
-        //ContentRepo CR = new ContentRepo();
+        ContentRepo CR = new ContentRepo();
 
 
         public OrderViewModel SelectedOrder { get; set; }
+        public ContentViewModel SelectedContent { get; set; }
 
 
 
@@ -29,15 +31,16 @@ namespace AdminApp.ViewModels
                 OrderViewModel ovm = new(order);
                 Orders.Add(ovm);
             }
-            for (int i = 0; i < 5; i++)
+
+            List<Content> contentList = CR.GetAll();
+            foreach (Content content in contentList)
             {
-                int pingy = i;
-                string x = "Indhold " + i;
-                double y = i*i;
-                Content content = new(pingy, x, y);
-                ContentViewModel cvm = new(content);
-                Contents.Add(cvm);
+                Contents.Add(new ContentViewModel (content));
             }
+                
+            
+            
+            
             
             //END
         }

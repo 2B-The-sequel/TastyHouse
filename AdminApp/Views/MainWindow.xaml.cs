@@ -53,16 +53,21 @@ namespace AdminApp
         }
         private void AddNewContent(object sender, RoutedEventArgs e)
         {
+
             NewContent dialog = new();
             if (dialog.ShowDialog() == true)
             {
-
+                Content content = new Content(dialog.name, dialog.price);
+                ContentViewModel CVM = new(content);
+                CR.Add(content);
+                MVM.Contents.Add(CVM);
             }
+            
         }
         private void DeleteContent(object sender, RoutedEventArgs e)
         {
             
-            int id = int.Parse(MVM.SelectedOrder.Id.ToString());
+            int id = int.Parse(MVM.SelectedContent.Id.ToString());
             
             CR.Remove(id);
             

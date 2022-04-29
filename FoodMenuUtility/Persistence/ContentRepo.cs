@@ -80,8 +80,8 @@ namespace FoodMenuUtility.Persistence
 
                 SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = contents.Name;
-                sqlCommand.Parameters.Add("@ExtraPrice", SqlDbType.Float).Value = contents.ExtraPrice;
+                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = Name;
+                sqlCommand.Parameters.Add("@ExtraPrice", SqlDbType.Float).Value = ExtraPrice;
                 //sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = contents.Image;
 
                 sqlCommand.ExecuteNonQuery();

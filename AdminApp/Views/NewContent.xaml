@@ -5,19 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminApp.Views"
         mc:Ignorable="d"
-        Title="NewContent" Height="450" Width="800">
-    <StackPanel>
-        <DockPanel>
-            <Label Content="Navn til indhold"/>
-            <TextBox Name="ContentName" Width="200" HorizontalAlignment="Right" Margin="5"/>
-        </DockPanel>
-        <DockPanel>
-            <Label Content="Pris til ekstra"/>
-            <TextBox Name="ExstraPrice" Width="200" HorizontalAlignment="Right" Margin="5"/>
-        </DockPanel>
-        <DockPanel>
-            <Button Content="OK" HorizontalAlignment="Right" VerticalAlignment="Top" Click="AddNewContent" Margin="5" Width="75" Height="42"/>
-            <Button Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Cancel" Margin="5" Width="75" Height="42"/>
-        </DockPanel>
-    </StackPanel>
+        Title="NewContent" Height="350" Width="300">
+    <Grid>
+        <StackPanel Margin="10">
+            <Label Content="Tilføj ny indhold" HorizontalAlignment="Center"></Label>
+            <StackPanel>
+                <DockPanel Margin="10">
+                    <Label Content="Navn:"></Label>
+                    <TextBox Text="{Binding name}" Width="150" HorizontalAlignment="Right"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="10">
+                    <Label Content="Pris:"></Label>
+                    <TextBox Text="{Binding price}" Width="150" HorizontalAlignment="Right"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="10">
+                    <Label Content="Billede:"></Label>
+                    <Button Name="OpenImageButton" Content="Gennemse" Width="150" HorizontalAlignment="Right" Click="OpenImageButton_Click"></Button>
+                </DockPanel>
+                <DockPanel>
+                    <Button Name="SaveSideButton" Margin="10" Click="SaveProductButton_Click" Width="89">
+                        <StackPanel Margin="10">
+                            <Image Source="/Resources/Accept.png" Width="32"></Image>
+                            <TextBlock Text="Tilføj Indhold"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="100" HorizontalAlignment="Right" Margin="10" Click="Button_Click">
+                        <StackPanel>
+                            <Image Source="/Resources/Decline.png" Width="32"></Image>
+                            <TextBlock Text="Annullér"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                </DockPanel>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
 </Window>

@@ -46,8 +46,10 @@ namespace AdminApp.ViewModels
         //public byte[] Image
 
         public ContentViewModel(Content model) : base(model) {
-            
 
+           
+
+            
         }
     }
 }

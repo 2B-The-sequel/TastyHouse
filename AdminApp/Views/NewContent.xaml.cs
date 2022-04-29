@@ -21,23 +21,29 @@ namespace AdminApp.Views
     public partial class NewContent : Window
     {
         MainViewModel MVM;
+        public string name { get; set; }
+        public double price { get; set; }
+        public byte[] image { get; set; }
         public NewContent()
         {
             
             InitializeComponent();
-            MVM = new MainViewModel();
-            DataContext = MVM;
+            DataContext = this;
         }
 
-        private void AddNewContent(object sender, RoutedEventArgs e)
+        private void SaveProductButton_Click(object sender, RoutedEventArgs e)
         {
-            string Name = ContentName.Text;
-            double exstraPrice = Convert.ToDouble(ExstraPrice.Text);
-            MVM.AddContent(Name, exstraPrice);
+            DialogResult = true;
         }
-        private void Cancel(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            DialogResult = false;
+        }
+
+        private void OpenImageButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
