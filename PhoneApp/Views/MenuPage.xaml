@@ -70,7 +70,7 @@
             <Button Width="61">
                 <Image Source="../Resources/Home.png" Margin="10"/>
             </Button>
-            <Button Width="61" Click="MenuButton_Click">
+            <Button Width="61">
                 <Image Source="../Resources/Food.png" Margin="10"/>
             </Button>
             <Button Width="61">

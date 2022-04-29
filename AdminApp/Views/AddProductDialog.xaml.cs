@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,12 @@ namespace AdminApp.Views
         public AddProductDialog()
         {
             InitializeComponent();
-            DataContext = this; 
+            DataContext = this;
         }
 
         public string name { get; set; } 
         public string price { get; set; } 
+        public byte[] image { get; set; }
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -35,6 +37,9 @@ namespace AdminApp.Views
             openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
+               FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
+               byte[] image = new byte[fileStream.Length];
+               fileStream.Read(image, 0, image.Length);
                
             }
                 

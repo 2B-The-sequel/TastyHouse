@@ -12,10 +12,18 @@ namespace FoodMenuUtility.Models
 
         public int Price { get; set; }  
 
-        public Product (string name, int price)
+        //byte[] Image { get; set; }
+        public int Id { get; set; }
+        public string Type { get; set; }
+
+        public Product(string name, int price, int id, string type)
         {
             Name = name;
             Price = price;
+            Id = id;
+            Type = type;
         }
+
+        public Product(string name, int price, )
     }
 }

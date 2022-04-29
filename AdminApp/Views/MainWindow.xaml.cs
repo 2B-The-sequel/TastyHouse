@@ -24,7 +24,7 @@ namespace AdminApp
            AddProductDialog addSideDialog = new AddProductDialog();
            if (addSideDialog.ShowDialog() == true)
             {
-                Product side = new Product(addSideDialog.name, int.Parse(addSideDialog.price));
+                Product side = new Product(addSideDialog.name, int.Parse(addSideDialog.price), addSideDialog.image);
                 ProductViewModel _side = new(side);
                 MVM.Sides.Add(_side);
             } 
@@ -32,7 +32,7 @@ namespace AdminApp
 
         private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }
