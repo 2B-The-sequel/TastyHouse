@@ -49,7 +49,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
 
-    <Resource Include="Resources\Remove.png">
+    <Resource Include="Resources\Remove.png"></Resource>
 
     <Resource Include="Resources\Question.png">
 
