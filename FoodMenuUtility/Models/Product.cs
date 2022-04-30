@@ -12,31 +12,31 @@ namespace FoodMenuUtility.Models
 
         public double Price { get; set; }  
 
-        byte[] Image { get; set; }
+        public byte[] Image { get; set; }
         public int Id { get; set; }
         public string Type { get; set; }
 
-        public Product(string name, double price, int id, string type, byte[] image)
+        public Product(int id, string name, double price, string type, byte[] image)
         {
+            Id = id;
             Name = name;
             Price = price;
-            Id = id;
             Type = type;
             Image = image;
         }
 
-        public Product(string name, double price, int id, string type) :
-            this(name, price, id, type, null)
+        public Product(int id, string name, double price, string type) :
+            this(id, name, price, type, null)
         {
 
         }
         public Product(string name, double price, string type) :
-            this(name, price, -1, type, null)
+            this(-1, name, price, type, null)
         {
 
         }
         public Product(string name, double price, string type, byte[] image) :
-            this(name, price, -1, type, image)
+            this(-1, name, price, type, image)
         {
 
         }

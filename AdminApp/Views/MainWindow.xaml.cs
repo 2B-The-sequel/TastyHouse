@@ -95,11 +95,11 @@ namespace AdminApp
         }
         private void DeleteContent(object sender, RoutedEventArgs e)
         {
-            
-            int id = int.Parse(MVM.SelectedContent.Id.ToString());
-            
-            CR.Remove(id);
-            
+            if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                //Content value = (Content)Datagrid.SelectedValue;
+            }
+
         }        
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -229,8 +229,12 @@
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
                                 <DockPanel>
                                     <Image Source="{Binding Image}" Width="32" Margin="0 0 5 0"/>
-                                    <TextBlock Text="Contents id: "/>
+                                    <TextBlock Text=" Indhold id: "/>
                                     <TextBlock Text="{Binding Id}"/>
+                                    <TextBlock Text=" Indhold Name: "/>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text=" Indhold Pris: "/>
+                                    <TextBlock Text="{Binding ExstraPrice}"/>
                                 </DockPanel>
                             </Border>
                         </DataTemplate>

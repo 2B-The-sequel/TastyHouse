@@ -22,7 +22,6 @@ namespace AdminApp.Views
     /// </summary>
     public partial class NewContent : Window
     {
-        MainViewModel MVM;
         public string name { get; set; }
         public double price { get; set; }
         public byte[] image { get; set; }

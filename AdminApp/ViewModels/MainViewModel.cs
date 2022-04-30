@@ -54,12 +54,6 @@ namespace AdminApp.ViewModels
         // ======================================================
 
 
-        public void AddContent(string name, double extraPrice)
-        {
-
-            
-            
-        }
 
 
     }
