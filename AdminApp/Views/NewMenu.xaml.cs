@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using AdminApp.ViewModels;
 using AdminApp.Views;
 using FoodMenuUtility.Models;
+using Microsoft.Win32;
 
 namespace AdminApp.Views
 {
@@ -10,21 +12,36 @@ namespace AdminApp.Views
     /// </summary>
     public partial class NewMenu : Window
     {
-        public NewMenu NM = new();
+        MainViewModel MVM;
+        public string name { get; set; }
+        public double price { get; set; }
+        public byte[] image { get; set; }
         public NewMenu()
         {
             InitializeComponent();
         }
-        private void SaveTenantButton_Click(object sender, RoutedEventArgs e)
-        {
-            NM = new();
-            //Data sendes vidre her fra 
-            NM.Name = MenuName.Text;
 
+        
+        private void OpenImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
+                byte[] image = new byte[fileStream.Length];
+                fileStream.Read(image, 0, image.Length);
+
+            }
+
+        }
+
+        private void SaveProductButton_Click(object sender, RoutedEventArgs e)
+        {
             DialogResult = true;
         }
 
-        private void CancelButton1_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
         }

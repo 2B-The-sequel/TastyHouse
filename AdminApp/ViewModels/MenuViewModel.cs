@@ -5,7 +5,7 @@ namespace AdminApp.ViewModels
 {
     public class MenuViewModel : ViewModel<Menu>
     {
-        public int Id
+        public int id
         {
             get
             {
@@ -16,8 +16,18 @@ namespace AdminApp.ViewModels
                 model.Id = value;
             }
         }
+        public string name
+        {
+            get { return model.Name; }
+            set { model.Name = value; }
+        }
+        public double price
+        {
+            get { return model.Price; }
+            set { model.Price = value; }
+        }
 
-        public byte[] Image
+        public byte[] image
         {
             get { return model.Image; }
             set { model.Image = value; }

@@ -15,6 +15,13 @@ namespace FoodMenuUtility.Models
             get { return name; }
             set { name = value; }
         }
+        private double price;
+
+        public double Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
         private int id;
 
         public int Id
@@ -31,11 +38,29 @@ namespace FoodMenuUtility.Models
         }
 
 
-        public Menu(string name, int id, byte[] image)
+        public Menu(int id, string name, byte[] image, double price) // with everything!
         {
             Name = name;
             Id = id;
             Image = image;
+            Price = price;
         }
+        public Menu(string name, byte[] image, double price) :// with image no id
+                this(-1, name, image, price)
+        {
+
+        }
+        public Menu(string name, double price) : // without id or image
+                this(-1, name, null, price)
+        {
+
+        }
+        public Menu(int id, string name, double price) : // without image but id
+                this(id, name, null, price)
+        {
+
+        }
+
+
     }
 }

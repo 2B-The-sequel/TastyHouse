@@ -1,6 +1,8 @@
 ﻿using AdminApp.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +45,15 @@ namespace AdminApp.Views
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
+                byte[] image = new byte[fileStream.Length];
+                fileStream.Read(image, 0, image.Length);
+
+            }
 
         }
     }

@@ -15,6 +15,13 @@ namespace FoodMenuUtility.Models
             get { return id; }
             set { id = value; }
         }
+        private byte[] image;
+
+        public byte[] Image
+        {
+            get { return image; }
+            set { image = value; }
+        }
         private string name;
 
         public string Name
@@ -30,14 +37,25 @@ namespace FoodMenuUtility.Models
             set { extraPrice = value; }
         }
 
-        public Content(int id, string name, double extraPrice)
+        public Content(int id, string name, double extraPrice, byte[] image)
         {
             Id = id;
             Name = name;
             ExtraPrice = extraPrice;
+            Image = image;
         }
-        public Content(string name, double extraPrice):
-            this (-1, name, extraPrice)
+        public Content(string name, double extraPrice, byte[] image) :
+            this(-1, name, extraPrice, image)
+        {
+
+        }
+        public Content(string name, double extraPrice) :
+            this(-1, name, extraPrice, null)
+        {
+
+        }
+        public Content(int id, string name, double extraPrice) :
+            this(id, name, extraPrice, null)
         {
 
         }

@@ -29,7 +29,9 @@ namespace AdminApp.Views
 
         public string name { get; set; } 
         public string price { get; set; } 
+        public string type { get; set; }
         public byte[] image { get; set; }
+        
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {

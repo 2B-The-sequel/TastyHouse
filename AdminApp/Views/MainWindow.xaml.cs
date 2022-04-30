@@ -30,7 +30,7 @@ namespace AdminApp
            AddProductDialog addSideDialog = new AddProductDialog();
            if (addSideDialog.ShowDialog() == true)
             {
-                Product side = new Product(addSideDialog.name, int.Parse(addSideDialog.price), addSideDialog.image);
+                Product side = new Product(addSideDialog.name, int.Parse(addSideDialog.price), addSideDialog.type);
                 ProductViewModel _side = new(side);
                 MVM.Sides.Add(_side);
             } 
@@ -76,7 +76,17 @@ namespace AdminApp
             NewContent dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                Content content = new Content(dialog.name, dialog.price);
+                Content content;
+                if (dialog.image == null)
+                {
+                    content = new Content(dialog.name, dialog.price);
+
+                }
+                else
+                {
+                    content = new Content(dialog.name, dialog.price, dialog.image);
+                }
+                
                 ContentViewModel CVM = new(content);
                 CR.Add(content);
                 MVM.Contents.Add(CVM);

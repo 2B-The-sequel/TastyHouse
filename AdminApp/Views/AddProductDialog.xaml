@@ -19,6 +19,10 @@
                     <TextBox Text="{Binding price}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
+                    <Label Content="Type mad:"></Label>
+                    <TextBox Text="{Binding type}" Width="150" HorizontalAlignment="Right"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="10">
                     <Label Content="Billede:"></Label>
                     <Button Name="OpenImageButton" Content="Gennemse" Width="150" HorizontalAlignment="Right" Click="OpenImageButton_Click"></Button>
                 </DockPanel>

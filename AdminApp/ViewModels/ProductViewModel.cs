@@ -7,17 +7,17 @@ using FoodMenuUtility.Models;
 
 namespace AdminApp.ViewModels
 {
-    public class ProductViewModel
+    public class ProductViewModel : ViewModel<Product>
     {
         private readonly Product product;
 
         public string Name { get { return product.Name; } set { product.Name = value; } }
 
-        public int Price { get { return product.Price; } set { product.Price = value; } }
+        public double Price { get { return product.Price; } set { product.Price = value; } }
 
-        public ProductViewModel (Product side)
+        public ProductViewModel (Product model) : base (model)
         {
-            this.product = side;
+            this.product = model;
         }
     }
 }

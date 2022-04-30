@@ -148,7 +148,7 @@ namespace FoodMenuUtility.Persistence
                     Contents.Remove(cs);
                 }
             }
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(CnnStr)) // missing inner, delete connection to product
             {
                 connection.Open();
                 string table = "Content";
