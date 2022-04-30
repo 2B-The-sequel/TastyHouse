@@ -8,5 +8,9 @@ namespace FoodMenuUtility.Persistence
 {
     public class ProductRepo
     {
+        public ProductRepo()
+        {
+            
+        }
     }
 }
