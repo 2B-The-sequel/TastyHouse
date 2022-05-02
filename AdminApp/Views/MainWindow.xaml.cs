@@ -2,10 +2,7 @@
 using AdminApp.ViewModels;
 using AdminApp.Views;
 using FoodMenuUtility.Models;
-
-
 using FoodMenuUtility.Persistence;
-
 
 namespace AdminApp
 {
@@ -14,7 +11,6 @@ namespace AdminApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        ContentRepo CR = new ContentRepo();
         public MainViewModel MVM;
 
         public MainWindow()
@@ -24,13 +20,12 @@ namespace AdminApp
             DataContext = MVM;
         }
 
-
         private void AddProductButton_Click(object sender, RoutedEventArgs e)
         {
-           AddProductDialog addSideDialog = new AddProductDialog();
-           if (addSideDialog.ShowDialog() == true)
+            AddProductDialog addSideDialog = new();
+            if (addSideDialog.ShowDialog() == true)
             {
-                Product side = new Product(addSideDialog.name, int.Parse(addSideDialog.price), addSideDialog.type);
+                Product side = new(addSideDialog.ProductName, int.Parse(addSideDialog.Price), addSideDialog.Type);
                 ProductViewModel _side = new(side);
                 MVM.Sides.Add(_side);
             } 
@@ -40,6 +35,7 @@ namespace AdminApp
         {
             
         }
+
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
             AcceptDialog dialog = new();
@@ -64,42 +60,28 @@ namespace AdminApp
 
         private void New_Menu(object sender, RoutedEventArgs e)
         {
-            NewMenu dialog = new();
+            AddMenuDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
 
             }
         }
+
         private void AddNewContent(object sender, RoutedEventArgs e)
         {
-
-            NewContent dialog = new();
+            AddContentDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                Content content;
-                if (dialog.image == null)
-                {
-                    content = new Content(dialog.name, dialog.price);
-
-                }
-                else
-                {
-                    content = new Content(dialog.name, dialog.price, dialog.image);
-                }
-                
-                ContentViewModel CVM = new(content);
-                CR.Add(content);
-                MVM.Contents.Add(CVM);
+                MVM.AddContent(dialog.ContentName, dialog.Price, dialog.Image);
             }
-            
         }
+
         private void DeleteContent(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                //Content value = (Content)Datagrid.SelectedValue;
+                MVM.RemoveContent();
             }
-
         }        
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -108,7 +90,6 @@ namespace AdminApp
             {
                 
             }
-
         }
     }
 }

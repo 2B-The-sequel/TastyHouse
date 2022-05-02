@@ -52,9 +52,6 @@ namespace FoodMenuUtility.Persistence
             }
         }
 
-
-
-
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
@@ -131,23 +128,26 @@ namespace FoodMenuUtility.Persistence
                     $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', " +
                     $"WHERE Content_id = {id}";
             }
-
-            
-            
         }
+
         // ======================================================
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================
 
         public void Remove(int id)
         {
-            foreach (Content cs in Contents)
+            int i = 0;
+            bool found = false;
+            while (i < Contents.Count && !found)
             {
-                if (cs.Id == id)
-                {
-                    Contents.Remove(cs);
-                }
+                if (Contents[i].Id == id)
+                    found = true;
+                else
+                    i++;
             }
+            if (found)
+                Contents.Remove(Contents[i]);
+
             using (SqlConnection connection = new(CnnStr)) // missing inner, delete connection to product
             {
                 connection.Open();
@@ -157,7 +157,5 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.ExecuteNonQuery();
             }
         }
-
-
     }
 }

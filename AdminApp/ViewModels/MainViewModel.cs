@@ -12,12 +12,11 @@ namespace AdminApp.ViewModels
         public ObservableCollection<ProductViewModel> Sides { get; set; }
         public ObservableCollection<MenuViewModel> Menus { get; set; }
         public ObservableCollection<ContentViewModel> Contents { get; set; }
-        ContentRepo CR = new ContentRepo();
 
+        private readonly ContentRepo CR = new();
 
         public OrderViewModel SelectedOrder { get; set; }
         public ContentViewModel SelectedContent { get; set; }
-
 
         public MainViewModel()
         {
@@ -40,21 +39,29 @@ namespace AdminApp.ViewModels
             {
                 Contents.Add(new ContentViewModel (content));
             }
-                
-            
-            
-            
-            
-            //END
         }
 
+        public void AddContent(string name, double price, byte[] image)
+        {
+            Content content;
+            if (image == null)
+            {
+                content = new Content(name, price);
+            }
+            else
+            {
+                content = new Content(name, price, image);
+            }
 
-        // ======================================================
-        // CRUD: Create
-        // ======================================================
+            ContentViewModel CVM = new(content);
+            CR.Add(content);
+            Contents.Add(CVM);
+        }
 
-
-
-
+        public void RemoveContent()
+        {
+            CR.Remove(SelectedContent.Id);
+            Contents.Remove(SelectedContent);
+        }
     }
 }

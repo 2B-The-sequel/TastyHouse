@@ -1,33 +1,20 @@
-﻿using AdminApp.ViewModels;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Win32;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AdminApp.Views
 {
     /// <summary>
     /// Interaction logic for NewContent.xaml
     /// </summary>
-    public partial class NewContent : Window
+    public partial class AddContentDialog : Window
     {
-        public string name { get; set; }
-        public double price { get; set; }
-        public byte[] image { get; set; }
-        public NewContent()
+        public string ContentName { get; set; }
+        public double Price { get; set; }
+        public byte[] Image { get; set; }
+
+        public AddContentDialog()
         {
-            
             InitializeComponent();
             DataContext = this;
         }
@@ -44,16 +31,14 @@ namespace AdminApp.Views
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new();
             openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
+                FileStream fileStream = new(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
                 byte[] image = new byte[fileStream.Length];
                 fileStream.Read(image, 0, image.Length);
-
             }
-
         }
     }
 }

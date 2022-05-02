@@ -1,13 +1,9 @@
-﻿using System;
-using FoodMenuUtility.Models;
-using FoodMenuUtility.Persistence;
+﻿using FoodMenuUtility.Models;
 
 namespace AdminApp.ViewModels
 {
     public class ContentViewModel : ViewModel<Content>
     {
-        //MainViewModel MVM = new();
-        //ContentRepo CR = new ContentRepo();
         public int Id
         {
             get
@@ -31,7 +27,8 @@ namespace AdminApp.ViewModels
                 model.Name = value;
             }
         }
-        public double ExstraPrice
+
+        public double ExtraPrice
         {
             get
             {
@@ -43,13 +40,6 @@ namespace AdminApp.ViewModels
             }
         }
 
-        //public byte[] Image
-
-        public ContentViewModel(Content model) : base(model) {
-
-           
-
-            
-        }
+        public ContentViewModel(Content model) : base(model) { }
     }
 }
