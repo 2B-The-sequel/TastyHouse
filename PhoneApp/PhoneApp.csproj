@@ -9,6 +9,8 @@
   <ItemGroup>
     <None Remove="Resources\Background.png" />
     <None Remove="Resources\Cart.png" />
+    <None Remove="Resources\Drink.png" />
+    <None Remove="Resources\Drink_Selected.png" />
     <None Remove="Resources\Food.png" />
     <None Remove="Resources\Home.png" />
     <None Remove="Resources\Logo.png" />
@@ -16,13 +18,13 @@
     <None Remove="Resources\Menu_Selected.png" />
     <None Remove="Resources\Phone.png" />
     <None Remove="Resources\PhoneIcon.png" />
+    <None Remove="Resources\Product.png" />
+    <None Remove="Resources\Product_Selected.png" />
     <None Remove="Resources\Profile.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Menu_Selected.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <None Remove="Resources\Sandwich.png" />
+    <None Remove="Resources\Sandwich_Selected.png" />
+    <None Remove="Resources\Sides.png" />
+    <None Remove="Resources\Sides_selected.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +36,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Cart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Drink.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Drink_Selected.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Food.png">
@@ -48,13 +56,34 @@
     <Resource Include="Resources\Menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Menu_Selected.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Phone.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\PhoneIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Product.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Product_Selected.png">
+      <CopyToOutputDirectory>Always copy</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Profile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sandwich.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sandwich_Selected.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sides.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sides_selected.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

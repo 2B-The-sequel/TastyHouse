@@ -33,24 +33,24 @@
             <ImageBrush ImageSource="../Resources/Phone.png"/>
         </Grid.Background>
         <StackPanel Margin="28 105" Height="530">
-            <DockPanel Background="#FFD8A034">
+            <DockPanel Background="White">
                 <Label Content="Menukort" Margin="10" HorizontalAlignment="Center" FontSize="24" Foreground="#FF9E2A2A"></Label>
                 <Image Source="../Resources/Logo.png" Width="67" Height="38" Margin="10" HorizontalAlignment="Right"/>
             </DockPanel>
-            <TabControl Height="416" Width="304">
-                <TabItem Name="MenuTab" Background="White">
+            <TabControl Height="416" Width="304" BorderBrush="White">
+                <TabItem Name="MenuTab" Background="White" BorderThickness="0">
                     <TabItem.Style>
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Menu.png" Width="50"/>
+                                    <Image Source="/Resources/Menu.png" Width="45"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Menu_Selected.png" Width='50'/>
+                                            <Image Source="/Resources/Menu_Selected.png" Width='45'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -58,11 +58,85 @@
                         </Style>
                     </TabItem.Style>
                 </TabItem>
-                <TabItem>
-                    <Image></Image>
+                <TabItem Name="ProductTab" Background="White">
+                    <TabItem.Style>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Header">
+                                <Setter.Value>
+                                    <Image Source="/Resources/Product.png" Width="45"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Header">
+                                        <Setter.Value>
+                                            <Image Source="/Resources/Product_Selected.png" Width='45'/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TabItem.Style>
                 </TabItem>
-                <TabItem >
-                    
+                <TabItem Name="SandwichTab" Background="White">
+                    <TabItem.Style>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Header">
+                                <Setter.Value>
+                                    <Image Source="/Resources/Sandwich.png" Width="45"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Header">
+                                        <Setter.Value>
+                                            <Image Source="/Resources/Sandwich_Selected.png" Width='45'/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TabItem.Style>
+                </TabItem>
+                 <TabItem Name="DrinkTab" Background="White">
+                    <TabItem.Style>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Header">
+                                <Setter.Value>
+                                    <Image Source="/Resources/Sides.png" Width="45"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Header">
+                                        <Setter.Value>
+                                            <Image Source="/Resources/Sides_Selected.png" Width='45'/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TabItem.Style>
+                </TabItem>
+                <TabItem Name="SideTab" Background="White">
+                    <TabItem.Style>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Header">
+                                <Setter.Value>
+                                    <Image Source="/Resources/Drink.png" Width="45"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Header">
+                                        <Setter.Value>
+                                            <Image Source="/Resources/Drink_Selected.png" Width='45'/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TabItem.Style>
                 </TabItem>
             </TabControl>
         </StackPanel>
