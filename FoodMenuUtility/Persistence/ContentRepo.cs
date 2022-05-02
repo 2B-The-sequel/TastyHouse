@@ -152,7 +152,7 @@ namespace FoodMenuUtility.Persistence
             {
                 connection.Open();
                 string table = "Content";
-                string query = $"DELETE FROM {table} WHERE {id} = Content_id";
+                string query = $"DELETE from Product_Content WHERE FK_Content_id = {id}; Delete from {table} where Content_id = {id};";
                 SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
             }
