@@ -54,7 +54,19 @@
                             </Style.Triggers>
                         </Style>
                     </TabItem.Style>
-                    <ListBox>
+                    <ListBox Name="MenuListBox" ItemsSource="{Binding Menus}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                    <DockPanel>
+                                        <Image Source="{Binding Image}" Width="10"></Image>
+                                        <TextBlock Text="{Binding name}"></TextBlock>
+                                        <TextBlock Text="{Binding price}"></TextBlock>
+                                        <TextBlock Text=" kr."></TextBlock>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                         
                     </ListBox>
                 </TabItem>
@@ -77,6 +89,21 @@
                             </Style.Triggers>
                         </Style>
                     </TabItem.Style>
+                    <ListBox Name="BurgerListBox" ItemsSource="{Binding Burgers}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                    <DockPanel>
+                                        <Image Source="{Binding Image}" Width="10"></Image>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                        <TextBlock Text=" kr."></TextBlock>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
                 </TabItem>
                 <TabItem Name="SandwichTab" Background="White">
                     <TabItem.Style>
@@ -97,6 +124,21 @@
                             </Style.Triggers>
                         </Style>
                     </TabItem.Style>
+                    <ListBox Name="SandwichListBox" ItemsSource="{Binding Sandwiches}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                    <DockPanel>
+                                        <Image Source="{Binding Image}" Width="10"></Image>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                        <TextBlock Text=" kr."></TextBlock>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
                 </TabItem>
                 <TabItem Name="DrinkTab" Background="White">
                     <TabItem.Style>
@@ -117,6 +159,21 @@
                             </Style.Triggers>
                         </Style>
                     </TabItem.Style>
+                    <ListBox Name="SideListBox" ItemsSource="{Binding Sides}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                    <DockPanel>
+                                        <Image Source="{Binding Image}" Width="10"></Image>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                        <TextBlock Text=" kr."></TextBlock>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
                 </TabItem>
                 <TabItem Name="SideTab" Background="White">
                     <TabItem.Style>
@@ -137,6 +194,21 @@
                             </Style.Triggers>
                         </Style>
                     </TabItem.Style>
+                    <ListBox Name="RefreshmentListBox" ItemsSource="{Binding Refreshments}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
+                                    <DockPanel>
+                                        <Image Source="{Binding Image}" Width="10"></Image>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                        <TextBlock Text=" kr."></TextBlock>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
                 </TabItem>
             </TabControl>
         </StackPanel>

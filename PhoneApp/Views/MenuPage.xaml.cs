@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FoodMenuUtility.Persistence;
+using PhoneApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,13 @@ namespace PhoneApp.Views
     /// </summary>
     public partial class MenuPage : Page
     {
+        public MainViewModel MVM;
         public MenuPage()
         {
             InitializeComponent();
+            MVM = new MainViewModel();
+            DataContext = MVM;
         }
+
     }
 }
