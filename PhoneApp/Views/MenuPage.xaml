@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PhoneApp.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="740" d:DesignWidth="360"
-      Title="MenuPage" Height="740" Width="360">
+      d:DesignHeight="844" d:DesignWidth="360"
+      Title="MenuPage" Height="844" Width="360">
     <Page.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Lemon"/>
@@ -29,48 +29,48 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="../Resources/Phone.png"/>
-        </Grid.Background>
-        <StackPanel Margin="28 105" Height="530">
+        <StackPanel>
             <DockPanel Background="White">
                 <Label Content="Menukort" Margin="10" HorizontalAlignment="Center" FontSize="24" Foreground="#FF9E2A2A"></Label>
-                <Image Source="../Resources/Logo.png" Width="67" Height="38" Margin="10" HorizontalAlignment="Right"/>
+                <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
             </DockPanel>
-            <TabControl Height="416" Width="304" BorderBrush="White">
+            <TabControl Height="720">
                 <TabItem Name="MenuTab" Background="White" BorderThickness="0">
                     <TabItem.Style>
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Menu.png" Width="45"/>
+                                    <Image Source="/Resources/Menu.png" Width="55"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Menu_Selected.png" Width='45'/>
+                                            <Image Source="/Resources/Menu_Selected.png" Width='55'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
                     </TabItem.Style>
+                    <ListBox>
+                        
+                    </ListBox>
                 </TabItem>
                 <TabItem Name="ProductTab" Background="White">
                     <TabItem.Style>
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Product.png" Width="45"/>
+                                    <Image Source="/Resources/Product.png" Width="59"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Product_Selected.png" Width='45'/>
+                                            <Image Source="/Resources/Product_Selected.png" Width='59'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -83,14 +83,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Sandwich.png" Width="45"/>
+                                    <Image Source="/Resources/Sandwich.png" Width="59"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Sandwich_Selected.png" Width='45'/>
+                                            <Image Source="/Resources/Sandwich_Selected.png" Width='59'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -98,19 +98,19 @@
                         </Style>
                     </TabItem.Style>
                 </TabItem>
-                 <TabItem Name="DrinkTab" Background="White">
+                <TabItem Name="DrinkTab" Background="White">
                     <TabItem.Style>
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Sides.png" Width="45"/>
+                                    <Image Source="/Resources/Sides.png" Width="59"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Sides_Selected.png" Width='45'/>
+                                            <Image Source="/Resources/Sides_Selected.png" Width='59'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -123,14 +123,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Drink.png" Width="45"/>
+                                    <Image Source="/Resources/Drink.png" Width="62"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Drink_Selected.png" Width='45'/>
+                                            <Image Source="/Resources/Drink_Selected.png" Width='62'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -140,22 +140,7 @@
                 </TabItem>
             </TabControl>
         </StackPanel>
-        <DockPanel Margin="28,308,33,-168">
-            <Button Width="61">
-                <Image Source="../Resources/Home.png" Margin="10"/>
-            </Button>
-            <Button Width="61">
-                <Image Source="../Resources/Food.png" Margin="10"/>
-            </Button>
-            <Button Width="61">
-                <Image Source="../Resources/Cart.png" Margin="10"/>
-            </Button>
-            <Button Width="61">
-                <Image Source="../Resources/PhoneIcon.png" Margin="10"/>
-            </Button>
-            <Button Width="61">
-                <Image Source="../Resources/Profile.png" Margin="10"/>
-            </Button>
-        </DockPanel>
     </Grid>
+    
+   
 </Page>

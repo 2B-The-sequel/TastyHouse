@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhoneApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,25 @@ namespace DesignIdeTastyHouse
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            MenuPage mp = new();
+            MainFrameWindow.Navigate(mp);
+            Index.Visibility = Visibility.Hidden;
+            MainFrameWindow.Visibility = Visibility.Visible;
+
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Index.Visibility = Visibility.Visible;
+            MainFrameWindow.Visibility = Visibility.Hidden;
+        }
+
+        private void ContactButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContactPage cp = new();
+            MainFrameWindow.Navigate(cp);
+            Index.Visibility = Visibility.Hidden;
+            MainFrameWindow.Visibility= Visibility.Visible;
         }
     }
 }
