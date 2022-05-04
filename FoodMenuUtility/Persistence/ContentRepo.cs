@@ -1,4 +1,5 @@
 ﻿using FoodMenuUtility.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -24,7 +25,7 @@ namespace FoodMenuUtility.Persistence
             {
                 connection.Open();
                 // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Content_id, Name, Extra_Price";
+                string values = "Content_id, Name, Extra_Price, Image";
                 string table = "Content";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
@@ -35,17 +36,18 @@ namespace FoodMenuUtility.Persistence
                         int id = sqldatareader.GetInt32("Content_id");
                         string name = sqldatareader.GetString("Name");
                         double extraPrice = sqldatareader.GetDouble("Extra_Price");
+                        byte[] image = null;
 
-                        /*
+                        
                         if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
                         {
-                            Image = (byte[])sqldatareader["Image"];
+                            image = (byte[])sqldatareader["Image"];
                         }
-                        */
+                        
 
                         Content cont = (id != -1)
-                            ? new(id, name, extraPrice)
-                            : new(name, extraPrice);
+                            ? new(id, name, extraPrice, image)
+                            : new(name, extraPrice, image);
                         Contents.Add(cont);
                     }
                 }
@@ -56,28 +58,27 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Content Create(string name, double price)
+        public Content Create(string name, double price, byte[] image)
         {
-            Content content = new(name, price);
+            Content content = new(name, price, image);
 
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
                 string Name = content.Name;
                 double ExtraPrice = content.ExtraPrice;
-                // Hvis der er brug for et billed til det.
-                //byte[] Image = contents.image;
+                byte[] Image = content.Image;
 
                 string table = "Content";
-                string coloumns = "Name, Extra_Price";
-                string values = "@Name, @ExtraPrice";
+                string coloumns = "Name, Extra_Price, Image";
+                string values = "@Name, @ExtraPrice, @Image";
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
                 SqlCommand sqlCommand = new(query, connection);
 
                 sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
                 sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
-                //sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = contents.Image;
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = content.Image;
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 content.Id = ID;
