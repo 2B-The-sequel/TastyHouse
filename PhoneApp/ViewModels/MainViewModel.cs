@@ -66,7 +66,7 @@ namespace PhoneApp.ViewModels
             {
                 if (product.Type == "Refreshment")
                 {
-                    Refreshments.Add(new ProductViewModel(product))
+                    Refreshments.Add(new ProductViewModel(product));
                 }
             }
 
