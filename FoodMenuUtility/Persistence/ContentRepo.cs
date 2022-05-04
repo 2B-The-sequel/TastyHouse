@@ -121,12 +121,13 @@ namespace FoodMenuUtility.Persistence
                 int id = content.Id;
                 string Name = content.Name;
                 double ExtraPrice = content.ExtraPrice;
+                byte[] Image = content.Image;
 
                 string table = "Content";
-                string values = $"@{id}, @{Name}, @{ExtraPrice}";
+                string values = $"@{id}, @{Name}, @{ExtraPrice}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
-                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', " +
+                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', Image = @'{Image}'" +
                     $"WHERE Content_id = {id}";
             }
         }

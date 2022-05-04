@@ -127,7 +127,7 @@ namespace FoodMenuUtility.Persistence
                 byte[] Image = Menu.Image;
 
                 string table = "Menu";
-                string values = $"@{id}, @{Name}, @{Price}";
+                string values = $"@{id}, @{Name}, @{Price}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
                     $"SET Name = @'{Name}', Price = @'{Price}', Image = @'{Image}'" +
