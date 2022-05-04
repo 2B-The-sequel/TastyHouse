@@ -98,7 +98,7 @@
                             </Button>
                         </StackPanel>
                     </DockPanel>
-                <ListBox Name="Menus" Background="LightGray" ItemsSource="{Binding Menus}" SelectedItem="">
+                <ListBox Name="Menus" Background="LightGray" ItemsSource="{Binding Menus}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>

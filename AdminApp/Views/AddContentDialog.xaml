@@ -12,11 +12,11 @@
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Navn:"></Label>
-                    <TextBox Text="{Binding name}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding ContentName}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Pris:"></Label>
-                    <TextBox Text="{Binding price}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding Price}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Billede:"></Label>

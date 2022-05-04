@@ -56,34 +56,34 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public int Add(Content contents)
+        public Content Create(string name, double price)
         {
-            int result;
+            Content content = new(name, price);
+
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                result = contents.Id;
-                string Name = contents.Name;
-                double ExtraPrice = contents.ExtraPrice;
+                string Name = content.Name;
+                double ExtraPrice = content.ExtraPrice;
                 // Hvis der er brug for et billed til det.
                 //byte[] Image = contents.image;
 
                 string table = "Content";
-                string coloumns = "Name, Extra_price";
+                string coloumns = "Name, Extra_Price";
                 string values = "@Name, @ExtraPrice";
-                string query =
-                    $"INSERT INTO {table} ({coloumns})" +
-                    $"VALUES ({values})";
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
                 SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = Name;
-                sqlCommand.Parameters.Add("@ExtraPrice", SqlDbType.Float).Value = ExtraPrice;
+                sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
+                sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
                 //sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = contents.Image;
 
-                sqlCommand.ExecuteNonQuery();
+                int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
+                content.Id = ID;
             }
-            return result;
+
+            return content;
         }
 
         // ======================================================

@@ -43,18 +43,8 @@ namespace AdminApp.ViewModels
 
         public void AddContent(string name, double price, byte[] image)
         {
-            Content content;
-            if (image == null)
-            {
-                content = new Content(name, price);
-            }
-            else
-            {
-                content = new Content(name, price, image);
-            }
-
+            Content content = CR.Create(name, price);
             ContentViewModel CVM = new(content);
-            CR.Add(content);
             Contents.Add(CVM);
         }
 
