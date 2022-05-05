@@ -17,7 +17,7 @@ namespace PhoneApp.ViewModels
         public ObservableCollection<ProductViewModel> Sides { get; set; }
         public ObservableCollection<ProductViewModel> Refreshments { get; set; }
        
-        MenuRepo mr = new MenuRepo();
+        //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
 
         public MainViewModel()
@@ -28,16 +28,16 @@ namespace PhoneApp.ViewModels
             Sides = new ObservableCollection<ProductViewModel>();
             Refreshments = new ObservableCollection<ProductViewModel>();
            
-            List<Menu> menuList = mr.GetAll();
+            /*List<Menu> menuList = mr.GetAll();
             foreach (Menu menu in menuList)
             {
                 Menus.Add(new MenuViewModel(menu));
             }
-
+            */
             List<Product> burgerList = pr.GetAll();
             foreach (Product product in burgerList)
             {
-                if (product.Type == "Burger")
+                if (product.ProductType.ToString() == "Burger")
                 {
                     Burgers.Add(new ProductViewModel(product));
                 }
@@ -46,7 +46,7 @@ namespace PhoneApp.ViewModels
             List<Product> sandwichList = pr.GetAll();
             foreach (Product product in sandwichList)
             {
-                if (product.Type == "Sandwich")
+                if (product.ProductType.ToString() == "Sandwich")
                 {
                     Sandwiches.Add(new ProductViewModel(product));
                 }
@@ -55,7 +55,7 @@ namespace PhoneApp.ViewModels
             List<Product> sidesList = pr.GetAll();
             foreach (Product product in sidesList)
             {
-                if (product.Type == "Side")
+                if (product.ProductType.ToString() == "Side")
                 {
                     Sides.Add(new ProductViewModel(product));
                 }
@@ -64,9 +64,9 @@ namespace PhoneApp.ViewModels
             List<Product> refreshmentsList = pr.GetAll();
             foreach (Product product in refreshmentsList)
             {
-                if (product.Type == "Refreshment")
+                if (product.ProductType.ToString() == "Refreshment")
                 {
-                    Refreshments.Add(new ProductViewModel(product))
+                    Refreshments.Add(new ProductViewModel(product));
                 }
             }
 
