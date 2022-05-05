@@ -50,7 +50,7 @@ namespace AdminApp.ViewModels
 
         public void RemoveContent()
         {
-            CR.Remove(SelectedContent.Id);
+            CR.Delete(SelectedContent.Id);
             Contents.Remove(SelectedContent);
         }
     }
