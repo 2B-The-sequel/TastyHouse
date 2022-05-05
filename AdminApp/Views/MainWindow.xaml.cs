@@ -15,6 +15,7 @@ namespace AdminApp
     public partial class MainWindow : Window
     {
         ContentRepo CR = new ContentRepo();
+        ProductRepo pr = new ProductRepo();
         public MainViewModel MVM;
 
         public MainWindow()
