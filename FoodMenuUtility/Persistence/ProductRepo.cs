@@ -1,11 +1,8 @@
 ﻿using FoodMenuUtility.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace FoodMenuUtility.Persistence
 {
@@ -21,6 +18,7 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
         // Constructor: Adding every Content entity from database to "Contents" list.
         // ======================================================
+
         public ProductRepo()
         {
             Products = new List<Product>();
@@ -61,9 +59,6 @@ namespace FoodMenuUtility.Persistence
                 }
             }
         }
-
-
-
 
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
@@ -127,6 +122,7 @@ namespace FoodMenuUtility.Persistence
             }
             return result;
         }
+
         // ======================================================
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
@@ -152,6 +148,7 @@ namespace FoodMenuUtility.Persistence
                     $"WHERE Product_id = {id}";
             }
         }
+
         // ======================================================
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================

@@ -12,46 +12,16 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private List<Content> Contents;
-        private string CnnStr = Properties.Settings.Default.WPF_Connection;
+        private readonly List<Content> contents;
+        private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
         // Constructor: Adding every Content entity from database to "Contents" list.
         // ======================================================
+        
         public ContentRepo()
         {
-            Contents = new List<Content>();
-            using (SqlConnection connection = new(CnnStr))
-            {
-                connection.Open();
-                // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Content_id, Name, Extra_Price, Image";
-                string table = "Content";
-                string CommandText = $"SELECT {values} FROM {table}";
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
-                {
-                    while (sqldatareader.Read() != false)
-                    {
-                        int id = sqldatareader.GetInt32("Content_id");
-                        string name = sqldatareader.GetString("Name");
-                        double extraPrice = sqldatareader.GetDouble("Extra_Price");
-                        byte[] image = null;
-
-                        
-                        if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
-                        {
-                            image = (byte[])sqldatareader["Image"];
-                        }
-                        
-
-                        Content cont = (id != -1)
-                            ? new(id, name, extraPrice, image)
-                            : new(name, extraPrice, image);
-                        Contents.Add(cont);
-                    }
-                }
-            }
+            contents = GetAll();
         }
 
         // ======================================================
@@ -62,7 +32,7 @@ namespace FoodMenuUtility.Persistence
         {
             Content content = new(name, price, image);
 
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 string Name = content.Name;
@@ -94,13 +64,44 @@ namespace FoodMenuUtility.Persistence
         // Get all from database
         public List<Content> GetAll()
         {
-            return Contents;
+            List<Content> contents = new();
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                // Hvis billeder skal være der skal de tilføjes til table og values
+                string values = "Content_id, Name, Extra_Price";
+                string table = "Content";
+                string CommandText = $"SELECT {values} FROM {table}";
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                {
+                    while (sqldatareader.Read() != false)
+                    {
+                        int id = sqldatareader.GetInt32("Content_id");
+                        string name = sqldatareader.GetString("Name");
+                        double extraPrice = sqldatareader.GetDouble("Extra_Price");
+
+                        /*
+                        if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
+                        {
+                            Image = (byte[])sqldatareader["Image"];
+                        }
+                        */
+
+                        Content cont = (id != -1)
+                            ? new(id, name, extraPrice)
+                            : new(name, extraPrice);
+                        contents.Add(cont);
+                    }
+                }
+            }
+            return contents;
         }
 
         public Content GetById(int id)
         {
             Content result = null;
-            foreach (Content contents in Contents)
+            foreach (Content contents in contents)
             {
                 if (contents.Id.Equals(id))
                 {
@@ -109,13 +110,14 @@ namespace FoodMenuUtility.Persistence
             }
             return result;
         }
+
         // ======================================================
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
 
         public void Update(Content content)
         {
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 int id = content.Id;
@@ -136,21 +138,21 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================
 
-        public void Remove(int id)
+        public void Delete(int id)
         {
             int i = 0;
             bool found = false;
-            while (i < Contents.Count && !found)
+            while (i < contents.Count && !found)
             {
-                if (Contents[i].Id == id)
+                if (contents[i].Id == id)
                     found = true;
                 else
                     i++;
             }
             if (found)
-                Contents.Remove(Contents[i]);
+                contents.Remove(contents[i]);
 
-            using (SqlConnection connection = new(CnnStr)) // missing inner, delete connection to product
+            using (SqlConnection connection = new(connectionString)) // missing inner, delete connection to product
             {
                 connection.Open();
                 string table = "Content";
