@@ -27,8 +27,10 @@ namespace FoodMenuUtility.Persistence
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
+
                 // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Product_id, Name, Price, FK_PT_id";
+                string values = "Product_id, Name, Price, FK_PT_id, Image";
+
                 string table = "Product";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
@@ -39,18 +41,21 @@ namespace FoodMenuUtility.Persistence
                         int id = sqldatareader.GetInt32("Product_id");
                         string name = sqldatareader.GetString("Name");
                         double price = sqldatareader.GetDouble("Price");
+
                         int type = sqldatareader.GetInt32("FK_PT_id");
 
-                        /*
+
                         if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
                         {
-                            Image = (byte[])sqldatareader["Image"];
+                            image = (byte[])sqldatareader["Image"];
                         }
-                        */
+                        
 
                         Product product = (id != -1)
+
                             ? new(id, name, price, (ProductType)type)
                             : new(name, price, (ProductType)type);
+
                         Products.Add(product);
                     }
                 }
@@ -73,13 +78,14 @@ namespace FoodMenuUtility.Persistence
                 result = product.Id;
                 string Name = product.Name;
                 double ExtraPrice = product.Price;
-                ProductType Type = product.ProductType;
-                // Hvis der er brug for et billed til det.
-                //byte[] Image = contents.image;
+
+                string Type = product.Type;
+                byte[] Image = product.Image;
+
 
                 string table = "Product";
-                string coloumns = "Product_id, Name, Price, Type";
-                string values = "@Product_id, @Name, @Price, @Type";
+                string coloumns = "Product_id, Name, Price, Type, Image";
+                string values = "@Product_id, @Name, @Price, @Type, @Image";
                 string query =
                     $"INSERT INTO {table} ({coloumns})" +
                     $"VALUES ({values})";
@@ -88,8 +94,11 @@ namespace FoodMenuUtility.Persistence
 
                 sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = product.Name;
                 sqlCommand.Parameters.Add("@Price", SqlDbType.Float).Value = product.Price;
-                sqlCommand.Parameters.Add("@Type", SqlDbType.NVarChar).Value = product.ProductType;
-                //sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = contents.Image;
+
+
+                sqlCommand.Parameters.Add("@Type", SqlDbType.NVarChar).Value = product.Type;
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
+
 
                 sqlCommand.ExecuteNonQuery();
             }
@@ -130,13 +139,16 @@ namespace FoodMenuUtility.Persistence
                 int id = product.Id;
                 string Name = product.Name;
                 double Price = product.Price;
+
                 ProductType Type = product.ProductType;
+                byte[] Image = product.Image;
+
 
                 string table = "Content";
-                string values = $"@{id}, @{Name}, @{Price}, @{Type}";
+                string values = $"@{id}, @{Name}, @{Price}, @{Type}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
-                    $"SET Name = @'{Name}', Price = @'{Price}', Type = @'{Type}' " +
+                    $"SET Name = @'{Name}', Price = @'{Price}', Type = @'{Type}', Image = @'{Image}' " +
                     $"WHERE Product_id = {id}";
             }
         }
