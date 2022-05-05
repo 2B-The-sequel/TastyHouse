@@ -6,34 +6,34 @@ using System.Data.SqlClient;
 
 namespace FoodMenuUtility.Persistence
 {
-    public class ContentRepo
+    public class IngredientRepo
     {
         // ======================================================
         // Fields & Props
         // ======================================================
 
-        private List<Content> Contents;
+        private List<Ingredient> Ingredients;
         private string CnnStr = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
-        // Constructor: Adding every Content entity from database to "Contents" list.
+        // Constructor: Adding every Ingredient entity from database to "Ingredients" list.
         // ======================================================
-        public ContentRepo()
+        public IngredientRepo()
         {
-            Contents = new List<Content>();
+            Ingredients = new List<Ingredient>();
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
                 // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Content_id, Name, Extra_Price, Image";
-                string table = "Content";
+                string values = "Ingredient_id, Name, Extra_Price, Image";
+                string table = "Ingredient";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
                 using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
                 {
                     while (sqldatareader.Read() != false)
                     {
-                        int id = sqldatareader.GetInt32("Content_id");
+                        int id = sqldatareader.GetInt32("Ingredient_id");
                         string name = sqldatareader.GetString("Name");
                         double extraPrice = sqldatareader.GetDouble("Extra_Price");
                         byte[] image = null;
@@ -45,10 +45,10 @@ namespace FoodMenuUtility.Persistence
                         }
                         
 
-                        Content cont = (id != -1)
+                        Ingredient cont = (id != -1)
                             ? new(id, name, extraPrice, image)
                             : new(name, extraPrice, image);
-                        Contents.Add(cont);
+                        Ingredients.Add(cont);
                     }
                 }
             }
@@ -58,18 +58,18 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Content Create(string name, double price, byte[] image)
+        public Ingredient Create(string name, double price, byte[] image)
         {
-            Content content = new(name, price, image);
+            Ingredient Ingredient = new(name, price, image);
 
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                string Name = content.Name;
-                double ExtraPrice = content.ExtraPrice;
-                byte[] Image = content.Image;
+                string Name = Ingredient.Name;
+                double ExtraPrice = Ingredient.ExtraPrice;
+                byte[] Image = Ingredient.Image;
 
-                string table = "Content";
+                string table = "Ingredient";
                 string coloumns = "Name, Extra_Price, Image";
                 string values = "@Name, @ExtraPrice, @Image";
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
@@ -78,13 +78,13 @@ namespace FoodMenuUtility.Persistence
 
                 sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
                 sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = content.Image;
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Ingredient.Image;
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
-                content.Id = ID;
+                Ingredient.Id = ID;
             }
 
-            return content;
+            return Ingredient;
         }
 
         // ======================================================
@@ -92,19 +92,19 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
 
         // Get all from database
-        public List<Content> GetAll()
+        public List<Ingredient> GetAll()
         {
-            return Contents;
+            return Ingredients;
         }
 
-        public Content GetById(int id)
+        public Ingredient GetById(int id)
         {
-            Content result = null;
-            foreach (Content contents in Contents)
+            Ingredient result = null;
+            foreach (Ingredient Ingredients in Ingredients)
             {
-                if (contents.Id.Equals(id))
+                if (Ingredients.Id.Equals(id))
                 {
-                    result = contents;
+                    result = Ingredients;
                 }
             }
             return result;
@@ -113,22 +113,22 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
 
-        public void Update(Content content)
+        public void Update(Ingredient Ingredient)
         {
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                int id = content.Id;
-                string Name = content.Name;
-                double ExtraPrice = content.ExtraPrice;
-                byte[] Image = content.Image;
+                int id = Ingredient.Id;
+                string Name = Ingredient.Name;
+                double ExtraPrice = Ingredient.ExtraPrice;
+                byte[] Image = Ingredient.Image;
 
-                string table = "Content";
+                string table = "Ingredient";
                 string values = $"@{id}, @{Name}, @{ExtraPrice}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
                     $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', Image = @'{Image}'" +
-                    $"WHERE Content_id = {id}";
+                    $"WHERE Ingredient_id = {id}";
             }
         }
 
@@ -140,21 +140,21 @@ namespace FoodMenuUtility.Persistence
         {
             int i = 0;
             bool found = false;
-            while (i < Contents.Count && !found)
+            while (i < Ingredients.Count && !found)
             {
-                if (Contents[i].Id == id)
+                if (Ingredients[i].Id == id)
                     found = true;
                 else
                     i++;
             }
             if (found)
-                Contents.Remove(Contents[i]);
+                Ingredients.Remove(Ingredients[i]);
 
             using (SqlConnection connection = new(CnnStr)) // missing inner, delete connection to product
             {
                 connection.Open();
-                string table = "Content";
-                string query = $"DELETE from Product_Content WHERE FK_Content_id = {id}; Delete from {table} where Content_id = {id};";
+                string table = "Ingredient";
+                string query = $"DELETE from Product_Ingredient WHERE FK_Ingredient_id = {id}; Delete from {table} where Ingredient_id = {id};";
                 SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
             }

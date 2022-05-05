@@ -57,21 +57,14 @@ namespace AdminApp
             MVM.SelectedOrder.State = OrderState.Done;
         }
 
-        private void New_Menu(object sender, RoutedEventArgs e)
-        {
-            AddMenuDialog dialog = new();
-            if (dialog.ShowDialog() == true)
-            {
+        
 
-            }
-        }
-
-        private void AddNewContent(object sender, RoutedEventArgs e)
+        private void AddNewIngredient(object sender, RoutedEventArgs e)
         {
             AddContentDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                MVM.AddContent(dialog.ContentName, dialog.Price, dialog.Image);
+                MVM.AddContent(dialog.IngredientsName, dialog.Price, dialog.Image);
             }
         }
 

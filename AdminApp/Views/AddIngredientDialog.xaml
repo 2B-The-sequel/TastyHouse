@@ -1,29 +1,29 @@
-﻿<Window x:Class="AdminApp.Views.AddMenuDialog"
+﻿<Window x:Class="AdminApp.Views.AddContentDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminApp.Views"
         mc:Ignorable="d"
-        Title="Tilføj menu" Height="350" Width="300">
+        Title="Tilføj ingrediens" Height="350" Width="300">
     <Grid>
         <StackPanel Margin="10">
             <Label Content="Tilføj ny indhold" HorizontalAlignment="Center"></Label>
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Navn:"></Label>
-                    <TextBox Text="{Binding name}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding IngredientsName}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Pris:"></Label>
-                    <TextBox Text="{Binding price}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding Price}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Billede:"></Label>
                     <Button Name="OpenImageButton" Content="Gennemse" Width="150" HorizontalAlignment="Right" Click="OpenImageButton_Click"></Button>
                 </DockPanel>
                 <DockPanel>
-                    <Button Name="SaveSideButton" Margin="10" Click="SaveProductButton_Click" Width="89">
+                    <Button Name="SaveSideButton" Margin="10" Click="SaveIngredientButton_Click" Width="89">
                         <StackPanel Margin="10">
                             <Image Source="/Resources/Accept.png" Width="32"></Image>
                             <TextBlock Text="Tilføj Indhold"></TextBlock>
