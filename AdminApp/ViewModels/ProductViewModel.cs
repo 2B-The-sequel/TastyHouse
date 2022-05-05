@@ -17,7 +17,13 @@ namespace AdminApp.ViewModels
 
         public double Price { get { return product.Price; } set { product.Price = value; } }
 
-        public string Type { get { return product.Type; } set { product.Type = value; } }
+        public int ProductType
+        {
+            get { return (int)product.ProductType; }
+            set { product.ProductType = (ProductType)value; }
+        }
+
+
 
         public ProductViewModel (Product model) : base (model)
         {
