@@ -1,4 +1,5 @@
 ﻿using FoodMenuUtility.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -27,28 +28,27 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Content Create(string name, double price)
+        public Content Create(string name, double price, byte[] image)
         {
-            Content content = new(name, price);
+            Content content = new(name, price, image);
 
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 string Name = content.Name;
                 double ExtraPrice = content.ExtraPrice;
-                // Hvis der er brug for et billed til det.
-                //byte[] Image = contents.image;
+                byte[] Image = content.Image;
 
                 string table = "Content";
-                string coloumns = "Name, Extra_Price";
-                string values = "@Name, @ExtraPrice";
+                string coloumns = "Name, Extra_Price, Image";
+                string values = "@Name, @ExtraPrice, @Image";
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
                 SqlCommand sqlCommand = new(query, connection);
 
                 sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
                 sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
-                //sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = contents.Image;
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = content.Image;
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 content.Id = ID;
@@ -123,12 +123,13 @@ namespace FoodMenuUtility.Persistence
                 int id = content.Id;
                 string Name = content.Name;
                 double ExtraPrice = content.ExtraPrice;
+                byte[] Image = content.Image;
 
                 string table = "Content";
-                string values = $"@{id}, @{Name}, @{ExtraPrice}";
+                string values = $"@{id}, @{Name}, @{ExtraPrice}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
-                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', " +
+                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', Image = @'{Image}'" +
                     $"WHERE Content_id = {id}";
             }
         }

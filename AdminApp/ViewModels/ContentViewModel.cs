@@ -39,6 +39,17 @@ namespace AdminApp.ViewModels
                 model.ExtraPrice = value;
             }
         }
+        public byte[] Image
+        {
+            get
+            {
+                return model.Image;
+            }
+            set
+            {
+                model.Image = value;
+            }
+        }
 
         public ContentViewModel(Content model) : base(model) { }
     }

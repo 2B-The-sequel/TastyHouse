@@ -35,10 +35,9 @@ namespace AdminApp.Views
             openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                FileStream fileStream = new(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
-                byte[] image = new byte[fileStream.Length];
-                fileStream.Read(image, 0, image.Length);
+                Image = File.ReadAllBytes(openFileDialog.FileName);
             }
+            
         }
     }
 }
