@@ -37,7 +37,9 @@ namespace AdminApp.ViewModels
             List<Ingredient> contentList = IR.GetAll();
             foreach (Ingredient content in contentList)
             {
+
                 Ingredients.Add(new IngredientViewModel(content));
+
             }
         }
 
