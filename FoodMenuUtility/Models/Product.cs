@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
 namespace FoodMenuUtility.Models
 {
     public class Product
@@ -14,28 +17,35 @@ namespace FoodMenuUtility.Models
 
         public byte[] Image { get; set; }
         public int Id { get; set; }
-        public string Type { get; set; }
+        private ProductType productType;
 
-        public Product(int id, string name, double price, string type, byte[] image)
+        public ProductType ProductType
+        {
+            get { return productType; }
+            set { productType = value; }
+        }
+
+
+        public Product(int id, string name, double price, ProductType type, byte[] image)
         {
             Id = id;
             Name = name;
             Price = price;
-            Type = type;
+            ProductType = type;
             Image = image;
         }
 
-        public Product(int id, string name, double price, string type) :
+        public Product(int id, string name, double price, ProductType type) :
             this(id, name, price, type, null)
         {
 
         }
-        public Product(string name, double price, string type) :
+        public Product(string name, double price, ProductType type) :
             this(-1, name, price, type, null)
         {
 
         }
-        public Product(string name, double price, string type, byte[] image) :
+        public Product(string name, double price, ProductType type, byte[] image) :
             this(-1, name, price, type, image)
         {
 
