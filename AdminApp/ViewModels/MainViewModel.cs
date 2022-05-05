@@ -10,17 +10,20 @@ namespace AdminApp.ViewModels
         public ObservableCollection<OrderViewModel> Orders { get; set; }
 
         public ObservableCollection<ProductViewModel> Sides { get; set; }
-        public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
+        public ObservableCollection<MenuViewModel> Menus { get; set; }
+        public ObservableCollection<ContentViewModel> Contents { get; set; }
+        ContentRepo CR = new ContentRepo();
 
-        private readonly IngredientRepo IR = new();
 
         public OrderViewModel SelectedOrder { get; set; }
-        public IngredientViewModel SelectedContent { get; set; }
+        public ContentViewModel SelectedContent { get; set; }
+
 
         public MainViewModel()
         {
             Orders = new ObservableCollection<OrderViewModel>();
-            Ingredients = new ObservableCollection<IngredientViewModel>();
+            Menus = new ObservableCollection<MenuViewModel>();
+            Contents = new ObservableCollection<ContentViewModel>();
 
             Sides = new ObservableCollection<ProductViewModel> { };
 
@@ -32,24 +35,26 @@ namespace AdminApp.ViewModels
                 Orders.Add(ovm);
             }
 
-            List<Ingredient> contentList = IR.GetAll();
-            foreach (Ingredient content in contentList)
+            List<Content> contentList = CR.GetAll();
+            foreach (Content content in contentList)
             {
-                Ingredients.Add(new IngredientViewModel(content));
+                Contents.Add(new ContentViewModel (content));
             }
+                
+            
+            
+            
+            
+            //END
         }
 
-        public void AddContent(string name, double price, byte[] image)
-        {
-            Ingredient ingredients = IR.Create(name, price, image);
-            IngredientViewModel CVM = new(ingredients);
-            Ingredients.Add(CVM);
-        }
 
-        public void RemoveContent()
-        {
-            IR.Remove(SelectedContent.Id);
-            Ingredients.Remove(SelectedContent);
-        }
+        // ======================================================
+        // CRUD: Create
+        // ======================================================
+
+
+
+
     }
 }

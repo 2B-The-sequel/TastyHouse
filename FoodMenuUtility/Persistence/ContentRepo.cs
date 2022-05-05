@@ -1,90 +1,92 @@
 ﻿using FoodMenuUtility.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace FoodMenuUtility.Persistence
 {
-    public class IngredientRepo
+    public class ContentRepo
     {
         // ======================================================
         // Fields & Props
         // ======================================================
 
-        private List<Ingredient> Ingredients;
+        private List<Content> Contents;
         private string CnnStr = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
-        // Constructor: Adding every Ingredient entity from database to "Ingredients" list.
+        // Constructor: Adding every Content entity from database to "Contents" list.
         // ======================================================
-        public IngredientRepo()
+        public ContentRepo()
         {
-            Ingredients = new List<Ingredient>();
+            Contents = new List<Content>();
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
                 // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Ingredient_id, Name, Extra_Price, Image";
-                string table = "Ingredient";
+                string values = "Content_id, Name, Extra_Price";
+                string table = "Content";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
                 using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
                 {
                     while (sqldatareader.Read() != false)
                     {
-                        int id = sqldatareader.GetInt32("Ingredient_id");
+                        int id = sqldatareader.GetInt32("Content_id");
                         string name = sqldatareader.GetString("Name");
                         double extraPrice = sqldatareader.GetDouble("Extra_Price");
-                        byte[] image = null;
 
-
+                        /*
                         if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
                         {
-                            image = (byte[])sqldatareader["Image"];
+                            Image = (byte[])sqldatareader["Image"];
                         }
+                        */
 
-
-                        Ingredient cont = (id != -1)
-                            ? new(id, name, extraPrice, image)
-                            : new(name, extraPrice, image);
-                        Ingredients.Add(cont);
+                        Content cont = (id != -1)
+                            ? new(id, name, extraPrice)
+                            : new(name, extraPrice);
+                        Contents.Add(cont);
                     }
                 }
             }
         }
 
+
+
+
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Ingredient Create(string name, double price, byte[] image)
+        public int Add(Content contents)
         {
-            Ingredient Ingredient = new(name, price, image);
-
+            int result;
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                string Name = Ingredient.Name;
-                double ExtraPrice = Ingredient.ExtraPrice;
-                byte[] Image = Ingredient.Image;
+                result = contents.Id;
+                string Name = contents.Name;
+                double ExtraPrice = contents.ExtraPrice;
+                // Hvis der er brug for et billed til det.
+                //byte[] Image = contents.image;
 
-                string table = "Ingredient";
-                string coloumns = "Name, Extra_Price, Image";
-                string values = "@Name, @ExtraPrice, @Image";
-                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
+                string table = "Content";
+                string coloumns = "Name, Extra_price";
+                string values = "@Name, @ExtraPrice";
+                string query =
+                    $"INSERT INTO {table} ({coloumns})" +
+                    $"VALUES ({values})";
 
                 SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
-                sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Ingredient.Image;
+                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = Name;
+                sqlCommand.Parameters.Add("@ExtraPrice", SqlDbType.Float).Value = ExtraPrice;
+                //sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = contents.Image;
 
-                int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
-                Ingredient.Id = ID;
+                sqlCommand.ExecuteNonQuery();
             }
-
-            return Ingredient;
+            return result;
         }
 
         // ======================================================
@@ -92,19 +94,19 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
 
         // Get all from database
-        public List<Ingredient> GetAll()
+        public List<Content> GetAll()
         {
-            return Ingredients;
+            return Contents;
         }
 
-        public Ingredient GetById(int id)
+        public Content GetById(int id)
         {
-            Ingredient result = null;
-            foreach (Ingredient Ingredients in Ingredients)
+            Content result = null;
+            foreach (Content contents in Contents)
             {
-                if (Ingredients.Id.Equals(id))
+                if (contents.Id.Equals(id))
                 {
-                    result = Ingredients;
+                    result = contents;
                 }
             }
             return result;
@@ -113,51 +115,49 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
 
-        public void Update(Ingredient Ingredient)
+        public void Update(Content content)
         {
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                int id = Ingredient.Id;
-                string Name = Ingredient.Name;
-                double ExtraPrice = Ingredient.ExtraPrice;
-                byte[] Image = Ingredient.Image;
+                int id = content.Id;
+                string Name = content.Name;
+                double ExtraPrice = content.ExtraPrice;
 
-                string table = "Ingredient";
-                string values = $"@{id}, @{Name}, @{ExtraPrice}, @{Image}";
+                string table = "Content";
+                string values = $"@{id}, @{Name}, @{ExtraPrice}";
                 string query =
                     $"UPDATE {table}" +
-                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', Image = @'{Image}'" +
-                    $"WHERE Ingredient_id = {id}";
+                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', " +
+                    $"WHERE Content_id = {id}";
             }
-        }
 
+            
+            
+        }
         // ======================================================
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================
 
         public void Remove(int id)
         {
-            int i = 0;
-            bool found = false;
-            while (i < Ingredients.Count && !found)
+            foreach (Content cs in Contents)
             {
-                if (Ingredients[i].Id == id)
-                    found = true;
-                else
-                    i++;
+                if (cs.Id == id)
+                {
+                    Contents.Remove(cs);
+                }
             }
-            if (found)
-                Ingredients.Remove(Ingredients[i]);
-
             using (SqlConnection connection = new(CnnStr)) // missing inner, delete connection to product
             {
                 connection.Open();
-                string table = "Ingredient";
-                string query = $"DELETE from Product_Ingredient WHERE FK_Ingredient_id = {id}; Delete from {table} where Ingredient_id = {id};";
+                string table = "Content";
+                string query = $"DELETE FROM {table} WHERE {id} = Content_id";
                 SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
+
     }
 }
