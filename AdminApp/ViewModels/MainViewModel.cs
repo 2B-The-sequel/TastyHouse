@@ -10,20 +10,17 @@ namespace AdminApp.ViewModels
         public ObservableCollection<OrderViewModel> Orders { get; set; }
 
         public ObservableCollection<ProductViewModel> Sides { get; set; }
-        public ObservableCollection<MenuViewModel> Menus { get; set; }
-        public ObservableCollection<ContentViewModel> Contents { get; set; }
-        ContentRepo CR = new ContentRepo();
+        public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
 
+        private readonly IngredientRepo IR = new();
 
         public OrderViewModel SelectedOrder { get; set; }
-        public ContentViewModel SelectedContent { get; set; }
-
+        public IngredientViewModel SelectedContent { get; set; }
 
         public MainViewModel()
         {
             Orders = new ObservableCollection<OrderViewModel>();
-            Menus = new ObservableCollection<MenuViewModel>();
-            Contents = new ObservableCollection<ContentViewModel>();
+            Ingredients = new ObservableCollection<IngredientViewModel>();
 
             Sides = new ObservableCollection<ProductViewModel> { };
 
@@ -35,26 +32,24 @@ namespace AdminApp.ViewModels
                 Orders.Add(ovm);
             }
 
-            List<Content> contentList = CR.GetAll();
-            foreach (Content content in contentList)
+            List<Ingredient> contentList = IR.GetAll();
+            foreach (Ingredient content in contentList)
             {
-                Contents.Add(new ContentViewModel (content));
+                Ingredients.Add(new IngredientViewModel(content));
             }
-                
-            
-            
-            
-            
-            //END
         }
 
+        public void AddContent(string name, double price, byte[] image)
+        {
+            Ingredient ingredients = IR.Create(name, price, image);
+            IngredientViewModel CVM = new(ingredients);
+            Ingredients.Add(CVM);
+        }
 
-        // ======================================================
-        // CRUD: Create
-        // ======================================================
-
-
-
-
+        public void RemoveContent()
+        {
+            IR.Remove(SelectedContent.Id);
+            Ingredients.Remove(SelectedContent);
+        }
     }
 }

@@ -70,93 +70,33 @@
             <TabItem.Header>
                 <DockPanel Margin="5">
                     <Image Source="/Resources/Order.png" Width="32"/>
-                    <TextBlock Text="Menuer" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
-                </DockPanel>
-            </TabItem.Header>
-            
-                <!-- Menuer start-->
-                <DockPanel Margin="10">
-                    <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
-                        <StackPanel>
-                            <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}" Click="Button_Click">
-                                <StackPanel Margin="5">
-                                    <Image Source="/Resources/Order.png" Width="32"/>
-                                    <TextBlock Text="Ny Menu" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
-                                </StackPanel>
-                            </Button>
-                            <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}" Click="Button_Click">
-                                <StackPanel Margin="5">
-                                    <Image Source="/Resources/Decline.png" Width="32"/>
-                                    <TextBlock Text="Slet Menu" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
-                                </StackPanel>
-                            </Button>
-                            <!--  <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}">
-                                <StackPanel Margin="5">
-                                    <Image Source="/Resources/Done.png" Width="32"/>
-                                    <TextBlock Text="Færdig" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
-                                </StackPanel>
-                            </Button>  -->
-                        </StackPanel>
-                    </DockPanel>
-                    <ListBox Name="Menus" Background="LightGray" ItemsSource="{Binding Menus}" SelectedItem="">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Padding" Value="0"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="Foreground" Value="Black"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                                <Style.Resources>
-                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
-                                </Style.Resources>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
-                                        <Image Source="{Binding Image}" Width="32" Margin="0 0 5 0"/>
-                                        <TextBlock Text="Menu id: "/>
-                                        <TextBlock Text="{Binding Id}"/>
-                                    </DockPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-
-                </DockPanel>
-            <!-- Menuer slut-->
-        </TabItem>
-        <TabItem>
-            <TabItem.Header>
-                <DockPanel Margin="5">
-                    <Image Source="/Resources/Order.png" Width="32"/>
                     <TextBlock Text="Varer" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
-                <DockPanel Margin="5" DockPanel.Dock="Right">
-                    <StackPanel Margin="15">
-                        <Button Margin="0 0 0 15" Click="AddProductButton_Click">
-                            <StackPanel>
-                                <Image Source="/Resources/Add.png" Width="32"></Image>
-                                <TextBlock Text="Tilføj ny vare"></TextBlock>
+                <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
+                    <StackPanel>
+                        <Button Margin="0 0 0 10" Click="AddProductButton_Click">
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/Add.png" Width="32"/>
+                                <TextBlock Text="Ny" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="0 0 0 15" Click="RemoveProductButton_Click">
-                            <StackPanel>
-                                <Image Source="/Resources/Remove.png" Width="32"></Image>
-                                <TextBlock Text="Fjern vare"></TextBlock>
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Sides, Path=SelectedItems.Count}" Click="Button_Click">
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/Edit.png" Width="32"/>
+                                <TextBlock Text="Ændr" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Sides, Path=SelectedItems.Count}" Click="RemoveProductButton_Click">
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/Remove.png" Width="32"/>
+                                <TextBlock Text="Slet" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
                 </DockPanel>
-                <ListBox Background="LightGray" ItemsSource="{Binding Sides}">
+                <ListBox Name="Sides" Background="LightGray" ItemsSource="{Binding Sides}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>
@@ -173,7 +113,6 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
- 
             </DockPanel>
         </TabItem>
         <TabItem>
@@ -187,27 +126,27 @@
                 <!-- Content start -->
                 <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
                     <StackPanel>
-                        <Button Margin="0 0 0 10" Click="AddNewContent">
+                        <Button Margin="0 0 0 10" Click="AddNewIngredient">
                             <StackPanel Margin="5">
-                                <Image Source="/Resources/Order.png" Width="32"/>
-                                <TextBlock Text="Nyt Indhold" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                                <Image Source="/Resources/Add.png" Width="32"/>
+                                <TextBlock Text="Ny" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Contents, Path=SelectedItems.Count}" Click="Button_Click">
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/Edit.png" Width="32"/>
+                                <TextBlock Text="Ændr" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
                         <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Contents, Path=SelectedItems.Count}" Click="DeleteContent">
                             <StackPanel Margin="5">
-                                <Image Source="/Resources/Decline.png" Width="32"/>
-                                <TextBlock Text="Slet Indhold" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
+                                <Image Source="/Resources/Remove.png" Width="32"/>
+                                <TextBlock Text="Slet" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                        <!--  <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Menus, Path=SelectedItems.Count}">
-                                <StackPanel Margin="5">
-                                    <Image Source="/Resources/Done.png" Width="32"/>
-                                    <TextBlock Text="Færdig" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
-                                </StackPanel>
-                            </Button>  -->
                     </StackPanel>
                 </DockPanel>
-                <ListBox Name="Contents" Background="LightGray" ItemsSource="{Binding Contents}" SelectedItem="">
+                <ListBox Name="Contents" Background="LightGray" ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedContent}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>
@@ -228,20 +167,30 @@
                         <DataTemplate>
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
                                 <DockPanel>
-                                    <Image Source="{Binding Image}" Width="32" Margin="0 0 5 0"/>
-                                    <TextBlock Text=" Indhold id: "/>
-                                    <TextBlock Text="{Binding Id}"/>
-                                    <TextBlock Text=" Indhold Name: "/>
-                                    <TextBlock Text="{Binding Name}"/>
-                                    <TextBlock Text=" Indhold Pris: "/>
-                                    <TextBlock Text="{Binding ExstraPrice}"/>
+                                    <Border BorderBrush="Black" BorderThickness="1">
+                                        <Image Source="{Binding Image}" Width="64" Height="64" Margin="0 0 5 0"/>
+                                    </Border>
+                                    <StackPanel Margin="10 0">
+                                        <DockPanel>
+                                            <TextBlock Text="Navn: "/>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Pris: "/>
+                                            <TextBlock Text="{Binding ExtraPrice}"/>
+                                            <TextBlock Text=" kr."/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="ID: "/>
+                                            <TextBlock Text="{Binding Id}"/>
+                                        </DockPanel>
+                                    </StackPanel>
                                 </DockPanel>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
-             <!-- Content end -->
+                <!-- Content end -->
             </DockPanel>
         </TabItem>
     </TabControl>
