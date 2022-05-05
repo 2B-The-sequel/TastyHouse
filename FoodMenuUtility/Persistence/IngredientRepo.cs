@@ -38,12 +38,11 @@ namespace FoodMenuUtility.Persistence
                         double extraPrice = sqldatareader.GetDouble("Extra_Price");
                         byte[] image = null;
 
-                        
+
                         if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
                         {
                             image = (byte[])sqldatareader["Image"];
                         }
-                        
 
                         Ingredient cont = (id != -1)
                             ? new(id, name, extraPrice, image)

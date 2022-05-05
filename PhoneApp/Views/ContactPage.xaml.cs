@@ -1,6 +1,4 @@
-﻿using FoodMenuUtility.Persistence;
-using PhoneApp.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,17 +16,15 @@ using System.Windows.Shapes;
 namespace PhoneApp.Views
 {
     /// <summary>
-    /// Interaction logic for MenuPage.xaml
+    /// Interaction logic for ContactPage.xaml
     /// </summary>
-    public partial class MenuPage : Page
+    public partial class ContactPage : Page
     {
-        public MainViewModel MVM;
-        public MenuPage()
+        public ContactPage()
         {
             InitializeComponent();
-            MVM = new MainViewModel();
-            DataContext = MVM;
         }
+
 
     }
 }

@@ -1,11 +1,8 @@
 ﻿using FoodMenuUtility.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace FoodMenuUtility.Persistence
 {
@@ -21,14 +18,17 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
         // Constructor: Adding every Content entity from database to "Contents" list.
         // ======================================================
+
         public ProductRepo()
         {
             Products = new List<Product>();
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                
-                string values = "Product_id, Name, Price, Type, Image";
+
+                // Hvis billeder skal være der skal de tilføjes til table og values
+                string values = "Product_id, Name, Price, FK_PT_id, Image";
+
                 string table = "Product";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
@@ -39,8 +39,9 @@ namespace FoodMenuUtility.Persistence
                         int id = sqldatareader.GetInt32("Product_id");
                         string name = sqldatareader.GetString("Name");
                         double price = sqldatareader.GetDouble("Price");
-                        string type = sqldatareader.GetString("Type");
-                        byte[] image = null;
+
+                        int type = sqldatareader.GetInt32("FK_PT_id");
+
 
                         if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
                         {
@@ -49,16 +50,15 @@ namespace FoodMenuUtility.Persistence
                         
 
                         Product product = (id != -1)
-                            ? new(id, name, price, type, image)
-                            : new(name, price, type, image);
+
+                            ? new(id, name, price, (ProductType)type)
+                            : new(name, price, (ProductType)type);
+
                         Products.Add(product);
                     }
                 }
             }
         }
-
-
-
 
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
@@ -73,8 +73,10 @@ namespace FoodMenuUtility.Persistence
                 result = product.Id;
                 string Name = product.Name;
                 double ExtraPrice = product.Price;
+
                 string Type = product.Type;
                 byte[] Image = product.Image;
+
 
                 string table = "Product";
                 string coloumns = "Product_id, Name, Price, Type, Image";
@@ -87,8 +89,11 @@ namespace FoodMenuUtility.Persistence
 
                 sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = product.Name;
                 sqlCommand.Parameters.Add("@Price", SqlDbType.Float).Value = product.Price;
+
+
                 sqlCommand.Parameters.Add("@Type", SqlDbType.NVarChar).Value = product.Type;
                 sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
+
 
                 sqlCommand.ExecuteNonQuery();
             }
@@ -117,6 +122,7 @@ namespace FoodMenuUtility.Persistence
             }
             return result;
         }
+
         // ======================================================
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
@@ -129,8 +135,10 @@ namespace FoodMenuUtility.Persistence
                 int id = product.Id;
                 string Name = product.Name;
                 double Price = product.Price;
-                string Type = product.Type;
+
+                ProductType Type = product.ProductType;
                 byte[] Image = product.Image;
+
 
                 string table = "Content";
                 string values = $"@{id}, @{Name}, @{Price}, @{Type}, @{Image}";
@@ -140,6 +148,7 @@ namespace FoodMenuUtility.Persistence
                     $"WHERE Product_id = {id}";
             }
         }
+
         // ======================================================
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================

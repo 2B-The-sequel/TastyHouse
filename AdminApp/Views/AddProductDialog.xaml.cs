@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using AdminApp.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,10 +12,12 @@ namespace AdminApp.Views
     /// </summary>
     public partial class AddProductDialog : Window
     {
+        public MainViewModel MVM;
         public AddProductDialog()
         {
             InitializeComponent();
-            DataContext = this;
+            MVM = new MainViewModel();
+            DataContext = MVM;
         }
 
         public string ProductName { get; set; } 

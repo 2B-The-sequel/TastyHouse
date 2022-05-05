@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="740" Width="360" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+        Title="MainWindow" Height="844" Width="360" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" AllowsTransparency="True">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Lemon"/>
@@ -15,20 +15,18 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
-    <StackPanel>
-        <StackPanel.Background>
-            <ImageBrush ImageSource="../Resources/Phone.png"/>
-        </StackPanel.Background>
-        <StackPanel Margin="28 105" Height="530">
-            <StackPanel.Background>
-                <ImageBrush ImageSource="../Resources/Background.png"/>
-            </StackPanel.Background>
-            <Image Source="../Resources/Logo.png" Width="130" Margin="30"/>
-            <StackPanel Margin="50">
+    <Grid>
+        <Frame NavigationUIVisibility="Hidden" Margin="0,0,0,50" x:Name="MainFrameWindow"></Frame>
+        <Grid x:Name="Index">
+            <Grid.Background>
+                <ImageBrush ImageSource="../Resources/Background.png"></ImageBrush>
+            </Grid.Background>
+            <Image Source="../Resources/Logo.png" Height="200" Margin="0,56,0,588"></Image>
+            <StackPanel Margin="50,392,50,289">
                 <Border Margin="0 20" BorderThickness="1" BorderBrush="Black" CornerRadius="10">
                     <Button Content="Levering">
                         <Button.Resources>
-                            <Style TargetType="Border">
+                            <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
@@ -37,30 +35,34 @@
                 <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10">
                     <Button Content="Take-away">
                         <Button.Resources>
-                            <Style TargetType="Border">
+                            <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </Button.Resources>
                     </Button>
                 </Border>
             </StackPanel>
-            <DockPanel Margin="0 35">
-                <Button Width="61">
-                    <Image Source="../Resources/Home.png" Margin="10"/>
-                </Button>
-                <Button Width="61" Click="MenuButton_Click">
-                    <Image Source="../Resources/Food.png" Margin="10"/>
-                </Button>
-                <Button Width="61">
-                    <Image Source="../Resources/Cart.png" Margin="10"/>
-                </Button>
-                <Button Width="61">
-                    <Image Source="../Resources/PhoneIcon.png" Margin="10"/>
-                </Button>
-                <Button Width="61">
-                    <Image Source="../Resources/Profile.png" Margin="10"/>
-                </Button>
+        </Grid>
+        <DockPanel VerticalAlignment="Bottom">
+                <DockPanel Margin="0 ">
+                    <Button x:Name="HomeButton" Width="72" Click="HomeButton_Click">
+                        <Image Source="../Resources/Home.png" Margin="10"/>
+                    </Button>
+                    <Button Width="72" Click="MenuButton_Click">
+                        <Image Source="../Resources/Food.png" Margin="10"/>
+                    </Button>
+                    <Button Width="72">
+                        <Image Source="../Resources/Cart.png" Margin="10"/>
+                    </Button>
+                    <Button Name="ContactButton" Width="72" Click="ContactButton_Click">
+                        <Image Source="../Resources/PhoneIcon.png" Margin="10"/>
+                    </Button>
+                    <Button Width="72">
+                        <Image Source="../Resources/Profile.png" Margin="10"/>
+                    </Button>
+                </DockPanel>
             </DockPanel>
-        </StackPanel>
-    </StackPanel>
+       
+    </Grid>
+    
 </Window>

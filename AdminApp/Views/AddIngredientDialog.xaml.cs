@@ -37,7 +37,6 @@ namespace AdminApp.Views
             {
                 Image = File.ReadAllBytes(openFileDialog.FileName);
             }
-            
         }
     }
 }
