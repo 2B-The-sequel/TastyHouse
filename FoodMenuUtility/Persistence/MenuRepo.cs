@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
-
+/*
 namespace FoodMenuUtility.Persistence
 {
     public class MenuRepo
@@ -127,7 +127,7 @@ namespace FoodMenuUtility.Persistence
                 byte[] Image = Menu.Image;
 
                 string table = "Menu";
-                string values = $"@{id}, @{Name}, @{Price}";
+                string values = $"@{id}, @{Name}, @{Price}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
                     $"SET Name = @'{Name}', Price = @'{Price}', Image = @'{Image}'" +
@@ -158,3 +158,4 @@ namespace FoodMenuUtility.Persistence
         }
     }
 }
+*/

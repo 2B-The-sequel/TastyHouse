@@ -1,4 +1,5 @@
 ﻿using FoodMenuUtility.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,16 +12,60 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private List<Content> Contents;
-        private string CnnStr = Properties.Settings.Default.WPF_Connection;
+        private readonly List<Content> contents;
+        private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
         // Constructor: Adding every Content entity from database to "Contents" list.
         // ======================================================
+        
         public ContentRepo()
         {
-            Contents = new List<Content>();
-            using (SqlConnection connection = new(CnnStr))
+            contents = GetAll();
+        }
+
+        // ======================================================
+        // Repository CRUD: Create (Adding entity to database)
+        // ======================================================
+
+        public Content Create(string name, double price, byte[] image)
+        {
+            Content content = new(name, price, image);
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string Name = content.Name;
+                double ExtraPrice = content.ExtraPrice;
+                byte[] Image = content.Image;
+
+                string table = "Content";
+                string coloumns = "Name, Extra_Price, Image";
+                string values = "@Name, @ExtraPrice, @Image";
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
+
+                SqlCommand sqlCommand = new(query, connection);
+
+                sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
+                sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = content.Image;
+
+                int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
+                content.Id = ID;
+            }
+
+            return content;
+        }
+
+        // ======================================================
+        // Repository CRUD: Read (Reading entity from database)
+        // ======================================================
+
+        // Get all from database
+        public List<Content> GetAll()
+        {
+            List<Content> contents = new();
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 // Hvis billeder skal være der skal de tilføjes til table og values
@@ -46,63 +91,17 @@ namespace FoodMenuUtility.Persistence
                         Content cont = (id != -1)
                             ? new(id, name, extraPrice)
                             : new(name, extraPrice);
-                        Contents.Add(cont);
+                        contents.Add(cont);
                     }
                 }
             }
-        }
-
-
-
-
-        // ======================================================
-        // Repository CRUD: Create (Adding entity to database)
-        // ======================================================
-
-        public int Add(Content contents)
-        {
-            int result;
-            using (SqlConnection connection = new(CnnStr))
-            {
-                connection.Open();
-                result = contents.Id;
-                string Name = contents.Name;
-                double ExtraPrice = contents.ExtraPrice;
-                // Hvis der er brug for et billed til det.
-                //byte[] Image = contents.image;
-
-                string table = "Content";
-                string coloumns = "Name, Extra_price";
-                string values = "@Name, @ExtraPrice";
-                string query =
-                    $"INSERT INTO {table} ({coloumns})" +
-                    $"VALUES ({values})";
-
-                SqlCommand sqlCommand = new(query, connection);
-
-                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = Name;
-                sqlCommand.Parameters.Add("@ExtraPrice", SqlDbType.Float).Value = ExtraPrice;
-                //sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = contents.Image;
-
-                sqlCommand.ExecuteNonQuery();
-            }
-            return result;
-        }
-
-        // ======================================================
-        // Repository CRUD: Read (Reading entity from database)
-        // ======================================================
-
-        // Get all from database
-        public List<Content> GetAll()
-        {
-            return Contents;
+            return contents;
         }
 
         public Content GetById(int id)
         {
             Content result = null;
-            foreach (Content contents in Contents)
+            foreach (Content contents in contents)
             {
                 if (contents.Id.Equals(id))
                 {
@@ -111,53 +110,56 @@ namespace FoodMenuUtility.Persistence
             }
             return result;
         }
+
         // ======================================================
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
 
         public void Update(Content content)
         {
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 int id = content.Id;
                 string Name = content.Name;
                 double ExtraPrice = content.ExtraPrice;
+                byte[] Image = content.Image;
 
                 string table = "Content";
-                string values = $"@{id}, @{Name}, @{ExtraPrice}";
+                string values = $"@{id}, @{Name}, @{ExtraPrice}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
-                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', " +
+                    $"SET Name = @'{Name}', Extra_Price = @'{ExtraPrice}', Image = @'{Image}'" +
                     $"WHERE Content_id = {id}";
             }
-
-            
-            
         }
+
         // ======================================================
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================
 
-        public void Remove(int id)
+        public void Delete(int id)
         {
-            foreach (Content cs in Contents)
+            int i = 0;
+            bool found = false;
+            while (i < contents.Count && !found)
             {
-                if (cs.Id == id)
-                {
-                    Contents.Remove(cs);
-                }
+                if (contents[i].Id == id)
+                    found = true;
+                else
+                    i++;
             }
-            using (SqlConnection connection = new(CnnStr)) // missing inner, delete connection to product
+            if (found)
+                contents.Remove(contents[i]);
+
+            using (SqlConnection connection = new(connectionString)) // missing inner, delete connection to product
             {
                 connection.Open();
                 string table = "Content";
-                string query = $"DELETE FROM {table} WHERE {id} = Content_id";
+                string query = $"DELETE from Product_Content WHERE FK_Content_id = {id}; Delete from {table} where Content_id = {id};";
                 SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
             }
         }
-
-
     }
 }
