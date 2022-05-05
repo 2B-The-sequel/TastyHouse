@@ -12,7 +12,7 @@
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Navn:"></Label>
-                    <TextBox Text="{Binding ContentName}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding IngredientsName}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Pris:"></Label>
@@ -23,7 +23,7 @@
                     <Button Name="OpenImageButton" Content="Gennemse" Width="150" HorizontalAlignment="Right" Click="OpenImageButton_Click"></Button>
                 </DockPanel>
                 <DockPanel>
-                    <Button Name="SaveSideButton" Margin="10" Click="SaveProductButton_Click" Width="89">
+                    <Button Name="SaveSideButton" Margin="10" Click="SaveIngredientButton_Click" Width="89">
                         <StackPanel Margin="10">
                             <Image Source="/Resources/Accept.png" Width="32"></Image>
                             <TextBlock Text="Tilføj Indhold"></TextBlock>

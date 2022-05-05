@@ -9,7 +9,7 @@ namespace AdminApp.Views
     /// </summary>
     public partial class AddContentDialog : Window
     {
-        public string ContentName { get; set; }
+        public string IngredientsName { get; set; }
         public double Price { get; set; }
         public byte[] Image { get; set; }
 
@@ -19,7 +19,7 @@ namespace AdminApp.Views
             DataContext = this;
         }
 
-        private void SaveProductButton_Click(object sender, RoutedEventArgs e)
+        private void SaveIngredientButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }
@@ -37,7 +37,7 @@ namespace AdminApp.Views
             {
                 Image = File.ReadAllBytes(openFileDialog.FileName);
             }
-            
+
         }
     }
 }

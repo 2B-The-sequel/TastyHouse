@@ -27,12 +27,12 @@ namespace AdminApp
                 Product side = new(addSideDialog.ProductName, int.Parse(addSideDialog.Price), addSideDialog.Type);
                 ProductViewModel _side = new(side);
                 MVM.Sides.Add(_side);
-            } 
+            }
         }
 
         private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)
@@ -57,21 +57,14 @@ namespace AdminApp
             MVM.SelectedOrder.State = OrderState.Done;
         }
 
-        private void New_Menu(object sender, RoutedEventArgs e)
-        {
-            AddMenuDialog dialog = new();
-            if (dialog.ShowDialog() == true)
-            {
 
-            }
-        }
 
-        private void AddNewContent(object sender, RoutedEventArgs e)
+        private void AddNewIngredient(object sender, RoutedEventArgs e)
         {
             AddContentDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                MVM.AddContent(dialog.ContentName, dialog.Price, dialog.Image);
+                MVM.AddContent(dialog.IngredientsName, dialog.Price, dialog.Image);
             }
         }
 
@@ -81,13 +74,13 @@ namespace AdminApp
             {
                 MVM.RemoveContent();
             }
-        }        
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Er du sikker på at du vil afvise orderen?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                
+
             }
         }
     }

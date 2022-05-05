@@ -2,7 +2,7 @@
 
 namespace AdminApp.ViewModels
 {
-    public class ContentViewModel : ViewModel<Content>
+    public class IngredientViewModel : ViewModel<Ingredient>
     {
         public int Id
         {
@@ -51,6 +51,6 @@ namespace AdminApp.ViewModels
             }
         }
 
-        public ContentViewModel(Content model) : base(model) { }
+        public IngredientViewModel(Ingredient model) : base(model) { }
     }
 }
