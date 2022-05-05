@@ -57,8 +57,6 @@ namespace AdminApp
             MVM.SelectedOrder.State = OrderState.Done;
         }
 
-
-
         private void AddNewIngredient(object sender, RoutedEventArgs e)
         {
             AddContentDialog dialog = new();

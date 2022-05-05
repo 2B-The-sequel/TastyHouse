@@ -44,7 +44,6 @@ namespace FoodMenuUtility.Persistence
                             image = (byte[])sqldatareader["Image"];
                         }
 
-
                         Ingredient cont = (id != -1)
                             ? new(id, name, extraPrice, image)
                             : new(name, extraPrice, image);
