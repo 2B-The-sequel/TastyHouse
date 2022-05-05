@@ -31,14 +31,14 @@ namespace PhoneApp.ViewModels
             get { return model.Price; }
             set { model.Price = value; }
         }
-        /*
+        
 
         public byte[] image
         {
             get { return model.Image; }
             set { model.Image = value; }
         }
-        */
+        
 
         public MenuViewModel(Menu model) : base(model) { }
     }
