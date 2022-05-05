@@ -24,15 +24,19 @@ namespace AdminApp
             AddProductDialog addSideDialog = new();
             if (addSideDialog.ShowDialog() == true)
             {
-                Product side = new(addSideDialog.ProductName, int.Parse(addSideDialog.Price), addSideDialog.Type);
+                for (int i = 0; i < MVM.IngredientsInProduct.Count; i++)
+                {
+                    MVM.Ingredients.Count.ToString();
+                }
+                Product side = new(addSideDialog.ProductName, int.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type);
                 ProductViewModel _side = new(side);
                 MVM.Sides.Add(_side);
-            }
+            } 
         }
 
         private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)
@@ -57,7 +61,7 @@ namespace AdminApp
             MVM.SelectedOrder.State = OrderState.Done;
         }
 
-
+        
 
         private void AddNewIngredient(object sender, RoutedEventArgs e)
         {
@@ -74,13 +78,13 @@ namespace AdminApp
             {
                 MVM.RemoveContent();
             }
-        }
+        }        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Er du sikker på at du vil afvise orderen?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-
+                
             }
         }
     }

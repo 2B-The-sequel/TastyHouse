@@ -72,13 +72,22 @@ namespace FoodMenuUtility.Persistence
                 string table = "Ingredient";
                 string coloumns = "Name, Extra_Price, Image";
                 string values = "@Name, @ExtraPrice, @Image";
+                if (Image == null)
+                {
+                    coloumns = "Name, Extra_Price";
+                    values = "@Name, @ExtraPrice";
+                }
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
                 SqlCommand sqlCommand = new(query, connection);
 
                 sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
                 sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Ingredient.Image;
+                if (Image != null)
+                {
+                    sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Ingredient.Image;
+                }                
+                
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 Ingredient.Id = ID;

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AdminApp.Views"
         mc:Ignorable="d"
 
-        Title="Tilføj vare" Height="350" Width="300" ResizeMode="NoResize">
+        Title="Tilføj vare" Height="500" Width="500" ResizeMode="NoResize">
     <Grid>
         <StackPanel Margin="10">
             <Label Content="Tilføj ny vare" HorizontalAlignment="Center"></Label>
@@ -27,7 +27,7 @@
                     <Label Content="Billede:"></Label>
                     <Button Name="OpenImageButton" Content="Gennemse" Width="150" HorizontalAlignment="Right" Click="OpenImageButton_Click"></Button>
                 </DockPanel>
-                <ListBox x:Name="Content" ItemsSource="{Binding Contents}" Height="150" Width="480">
+                <ListBox x:Name="IngredientBox" ItemsSource="{Binding Ingredients}" Height="150" Width="480">
                     <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>
@@ -49,10 +49,10 @@
                             <StackPanel>
                                 
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                <DockPanel>
-                                    <TextBlock Text="{Binding Name}"/>
-                                    <TextBox Width="20"></TextBox>
-                                </DockPanel>
+                                    <DockPanel>
+                                        <Label Content="{Binding Name}"/>
+                                        <TextBox Width="20" Name="IngredientNumber"/>
+                                    </DockPanel>
                             </Border>
                             </StackPanel>
                         </DataTemplate>

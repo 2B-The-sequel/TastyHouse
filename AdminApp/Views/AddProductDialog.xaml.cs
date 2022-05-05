@@ -2,8 +2,19 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace AdminApp.Views
 {
@@ -22,7 +33,7 @@ namespace AdminApp.Views
 
         public string ProductName { get; set; } 
         public string Price { get; set; } 
-        public string Type { get; set; }
+        public int Type { get; set; }
         public byte[] Image { get; set; }
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
@@ -37,6 +48,16 @@ namespace AdminApp.Views
 
         private void SaveProductButton_Click(object sender, RoutedEventArgs e)
         {
+            for (int i = 0; i < IngredientBox.Items.Count; i++)
+            {
+                /*
+                string i = IngredientBox.ItemTemplate.d
+                string m = IngredientBox.ItemTemplate.Resources.Values.ToString();
+                string y = IngredientBox.Items[i].ToString();
+                string x = IngredientBox.Items[i-1].ToString();
+                */
+            }
+            
             DialogResult = true;
         }
 

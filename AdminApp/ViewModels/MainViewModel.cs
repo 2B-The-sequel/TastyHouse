@@ -11,11 +11,13 @@ namespace AdminApp.ViewModels
 
         public ObservableCollection<ProductViewModel> Sides { get; set; }
         public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
+        public ObservableCollection<IngredientViewModel> IngredientsInProduct { get; set; }
 
         private readonly IngredientRepo IR = new();
 
         public OrderViewModel SelectedOrder { get; set; }
-        public IngredientViewModel SelectedContent { get; set; }
+        public ProductViewModel SelectedProduct { get; set; }
+        public IngredientViewModel SelectedIngredient { get; set; }
 
         public MainViewModel()
         {
@@ -48,8 +50,8 @@ namespace AdminApp.ViewModels
 
         public void RemoveContent()
         {
-            IR.Remove(SelectedContent.Id);
-            Ingredients.Remove(SelectedContent);
+            IR.Remove(SelectedIngredient.Id);
+            Ingredients.Remove(SelectedIngredient);
         }
     }
 }

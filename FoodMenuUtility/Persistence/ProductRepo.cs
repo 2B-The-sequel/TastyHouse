@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
+using System;
 
 namespace FoodMenuUtility.Persistence
 {
@@ -13,6 +14,7 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
 
         private List<Product> Products;
+        private List<Ingredient> Ingredients;
         private string CnnStr = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
@@ -21,11 +23,13 @@ namespace FoodMenuUtility.Persistence
 
         public ProductRepo()
         {
+            Ingredients = new List<Ingredient>();
             Products = new List<Product>();
             using (SqlConnection connection = new(CnnStr))
             {
+                
                 connection.Open();
-
+                byte[] image = null;
                 // Hvis billeder skal være der skal de tilføjes til table og values
                 string values = "Product_id, Name, Price, FK_PT_id, Image";
 
@@ -51,8 +55,8 @@ namespace FoodMenuUtility.Persistence
 
                         Product product = (id != -1)
 
-                            ? new(id, name, price, (ProductType)type)
-                            : new(name, price, (ProductType)type);
+                            ? new(id, name, price, (ProductType)type, image, Ingredients)
+                            : new(name, price, (ProductType)type, image, Ingredients);
 
                         Products.Add(product);
                     }
@@ -64,7 +68,7 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public int Add(Product product)
+        public int Add(Product product, List<Ingredient> ingredients)
         {
             int result;
             using (SqlConnection connection = new(CnnStr))
@@ -74,12 +78,12 @@ namespace FoodMenuUtility.Persistence
                 string Name = product.Name;
                 double ExtraPrice = product.Price;
 
-                string Type = product.Type;
+                ProductType Type = product.ProductType;
                 byte[] Image = product.Image;
 
 
                 string table = "Product";
-                string coloumns = "Product_id, Name, Price, Type, Image";
+                string coloumns = "Product_id, Name, Price, FK_TP_id, Image";
                 string values = "@Product_id, @Name, @Price, @Type, @Image";
                 string query =
                     $"INSERT INTO {table} ({coloumns})" +
@@ -89,12 +93,9 @@ namespace FoodMenuUtility.Persistence
 
                 sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = product.Name;
                 sqlCommand.Parameters.Add("@Price", SqlDbType.Float).Value = product.Price;
-
-
-                sqlCommand.Parameters.Add("@Type", SqlDbType.NVarChar).Value = product.Type;
+                sqlCommand.Parameters.Add("@Type", SqlDbType.Int).Value =  (int)Type;
                 sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
-
-
+                
                 sqlCommand.ExecuteNonQuery();
             }
             return result;
@@ -144,7 +145,7 @@ namespace FoodMenuUtility.Persistence
                 string values = $"@{id}, @{Name}, @{Price}, @{Type}, @{Image}";
                 string query =
                     $"UPDATE {table}" +
-                    $"SET Name = @'{Name}', Price = @'{Price}', Type = @'{Type}', Image = @'{Image}' " +
+                    $"SET Name = @'{Name}', Price = @'{Price}', FK_TP_id = @'{(int)Type}', Image = @'{Image}' " +
                     $"WHERE Product_id = {id}";
             }
         }
