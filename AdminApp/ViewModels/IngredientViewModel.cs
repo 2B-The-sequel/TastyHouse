@@ -51,6 +51,19 @@ namespace AdminApp.ViewModels
                 model.Image = value;
             }
         }
+        public int Count
+        {
+            get
+            {
+                return model.Count;
+            }
+            set
+            {
+                model.Count = value;
+            }
+        }        
+
+
 
         public IngredientViewModel(Ingredient model) : base(model) { }
     }
