@@ -51,7 +51,7 @@
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
                                     <DockPanel>
                                         <Label Content="{Binding Name}"/>
-                                        <TextBox Width="20" Name="IngredientNumber"/>
+                                        <TextBox Width="20" Text="{Binding Count}"/>
                                     </DockPanel>
                             </Border>
                             </StackPanel>

@@ -15,10 +15,22 @@ namespace FoodMenuUtility.Persistence
         private List<Ingredient> Ingredients;
         private string CnnStr = Properties.Settings.Default.WPF_Connection;
 
+        // Singleton
+        private static IngredientRepo _instance;
+        public static IngredientRepo Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new IngredientRepo();
+                return _instance;
+            }
+        }
+
         // ======================================================
         // Constructor: Adding every Ingredient entity from database to "Ingredients" list.
         // ======================================================
-        public IngredientRepo()
+        private IngredientRepo() // Constructor er private så man ikke kan lave flere instanser af IngredientRepo.
         {
             Ingredients = new List<Ingredient>();
             using (SqlConnection connection = new(CnnStr))

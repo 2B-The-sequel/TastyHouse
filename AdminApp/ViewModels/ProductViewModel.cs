@@ -23,8 +23,6 @@ namespace AdminApp.ViewModels
             set { product.ProductType = (ProductType)value; }
         }
 
-
-
         public ProductViewModel (Product model) : base (model)
         {
             this.product = model;

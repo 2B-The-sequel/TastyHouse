@@ -15,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FoodMenuUtility.Models;
+using FoodMenuUtility.Persistence;
 
 namespace AdminApp.Views
 {
@@ -23,18 +25,25 @@ namespace AdminApp.Views
     /// </summary>
     public partial class AddProductDialog : Window
     {
-        public MainViewModel MVM;
         public AddProductDialog()
         {
             InitializeComponent();
-            MVM = new MainViewModel();
-            DataContext = MVM;
+            DataContext = this;
+
+            List<Ingredient> test = IngredientRepo.Instance.GetAll();
+
+            foreach (Ingredient content in test)
+            {
+                Ingredients.Add(new IngredientViewModel(content));
+            }
         }
 
         public string ProductName { get; set; } 
         public string Price { get; set; } 
         public int Type { get; set; }
         public byte[] Image { get; set; }
+
+        public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {

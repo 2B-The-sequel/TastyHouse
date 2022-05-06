@@ -39,6 +39,7 @@ namespace AdminApp.ViewModels
                 model.ExtraPrice = value;
             }
         }
+
         public byte[] Image
         {
             get
