@@ -13,7 +13,7 @@ namespace AdminApp.ViewModels
         public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
         public ObservableCollection<IngredientViewModel> IngredientsInProduct { get; set; }
 
-        private readonly IngredientRepo IR = new();
+        private readonly IngredientRepo IR = IngredientRepo.Instance;
 
         public OrderViewModel SelectedOrder { get; set; }
         public ProductViewModel SelectedProduct { get; set; }

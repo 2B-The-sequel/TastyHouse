@@ -59,6 +59,7 @@ namespace AdminApp.Views
         {
             for (int i = 0; i < IngredientBox.Items.Count; i++)
             {
+                
                 /*
                 string i = IngredientBox.ItemTemplate.d
                 string m = IngredientBox.ItemTemplate.Resources.Values.ToString();
