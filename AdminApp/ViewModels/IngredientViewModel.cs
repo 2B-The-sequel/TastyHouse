@@ -53,4 +53,5 @@ namespace AdminApp.ViewModels
 
         public IngredientViewModel(Ingredient model) : base(model) { }
     }
+}
 
