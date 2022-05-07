@@ -68,7 +68,7 @@ namespace AdminApp
             AddContentDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                MVM.AddContent(dialog.IngredientsName, dialog.Price, dialog.Image);
+                MVM.AddContent(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage);
             }
         }
 
