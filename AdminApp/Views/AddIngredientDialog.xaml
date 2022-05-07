@@ -6,16 +6,16 @@
         <StackPanel>
             <DockPanel Margin="10">
                 <Label Content="Navn"/>
-                <TextBox Text="{Binding IngredientName}" Width="190" HorizontalAlignment="Right"/>
+                <TextBox Text="{Binding IngredientName}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
             </DockPanel>
             <DockPanel Margin="10">
                 <Label Content="Pris"/>
-                <TextBox Text="{Binding IngredientPrice}" Width="190" HorizontalAlignment="Right"/>
+                <TextBox Text="{Binding IngredientPrice}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
             </DockPanel>
             <DockPanel Margin="10">
                 <Label Content="Billede"/>
                 <DockPanel HorizontalAlignment="Right">
-                    <TextBox Text="{Binding ImagePath}" IsReadOnly="True" Width="110" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+                    <TextBox Text="{Binding ImagePath}" IsReadOnly="True" Width="110" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalContentAlignment="Center"/>
                     <Button Content="Gennemse" Width="70" Click="OpenImageButton_Click"/>
                 </DockPanel>
             </DockPanel>

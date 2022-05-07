@@ -13,6 +13,7 @@ namespace AdminApp.ViewModels
             set
             {
                 model.Id = value;
+                NotifyPropertyChanged(nameof(Id));
             }
         }
 
@@ -25,6 +26,7 @@ namespace AdminApp.ViewModels
             set
             {
                 model.Name = value;
+                NotifyPropertyChanged(nameof(Name));
             }
         }
 
@@ -37,6 +39,7 @@ namespace AdminApp.ViewModels
             set
             {
                 model.ExtraPrice = value;
+                NotifyPropertyChanged(nameof(ExtraPrice));
             }
         }
 
@@ -49,6 +52,7 @@ namespace AdminApp.ViewModels
             set
             {
                 model.Image = value;
+                NotifyPropertyChanged(nameof(Image));
             }
         }
 

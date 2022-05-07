@@ -82,7 +82,7 @@
                                 <TextBlock Text="Ny" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Sides, Path=SelectedItems.Count}" Click="Button_Click">
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Sides, Path=SelectedItems.Count}">
                             <StackPanel Margin="5">
                                 <Image Source="/Resources/Edit.png" Width="32"/>
                                 <TextBlock Text="Ændr" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
@@ -126,19 +126,19 @@
                 <!-- Content start -->
                 <DockPanel Width="100" DockPanel.Dock="Right" Margin="10 0 0 0">
                     <StackPanel>
-                        <Button Margin="0 0 0 10" Click="AddNewIngredient">
+                        <Button Margin="0 0 0 10" Click="NewIngredient_Click">
                             <StackPanel Margin="5">
                                 <Image Source="/Resources/Add.png" Width="32"/>
                                 <TextBlock Text="Ny" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Contents, Path=SelectedItems.Count}" Click="Button_Click">
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Contents, Path=SelectedItems.Count}" Click="EditIngredient_Click">
                             <StackPanel Margin="5">
                                 <Image Source="/Resources/Edit.png" Width="32"/>
                                 <TextBlock Text="Ændr" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Contents, Path=SelectedItems.Count}" Click="DeleteContent">
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Contents, Path=SelectedItems.Count}" Click="DeleteIngredient_Click">
                             <StackPanel Margin="5">
                                 <Image Source="/Resources/Remove.png" Width="32"/>
                                 <TextBlock Text="Slet" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
@@ -146,7 +146,7 @@
                         </Button>
                     </StackPanel>
                 </DockPanel>
-                <ListBox Name="Contents" Background="LightGray" ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedContent}">
+                <ListBox Name="Contents" Background="LightGray" ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedIngredient}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>
@@ -168,7 +168,7 @@
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
                                 <DockPanel>
                                     <Border BorderBrush="Black" BorderThickness="1">
-                                        <Image Source="{Binding Image}" Width="64" Height="64" Margin="0 0 5 0"/>
+                                        <Image Source="{Binding Image}" Width="64" Height="64" Margin="0 0 5 0" HorizontalAlignment="Center"/>
                                     </Border>
                                     <StackPanel Margin="10 0">
                                         <DockPanel>

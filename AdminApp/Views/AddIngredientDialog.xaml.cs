@@ -10,11 +10,36 @@ namespace AdminApp.Views
     /// </summary>
     public partial class AddContentDialog : Window, INotifyPropertyChanged
     {
-        public string IngredientName { get; set; }
-        public double IngredientPrice { get; set; }
+        private string _ingredientName = string.Empty;
+        public string IngredientName 
+        { 
+            get
+            {
+                return _ingredientName;
+            }
+            set
+            {
+                _ingredientName = value;
+                NotifyPropertyChanged(nameof(IngredientName));
+            }
+        }
+
+        private double _ingredientPrice = 0.0;
+        public double IngredientPrice
+        { 
+            get
+            {
+                return _ingredientPrice;
+            }
+            set
+            {
+                _ingredientPrice = value;
+                NotifyPropertyChanged(nameof(IngredientPrice));
+            }
+        }
 
         private string _imagePath = string.Empty;
-        private string ImagePath 
+        public string ImagePath 
         { 
             get
             {
@@ -65,7 +90,7 @@ namespace AdminApp.Views
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
                 IngredientImage = File.ReadAllBytes(openFileDialog.FileName);
