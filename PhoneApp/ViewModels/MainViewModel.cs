@@ -11,7 +11,6 @@ namespace PhoneApp.ViewModels
 {
     public class MainViewModel
     {
-        public ObservableCollection<MenuViewModel> Menus { get; set; }
         public ObservableCollection<ProductViewModel> Burgers { get; set; }
         public ObservableCollection<ProductViewModel> Sandwiches { get; set; }
         public ObservableCollection<ProductViewModel> Sides { get; set; }
@@ -22,7 +21,7 @@ namespace PhoneApp.ViewModels
 
         public MainViewModel()
         {
-            Menus = new ObservableCollection<MenuViewModel>();
+            
             Burgers = new ObservableCollection<ProductViewModel>();
             Sandwiches = new ObservableCollection<ProductViewModel>();
             Sides = new ObservableCollection<ProductViewModel>();

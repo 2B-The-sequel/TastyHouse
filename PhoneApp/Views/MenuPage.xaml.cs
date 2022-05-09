@@ -29,6 +29,5 @@ namespace PhoneApp.Views
             MVM = new MainViewModel();
             DataContext = MVM;
         }
-
     }
 }

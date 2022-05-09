@@ -35,54 +35,20 @@
                 <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
             </DockPanel>
             <TabControl Height="720">
-                <TabItem Name="MenuTab" Background="White" BorderThickness="0">
-                    <TabItem.Style>
-                        <Style TargetType="TabItem">
-                            <Setter Property="Header">
-                                <Setter.Value>
-                                    <Image Source="/Resources/Menu.png" Width="55"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Header">
-                                        <Setter.Value>
-                                            <Image Source="/Resources/Menu_Selected.png" Width='55'/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TabItem.Style>
-                    <ListBox Name="MenuListBox" ItemsSource="{Binding Menus}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
-                                        <Image Source="{Binding Image}" Width="10"></Image>
-                                        <TextBlock Text="{Binding name}"></TextBlock>
-                                        <TextBlock Text="{Binding price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
-                                    </DockPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                        
-                    </ListBox>
-                </TabItem>
+             
                 <TabItem Name="ProductTab" Background="White">
                     <TabItem.Style>
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Product.png" Width="59"/>
+                                    <Image Source="/Resources/Product.png" Width="78"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Product_Selected.png" Width='59'/>
+                                            <Image Source="/Resources/Product_Selected.png" Width='78'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -110,14 +76,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Sandwich.png" Width="59"/>
+                                    <Image Source="/Resources/Sandwich.png" Width="77"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Sandwich_Selected.png" Width='59'/>
+                                            <Image Source="/Resources/Sandwich_Selected.png" Width='77'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -145,14 +111,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Sides.png" Width="59"/>
+                                    <Image Source="/Resources/Sides.png" Width="77"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Sides_Selected.png" Width='59'/>
+                                            <Image Source="/Resources/Sides_Selected.png" Width='77'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -180,14 +146,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Drink.png" Width="62"/>
+                                    <Image Source="/Resources/Drink.png" Width="76"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Drink_Selected.png" Width='62'/>
+                                            <Image Source="/Resources/Drink_Selected.png" Width='76'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>

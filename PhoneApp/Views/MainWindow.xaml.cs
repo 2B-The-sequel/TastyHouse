@@ -1,4 +1,5 @@
-﻿using PhoneApp.Views;
+﻿using PhoneApp.ViewModels;
+using PhoneApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,13 @@ namespace DesignIdeTastyHouse
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public MainViewModel mvm;
         public MainWindow()
         {
             InitializeComponent();
+            mvm = new MainViewModel();  
+            DataContext = mvm;
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
