@@ -15,6 +15,7 @@
             <Setter Property="Background" Value="#9E2A2A"/>
             <Setter Property="Foreground" Value="#FFA900"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+        
         </Style>
         <Style TargetType="TabItem">
             <Setter Property="Height" Value="40"></Setter>
@@ -58,12 +59,30 @@
                     <ListBox Name="BurgerListBox" ItemsSource="{Binding Burgers}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
-                                        <Image Source="{Binding Image}" Width="10"></Image>
-                                        <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="300">
+
+                                        <StackPanel>
+                                            <Image Source="{Binding Image}" Width="10"></Image>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </StackPanel>
+                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
