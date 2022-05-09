@@ -60,8 +60,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
-                                    <DockPanel Width="300">
-
+                                    <DockPanel Width="325">
                                         <StackPanel>
                                             <Image Source="{Binding Image}" Width="10"></Image>
                                             <TextBlock Text="{Binding Name}"/>
@@ -87,7 +86,6 @@
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
                 <TabItem Name="SandwichTab" Background="White">
@@ -112,17 +110,32 @@
                     <ListBox Name="SandwichListBox" ItemsSource="{Binding Sandwiches}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
                                         <TextBlock Text=" kr."></TextBlock>
+                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
                 <TabItem Name="DrinkTab" Background="White">
@@ -147,17 +160,30 @@
                     <ListBox Name="SideListBox" ItemsSource="{Binding Sides}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
+                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
                 <TabItem Name="SideTab" Background="White">
@@ -182,17 +208,31 @@
                     <ListBox Name="RefreshmentListBox" ItemsSource="{Binding Refreshments}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
+                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
             </TabControl>
