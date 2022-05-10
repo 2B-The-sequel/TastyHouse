@@ -13,15 +13,15 @@
             <StackPanel>
                 <DockPanel Margin="10">
                     <Label Content="Navn:"></Label>
-                    <TextBox Text="{Binding name}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding ProductName}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Pris:"></Label>
-                    <TextBox Text="{Binding price}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding Price}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Type mad:"></Label>
-                    <TextBox Text="{Binding type}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <TextBox Text="{Binding Type}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Billede:"></Label>
@@ -51,7 +51,7 @@
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
                                     <DockPanel>
                                         <Label Content="{Binding Name}"/>
-                                        <TextBox Width="20" Text="{Binding Count}"/>
+                                        <TextBox Width="20" Text="{Binding Count_total}"/>
                                     </DockPanel>
                             </Border>
                             </StackPanel>

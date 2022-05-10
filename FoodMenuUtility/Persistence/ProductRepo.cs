@@ -14,7 +14,6 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
 
         private List<Product> Products;
-        private List<Ingredient> Ingredients;
         private string CnnStr = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
@@ -23,7 +22,6 @@ namespace FoodMenuUtility.Persistence
 
         public ProductRepo()
         {
-            Ingredients = new List<Ingredient>();
             Products = new List<Product>();
             using (SqlConnection connection = new(CnnStr))
             {
@@ -55,8 +53,8 @@ namespace FoodMenuUtility.Persistence
 
                         Product product = (id != -1)
 
-                            ? new(id, name, price, (ProductType)type, image, Ingredients)
-                            : new(name, price, (ProductType)type, image, Ingredients);
+                            ? new(id, name, price, (ProductType)type, image)
+                            : new(name, price, (ProductType)type, image);
 
                         Products.Add(product);
                     }
@@ -68,18 +66,17 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public int Add(Product product, List<Ingredient> ingredients)
+        public Product Add(string name, double price, ProductType type , byte[] image)
         {
-            int result;
+            Product product = new(name, price, type, image);
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                result = product.Id;
-                string Name = product.Name;
-                double ExtraPrice = product.Price;
+                string Name = name;
+                double ExtraPrice = price;
 
-                ProductType Type = product.ProductType;
-                byte[] Image = product.Image;
+                ProductType Type = type;
+                byte[] Image = image;
 
 
                 string table = "Product";
@@ -91,14 +88,21 @@ namespace FoodMenuUtility.Persistence
 
                 SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = product.Name;
-                sqlCommand.Parameters.Add("@Price", SqlDbType.Float).Value = product.Price;
+                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = Name;
+                sqlCommand.Parameters.Add("@Price", SqlDbType.Float).Value = ExtraPrice;
                 sqlCommand.Parameters.Add("@Type", SqlDbType.Int).Value =  (int)Type;
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
-                
-                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Image;
+
+                int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
+                product.Id = ID;
             }
-            return result;
+            return product;
+        }
+        public Ingredient AddToProdukt(int ing_id, int pro_id) 
+        {
+            int Ingredient_id = ing_id;
+            int Product_id = pro_id;
+            return null;
         }
 
         // ======================================================

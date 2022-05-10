@@ -51,7 +51,7 @@ namespace AdminApp.ViewModels
                 model.Image = value;
             }
         }
-        public int Count
+        public int Count_total
         {
             get
             {

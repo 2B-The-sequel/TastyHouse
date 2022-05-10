@@ -25,7 +25,7 @@ namespace AdminApp.Views
     /// </summary>
     public partial class AddProductDialog : Window
     {
-        public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
+        public ObservableCollection<IngredientViewModel> Ingredients { get; set; }      
         public AddProductDialog()
         {
             InitializeComponent();
@@ -43,8 +43,8 @@ namespace AdminApp.Views
         public string Price { get; set; } 
         public int Type { get; set; }
         public byte[] Image { get; set; }
-
         
+
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -58,14 +58,7 @@ namespace AdminApp.Views
 
         private void SaveProductButton_Click(object sender, RoutedEventArgs e)
         {
-            /*for (int i = 0; i < IngredientBox.Items.Count; i++)
-            {
-                IngredientViewModel humpe = Ingredients[i];
-                IngredientViewModel ivm = (IngredientViewModel)IngredientBox.Items[i];
-                string id = IngredientBox.Items[i].ToString();
-                
-
-            }*/
+            
             
             DialogResult = true;
         }
