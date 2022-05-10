@@ -27,5 +27,7 @@ namespace PhoneApp.ViewModels
         {
             this.cartItem = model;
         }
+
+
     }
 }

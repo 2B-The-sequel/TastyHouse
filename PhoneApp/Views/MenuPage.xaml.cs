@@ -38,7 +38,7 @@ namespace PhoneApp.Views
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
 
-            
+
             MVM.Cart.Add(obj);
         }
     }

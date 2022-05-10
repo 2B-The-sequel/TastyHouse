@@ -12,7 +12,6 @@ namespace FoodMenuUtility.Models
 
         public double Price { get; set; }
 
-        public byte[] Image { get; set; }
         public int Id { get; set; }
         public List<Ingredient> Ingredients { get; set; }
         private ProductType productType;
@@ -24,11 +23,11 @@ namespace FoodMenuUtility.Models
         }
 
 
-        public CartItem (string name, double price, byte[] image, ProductType productType )
+        public CartItem (int id, string name, double price, ProductType productType )
         {
+            Id = id;
             Name = name;
             Price = price;
-            Image = image;
             ProductType = productType;
         }
 
