@@ -43,18 +43,19 @@ namespace AdminApp.ViewModels
             }
         }
 
-        public void AddIngredient(string name, double price, byte[] image)
+        public void AddIngredient(string name, double price, byte[] image, bool soldOut)
         {
-            Ingredient ingredients = IR.Create(name, price, image);
+            Ingredient ingredients = IR.Create(name, price, image, soldOut);
             IngredientViewModel CVM = new(ingredients);
             Ingredients.Add(CVM);
         }
 
-        public void EditIngredient(string name, double price, byte[] image)
+        public void EditIngredient(string name, double price, byte[] image, bool soldOut)
         {
             SelectedIngredient.Name = name;
             SelectedIngredient.ExtraPrice = price;
             SelectedIngredient.Image = image;
+            SelectedIngredient.SoldOut = soldOut;
 
             //MANGLER AT SENDE VIDERE TIL SQL
         }

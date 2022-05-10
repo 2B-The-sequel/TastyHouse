@@ -56,6 +56,19 @@ namespace AdminApp.ViewModels
             }
         }
 
+        public bool SoldOut 
+        { 
+            get
+            {
+                return model.SoldOut;
+            }
+            set
+            {
+                model.SoldOut = value;
+                NotifyPropertyChanged(nameof(SoldOut));
+            } 
+        }
+
         public IngredientViewModel(Ingredient model) : base(model) { }
     }
 }

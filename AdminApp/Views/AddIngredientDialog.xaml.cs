@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System.ComponentModel;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 
 namespace AdminApp.Views
 {
@@ -66,6 +68,20 @@ namespace AdminApp.Views
             }
         }
 
+        private bool _ingredientSoldOut = false;
+        public bool IngredientSoldOut
+        { 
+            get
+            {
+                return _ingredientSoldOut;
+            }
+            set
+            {
+                _ingredientSoldOut = value;
+                NotifyPropertyChanged(nameof(IngredientSoldOut));
+            } 
+        }
+
         public AddContentDialog()
         {
             InitializeComponent();
@@ -96,6 +112,15 @@ namespace AdminApp.Views
                 IngredientImage = File.ReadAllBytes(openFileDialog.FileName);
                 ImagePath = openFileDialog.FileName;
             }
+        }
+
+        /// <summary>
+        /// Ensures that the textbox can only contain numbers.
+        /// </summary>
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

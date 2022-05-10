@@ -10,7 +10,11 @@
             </DockPanel>
             <DockPanel Margin="10">
                 <Label Content="Pris"/>
-                <TextBox Text="{Binding IngredientPrice}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
+                <TextBox Text="{Binding IngredientPrice}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox"/>
+            </DockPanel>
+            <DockPanel Margin="10">
+                <Label Content="Udsolgt"/>
+                <CheckBox VerticalContentAlignment="Center" Width="190" HorizontalAlignment="Right" IsChecked="{Binding IngredientSoldOut}"/>
             </DockPanel>
             <DockPanel Margin="10">
                 <Label Content="Billede"/>

@@ -68,7 +68,7 @@ namespace AdminApp
             AddContentDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                MVM.AddIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage);
+                MVM.AddIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
             }
         }
 
@@ -86,10 +86,11 @@ namespace AdminApp
             dialog.IngredientName = MVM.SelectedIngredient.Name;
             dialog.IngredientPrice = MVM.SelectedIngredient.ExtraPrice;
             dialog.IngredientImage = MVM.SelectedIngredient.Image;
+            dialog.IngredientSoldOut = MVM.SelectedIngredient.SoldOut;
 
             if (dialog.ShowDialog() == true)
             {
-                MVM.EditIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage);
+                MVM.EditIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
             }
         }
     }
