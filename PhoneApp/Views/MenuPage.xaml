@@ -65,7 +65,7 @@
                                             <Image Source="{Binding Image}" Width="10"></Image>
                                             <TextBlock Text="{Binding Name}"/>
                                         </StackPanel>
-                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Name="AddToCartButton" Tag="{Binding .}" Click="AddToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>

@@ -48,10 +48,18 @@ namespace DesignIdeTastyHouse
 
         private void ContactButton_Click(object sender, RoutedEventArgs e)
         {
-            ContactPage cp = new();
-            MainFrameWindow.Navigate(cp);
+            ContactPage copa = new();
+            MainFrameWindow.Navigate(copa);
             Index.Visibility = Visibility.Hidden;
             MainFrameWindow.Visibility= Visibility.Visible;
+        }
+
+        private void CartButton_Click(object sender, RoutedEventArgs e)
+        {
+            CartPage capa = new();
+            MainFrameWindow.Navigate(capa);
+            Index.Visibility = Visibility.Hidden;
+            MainFrameWindow.Visibility = Visibility.Visible;
         }
     }
 }

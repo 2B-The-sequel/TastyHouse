@@ -15,6 +15,7 @@ namespace PhoneApp.ViewModels
         public ObservableCollection<ProductViewModel> Sandwiches { get; set; }
         public ObservableCollection<ProductViewModel> Sides { get; set; }
         public ObservableCollection<ProductViewModel> Refreshments { get; set; }
+        public ObservableCollection<ProductViewModel> Cart { get; set; }
        
         //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
@@ -26,6 +27,7 @@ namespace PhoneApp.ViewModels
             Sandwiches = new ObservableCollection<ProductViewModel>();
             Sides = new ObservableCollection<ProductViewModel>();
             Refreshments = new ObservableCollection<ProductViewModel>();
+            Cart = new ObservableCollection<ProductViewModel>();
            
             /*List<Menu> menuList = mr.GetAll();
             foreach (Menu menu in menuList)

@@ -1,5 +1,4 @@
-﻿using FoodMenuUtility.Persistence;
-using PhoneApp.ViewModels;
+﻿using PhoneApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,28 +17,16 @@ using System.Windows.Shapes;
 namespace PhoneApp.Views
 {
     /// <summary>
-    /// Interaction logic for MenuPage.xaml
+    /// Interaction logic for BasketPage.xaml
     /// </summary>
-    public partial class MenuPage : Page
+    public partial class CartPage : Page
     {
         public MainViewModel MVM;
-        public CartViewModel cartViewModel;
-        public MenuPage()
+        public CartPage()
         {
             InitializeComponent();
             MVM = new MainViewModel();
             DataContext = MVM;
-        }
-
-
-        private void AddToCartButton_Click(object sender, RoutedEventArgs e)
-        {
-           
-            var button = (Button)sender;
-            var obj = (ProductViewModel)button.DataContext;
-
-            
-            MVM.Cart.Add(obj);
         }
     }
 }
