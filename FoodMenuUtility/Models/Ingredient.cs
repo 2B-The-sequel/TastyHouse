@@ -38,43 +38,21 @@ namespace FoodMenuUtility.Models
         }
         private int count;
 
-        public int Count
+        private bool soldOut;
+        public bool SoldOut
         {
-            get { return count; }
-            set { count = value; }
+            get { return soldOut; }
+            set { soldOut = value; }
         }
 
-
-        public Ingredient(int id, string name, double extraPrice, byte[] image, int count)
+        public Ingredient(int id, string name, double extraPrice, byte[] image, bool soldOut)
         {
             Id = id;
             Name = name;
             ExtraPrice = extraPrice;
             Image = image;
-            Count = count;
-        }
-        
-        public Ingredient(string name, double extraPrice, byte[] image) :
-            this(-1, name, extraPrice, image, 0)
-        {
 
-        }
-        public Ingredient(int id, string name, double extraPrice, byte[] image) :
-            this(id, name, extraPrice, image, 0)
-        {
-
-        }
-        public Ingredient(string name, double extraPrice) :
-            this(-1, name, extraPrice, null, 0)
-        {
-
-        }
-        public Ingredient(int id, string name, double extraPrice) :
-            this(id, name, extraPrice, null, 0)
-        {
-
+            SoldOut = soldOut;
         }
     }
-
 }
-

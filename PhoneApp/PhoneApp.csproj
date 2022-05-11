@@ -25,6 +25,7 @@
     <None Remove="Resources\Sandwich_Selected.png" />
     <None Remove="Resources\Sides.png" />
     <None Remove="Resources\Sides_selected.png" />
+    <None Remove="Resources\TrashCan.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,6 +85,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Sides_selected.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TrashCan.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

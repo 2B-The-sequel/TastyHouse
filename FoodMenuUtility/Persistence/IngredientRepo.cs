@@ -37,7 +37,7 @@ namespace FoodMenuUtility.Persistence
             {
                 connection.Open();
                 // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Ingredient_id, Name, Extra_Price, Image";
+                string values = "Ingredient_id, Name, Extra_Price, Image, Sold_Out";
                 string table = "Ingredient";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
@@ -48,18 +48,11 @@ namespace FoodMenuUtility.Persistence
                         int id = sqldatareader.GetInt32("Ingredient_id");
                         string name = sqldatareader.GetString("Name");
                         double extraPrice = sqldatareader.GetDouble("Extra_Price");
-                        byte[] image = null;
+                        byte[] image = image = (byte[])sqldatareader["Image"];
+                        bool soldout = sqldatareader.GetBoolean("Sold_Out");
 
-
-                        if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
-                        {
-                            image = (byte[])sqldatareader["Image"];
-                        }
-
-                        Ingredient cont = (id != -1)
-                            ? new(id, name, extraPrice, image)
-                            : new(name, extraPrice, image);
-                        Ingredients.Add(cont);
+                        Ingredient ingredient = new(id, name, extraPrice, image, soldout);
+                        Ingredients.Add(ingredient);
                     }
                 }
             }
@@ -69,42 +62,31 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Ingredient Create(string name, double price, byte[] image)
+        public Ingredient Create(string name, double price, byte[] image, bool soldOut)
         {
-            Ingredient Ingredient = new(name, price, image);
-
+            Ingredient ingredient;
+            
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                string Name = Ingredient.Name;
-                double ExtraPrice = Ingredient.ExtraPrice;
-                byte[] Image = Ingredient.Image;
 
                 string table = "Ingredient";
-                string coloumns = "Name, Extra_Price, Image";
-                string values = "@Name, @ExtraPrice, @Image";
-                if (Image == null)
-                {
-                    coloumns = "Name, Extra_Price";
-                    values = "@Name, @ExtraPrice";
-                }
+                string coloumns = "Name, Extra_Price, Image, Sold_Out";
+                string values = "@Name, @ExtraPrice, @Image, @Sold_Out";
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
                 SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add(new SqlParameter("Name", Name));
-                sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", ExtraPrice));
-                if (Image != null)
-                {
-                    sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Ingredient.Image;
-                }                
-                
+                sqlCommand.Parameters.Add(new SqlParameter("Name", name));
+                sqlCommand.Parameters.Add(new SqlParameter("ExtraPrice", price));
+                sqlCommand.Parameters.Add(new SqlParameter("Sold_Out", soldOut ? 1 : 0));
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = image;
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
-                Ingredient.Id = ID;
+                ingredient = new(ID, name, price, image, soldOut);
             }
 
-            return Ingredient;
+            return ingredient;
         }
 
         // ======================================================

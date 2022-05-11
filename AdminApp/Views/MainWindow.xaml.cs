@@ -74,28 +74,34 @@ namespace AdminApp
 
         
 
-        private void AddNewIngredient(object sender, RoutedEventArgs e)
+        private void NewIngredient_Click(object sender, RoutedEventArgs e)
         {
             AddContentDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
-                MVM.AddContent(dialog.IngredientsName, dialog.Price, dialog.Image);
+                MVM.AddIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
             }
         }
 
-        private void DeleteContent(object sender, RoutedEventArgs e)
+        private void DeleteIngredient_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                MVM.RemoveContent();
+                MVM.RemoveIngredient();
             }
         }        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EditIngredient_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Er du sikker på at du vil afvise orderen?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            AddContentDialog dialog = new();
+            dialog.IngredientName = MVM.SelectedIngredient.Name;
+            dialog.IngredientPrice = MVM.SelectedIngredient.ExtraPrice;
+            dialog.IngredientImage = MVM.SelectedIngredient.Image;
+            dialog.IngredientSoldOut = MVM.SelectedIngredient.SoldOut;
+
+            if (dialog.ShowDialog() == true)
             {
-                
+                MVM.EditIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
             }
         }
     }

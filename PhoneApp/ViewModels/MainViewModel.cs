@@ -11,22 +11,35 @@ namespace PhoneApp.ViewModels
 {
     public class MainViewModel
     {
-        public ObservableCollection<MenuViewModel> Menus { get; set; }
         public ObservableCollection<ProductViewModel> Burgers { get; set; }
         public ObservableCollection<ProductViewModel> Sandwiches { get; set; }
         public ObservableCollection<ProductViewModel> Sides { get; set; }
         public ObservableCollection<ProductViewModel> Refreshments { get; set; }
+        public ObservableCollection<ProductViewModel> Cart { get; set; }
        
         //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
 
-        public MainViewModel()
+        // Singleton
+        private static MainViewModel _instance;
+        public static MainViewModel Instance
         {
-            Menus = new ObservableCollection<MenuViewModel>();
+            get
+            {
+                if (_instance == null)
+                    _instance = new MainViewModel();
+                return _instance;
+            }
+        }
+
+        private MainViewModel()
+        {
+            
             Burgers = new ObservableCollection<ProductViewModel>();
             Sandwiches = new ObservableCollection<ProductViewModel>();
             Sides = new ObservableCollection<ProductViewModel>();
             Refreshments = new ObservableCollection<ProductViewModel>();
+            Cart = new ObservableCollection<ProductViewModel>();
            
             /*List<Menu> menuList = mr.GetAll();
             foreach (Menu menu in menuList)
