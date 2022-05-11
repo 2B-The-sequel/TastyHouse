@@ -46,8 +46,8 @@ namespace AdminApp.ViewModels
         public void AddIngredient(string name, double price, byte[] image, bool soldOut)
         {
             Ingredient ingredients = IR.Create(name, price, image, soldOut);
-            IngredientViewModel CVM = new(ingredients);
-            Ingredients.Add(CVM);
+            IngredientViewModel ivm = new(ingredients);
+            Ingredients.Add(ivm);
         }
 
         public void EditIngredient(string name, double price, byte[] image, bool soldOut)
