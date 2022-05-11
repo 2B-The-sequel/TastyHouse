@@ -115,7 +115,7 @@
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
                                         <TextBlock Text=" kr."></TextBlock>
-                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Tag="{Binding .}" Name="AddToCartButton1" Click="AddToCartButton1_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>
@@ -164,7 +164,7 @@
                                     <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Tag="{Binding .}" Name="AddToCartButton2" Click="AddToCartButton2_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>
@@ -212,7 +212,7 @@
                                     <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Tag="{Binding .}" Name="AddToCartButton3" Click="AddToCartButton3_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>

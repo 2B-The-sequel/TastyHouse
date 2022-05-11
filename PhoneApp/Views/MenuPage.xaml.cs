@@ -41,5 +41,32 @@ namespace PhoneApp.Views
 
             MVM.Cart.Add(obj);
         }
+
+        private void AddToCartButton1_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var obj = (ProductViewModel)button.DataContext;
+
+
+            MVM.Cart.Add(obj);
+        }
+
+        private void AddToCartButton2_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var obj = (ProductViewModel)button.DataContext;
+
+
+            MVM.Cart.Add(obj);
+        }
+
+        private void AddToCartButton3_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var obj = (ProductViewModel)button.DataContext;
+
+
+            MVM.Cart.Add(obj);
+        }
     }
 }
