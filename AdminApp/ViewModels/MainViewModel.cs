@@ -88,7 +88,7 @@ namespace AdminApp.ViewModels
             SelectedIngredient.Image = image;
             SelectedIngredient.SoldOut = soldOut;
 
-            //MANGLER AT SENDE VIDERE TIL SQL
+            IngredientRepo.Instance.Update(SelectedIngredient.Id);
         }
 
         public void RemoveIngredient()
