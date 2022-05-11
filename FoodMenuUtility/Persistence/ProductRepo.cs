@@ -51,8 +51,8 @@ namespace FoodMenuUtility.Persistence
                         {
                             image = (byte[])sqldatareader["Image"];
                         }
-                        
 
+                        type = type - 1;
                         Product product = (id != -1)
 
                             ? new(id, name, price, (ProductType)type, image, Ingredients)

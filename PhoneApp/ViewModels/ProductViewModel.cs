@@ -11,16 +11,16 @@ namespace PhoneApp.ViewModels
     {
         private readonly Product product;
 
-        public int Id { get; set; }
+        public int Id { get { return product.Id; } set { product.Id = value; } }
         public string Name { get { return product.Name; } set { product.Name = value; } }
 
         public double Price { get { return product.Price; } set { product.Price = value; } }
 
         private ProductType productType;
 
-        public int ProductType
+        public ProductType ProductType
         {
-            get { return (int)product.ProductType; }
+            get { return (ProductType)product.ProductType; }
             set { product.ProductType = (ProductType)value; }
         }
 

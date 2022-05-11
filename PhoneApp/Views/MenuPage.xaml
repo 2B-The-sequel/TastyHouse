@@ -15,6 +15,7 @@
             <Setter Property="Background" Value="#9E2A2A"/>
             <Setter Property="Foreground" Value="#FFA900"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+        
         </Style>
         <Style TargetType="TabItem">
             <Setter Property="Height" Value="40"></Setter>
@@ -35,54 +36,20 @@
                 <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
             </DockPanel>
             <TabControl Height="720">
-                <TabItem Name="MenuTab" Background="White" BorderThickness="0">
-                    <TabItem.Style>
-                        <Style TargetType="TabItem">
-                            <Setter Property="Header">
-                                <Setter.Value>
-                                    <Image Source="/Resources/Menu.png" Width="55"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Header">
-                                        <Setter.Value>
-                                            <Image Source="/Resources/Menu_Selected.png" Width='55'/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TabItem.Style>
-                    <ListBox Name="MenuListBox" ItemsSource="{Binding Menus}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
-                                        <Image Source="{Binding Image}" Width="10"></Image>
-                                        <TextBlock Text="{Binding name}"></TextBlock>
-                                        <TextBlock Text="{Binding price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
-                                    </DockPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                        
-                    </ListBox>
-                </TabItem>
+             
                 <TabItem Name="ProductTab" Background="White">
                     <TabItem.Style>
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Product.png" Width="59"/>
+                                    <Image Source="/Resources/Product.png" Width="78"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Product_Selected.png" Width='59'/>
+                                            <Image Source="/Resources/Product_Selected.png" Width='78'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -92,17 +59,33 @@
                     <ListBox Name="BurgerListBox" ItemsSource="{Binding Burgers}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
-                                        <Image Source="{Binding Image}" Width="10"></Image>
-                                        <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="325">
+                                        <StackPanel>
+                                            <Image Source="{Binding Image}" Width="10"></Image>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </StackPanel>
+                                        <Button Name="AddToCartButton" Tag="{Binding .}" Click="AddToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
                 <TabItem Name="SandwichTab" Background="White">
@@ -110,14 +93,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Sandwich.png" Width="59"/>
+                                    <Image Source="/Resources/Sandwich.png" Width="77"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Sandwich_Selected.png" Width='59'/>
+                                            <Image Source="/Resources/Sandwich_Selected.png" Width='77'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -127,17 +110,32 @@
                     <ListBox Name="SandwichListBox" ItemsSource="{Binding Sandwiches}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
                                         <TextBlock Text=" kr."></TextBlock>
+                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
                 <TabItem Name="DrinkTab" Background="White">
@@ -145,14 +143,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Sides.png" Width="59"/>
+                                    <Image Source="/Resources/Sides.png" Width="77"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Sides_Selected.png" Width='59'/>
+                                            <Image Source="/Resources/Sides_Selected.png" Width='77'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -162,17 +160,30 @@
                     <ListBox Name="SideListBox" ItemsSource="{Binding Sides}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
+                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
                 <TabItem Name="SideTab" Background="White">
@@ -180,14 +191,14 @@
                         <Style TargetType="TabItem">
                             <Setter Property="Header">
                                 <Setter.Value>
-                                    <Image Source="/Resources/Drink.png" Width="62"/>
+                                    <Image Source="/Resources/Drink.png" Width="76"/>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Header">
                                         <Setter.Value>
-                                            <Image Source="/Resources/Drink_Selected.png" Width='62'/>
+                                            <Image Source="/Resources/Drink_Selected.png" Width='76'/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -197,17 +208,31 @@
                     <ListBox Name="RefreshmentListBox" ItemsSource="{Binding Refreshments}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
+                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                                    <DockPanel Width="325">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
+                                        <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                                </Style>
+                                            </Button.Resources>
+
+                                            <StackPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
+                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Button>
                                     </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
                     </ListBox>
                 </TabItem>
             </TabControl>
