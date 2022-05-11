@@ -55,6 +55,19 @@ namespace AdminApp.ViewModels
                 NotifyPropertyChanged(nameof(Image));
             }
         }
+        public int Count_total
+        {
+            get
+            {
+                return model.Count;
+            }
+            set
+            {
+                model.Count = value;
+            }
+        }        
+
+
 
         public bool SoldOut 
         { 

@@ -24,19 +24,30 @@ namespace AdminApp
             AddProductDialog addSideDialog = new();
             if (addSideDialog.ShowDialog() == true)
             {
-                for (int i = 0; i < MVM.IngredientsInProduct.Count; i++)
+                
+                for (int i = 0; i < addSideDialog.IngredientBox.Items.Count; i++)
                 {
-                    MVM.Ingredients.Count.ToString();
+                    if (addSideDialog.Ingredients[i].Count_total != 0)
+                    {
+                        MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i]);
+                        //MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i].Id, addSideDialog.Ingredients[i].Name, addSideDialog.Ingredients[i].Count_total, addSideDialog.Ingredients[i].Image, addSideDialog.Ingredients[i].ExtraPrice);
+                    }
+                    
+
                 }
-                Product side = new(addSideDialog.ProductName, int.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type);
-                ProductViewModel _side = new(side);
-                MVM.Sides.Add(_side);
+                MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.Image);
+                
+                
+                
             } 
         }
 
         private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                MVM.RemoveContent();
+            }
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)

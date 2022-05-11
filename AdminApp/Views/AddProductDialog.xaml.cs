@@ -25,11 +25,12 @@ namespace AdminApp.Views
     /// </summary>
     public partial class AddProductDialog : Window
     {
+        public ObservableCollection<IngredientViewModel> Ingredients { get; set; }      
         public AddProductDialog()
         {
             InitializeComponent();
             DataContext = this;
-
+            Ingredients = new ObservableCollection<IngredientViewModel>();
             List<Ingredient> test = IngredientRepo.Instance.GetAll();
 
             foreach (Ingredient content in test)
@@ -42,8 +43,8 @@ namespace AdminApp.Views
         public string Price { get; set; } 
         public int Type { get; set; }
         public byte[] Image { get; set; }
+        
 
-        public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -57,16 +58,7 @@ namespace AdminApp.Views
 
         private void SaveProductButton_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < IngredientBox.Items.Count; i++)
-            {
-                
-                /*
-                string i = IngredientBox.ItemTemplate.d
-                string m = IngredientBox.ItemTemplate.Resources.Values.ToString();
-                string y = IngredientBox.Items[i].ToString();
-                string x = IngredientBox.Items[i-1].ToString();
-                */
-            }
+            
             
             DialogResult = true;
         }

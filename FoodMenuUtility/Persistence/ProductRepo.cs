@@ -14,7 +14,6 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
 
         private List<Product> Products;
-        private List<Ingredient> Ingredients;
         private string CnnStr = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
@@ -23,7 +22,6 @@ namespace FoodMenuUtility.Persistence
 
         public ProductRepo()
         {
-            Ingredients = new List<Ingredient>();
             Products = new List<Product>();
             using (SqlConnection connection = new(CnnStr))
             {
@@ -55,8 +53,8 @@ namespace FoodMenuUtility.Persistence
                         type = type - 1;
                         Product product = (id != -1)
 
-                            ? new(id, name, price, (ProductType)type, image, Ingredients)
-                            : new(name, price, (ProductType)type, image, Ingredients);
+                            ? new(id, name, price, (ProductType)type, image)
+                            : new(name, price, (ProductType)type, image);
 
                         Products.Add(product);
                     }
@@ -68,37 +66,71 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public int Add(Product product, List<Ingredient> ingredients)
+        public Product Add(string name, double price, ProductType type , byte[] image)
         {
-            int result;
+            Product product = new(name, price, type, image);
             using (SqlConnection connection = new(CnnStr))
             {
                 connection.Open();
-                result = product.Id;
-                string Name = product.Name;
-                double ExtraPrice = product.Price;
+                string Name = name;
+                double ExtraPrice = price;
 
-                ProductType Type = product.ProductType;
-                byte[] Image = product.Image;
+                ProductType Type = type;
+                byte[] Image = image;
 
 
                 string table = "Product";
-                string coloumns = "Product_id, Name, Price, FK_TP_id, Image";
-                string values = "@Product_id, @Name, @Price, @Type, @Image";
-                string query =
-                    $"INSERT INTO {table} ({coloumns})" +
-                    $"VALUES ({values})";
+                string coloumns = "Product.Name, Product.Price, Product.FK_PT_id, Product.Image";
+                string values = "@Name, @Price, @Type, @Image";
+                
+                if (Image == null)
+                {
+                    coloumns = "Product.Name, Product.Price, Product.FK_PT_id";
+                    values = "@Name, @Price, @Type";
+                }
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
+
+                
+                SqlCommand sqlCommand = new(query, connection);
+
+
+                sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));                
+                sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));                
+                sqlCommand.Parameters.Add(new SqlParameter("@Type", Type));
+                if (Image != null)
+                {
+                    sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Image;
+                }
+
+                int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
+                product.Id = ID;
+            }
+            return product;
+        }
+        public void AddToProdukt(int ing_id, int pro_id) 
+        {
+            using (SqlConnection connection = new(CnnStr))
+            {
+                connection.Open();
+                int Ingredient_id = ing_id;
+                int Product_id = pro_id;
+
+
+                string table = "Product_Ingredient";
+                string coloumns = "FK_Ingredient_id, FK_Product_id";
+                string values = "@ing_id, @pro_id";
+
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
+
 
                 SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = product.Name;
-                sqlCommand.Parameters.Add("@Price", SqlDbType.Float).Value = product.Price;
-                sqlCommand.Parameters.Add("@Type", SqlDbType.Int).Value =  (int)Type;
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
+
+                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", Product_id));
+                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", Ingredient_id));//Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
                 
                 sqlCommand.ExecuteNonQuery();
             }
-            return result;
         }
 
         // ======================================================
