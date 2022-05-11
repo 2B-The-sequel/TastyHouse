@@ -11,7 +11,7 @@ namespace AdminApp.ViewModels
     {
         private readonly Product product;
 
-        public int id { get; set; }
+        public int Id { get { return product.Id; } set { product.Id = value; } }
 
         public string Name { get { return product.Name; } set { product.Name = value; } }
 
@@ -21,6 +21,18 @@ namespace AdminApp.ViewModels
         {
             get { return (int)product.ProductType; }
             set { product.ProductType = (ProductType)value; }
+        }
+
+        public byte[] Image
+        {
+            get
+            {
+                return model.Image;
+            }
+            set
+            {
+                model.Image = value;
+            }
         }
 
         public ProductViewModel (Product model) : base (model)

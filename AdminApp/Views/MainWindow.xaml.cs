@@ -29,7 +29,7 @@ namespace AdminApp
                 {
                     if (addSideDialog.Ingredients[i].Count_total != 0)
                     {
-                        MVM.IngredientsInProduct.Add((IngredientViewModel)addSideDialog.Ingredients[i]);
+                        MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i]);
                         //MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i].Id, addSideDialog.Ingredients[i].Name, addSideDialog.Ingredients[i].Count_total, addSideDialog.Ingredients[i].Image, addSideDialog.Ingredients[i].ExtraPrice);
                     }
                     
@@ -44,7 +44,10 @@ namespace AdminApp
 
         private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                MVM.RemoveContent();
+            }
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)

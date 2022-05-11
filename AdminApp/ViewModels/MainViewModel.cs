@@ -24,8 +24,9 @@ namespace AdminApp.ViewModels
         {
             Orders = new ObservableCollection<OrderViewModel>();
             Ingredients = new ObservableCollection<IngredientViewModel>();
-
-            Products = new ObservableCollection<ProductViewModel> { };
+            IngredientsInProduct = new ObservableCollection<IngredientViewModel>();
+            PR = new();
+            Products = new ObservableCollection<ProductViewModel> {};
 
             //TESTING
             for (int i = 1; i <= 10; i++)
@@ -42,21 +43,30 @@ namespace AdminApp.ViewModels
                 Ingredients.Add(new IngredientViewModel(content));
 
             }
+            List<Product> ProList = PR.GetAll();
+            foreach (Product prolist in ProList)
+            {
+
+                Products.Add(new ProductViewModel(prolist));
+
+            }            
         }
 
         public void AddProduct(string name, double price,ProductType type, byte[] image)
         {
+
             Product side = PR.Add(name, price, type, image);
             ProductViewModel _side = new(side);
             Products.Add(_side);
 
             
-            int pro_id = _side.id;
+            int pro_id = side.Id;
             for (int i = 0; i < IngredientsInProduct.Count; i++)
             {
                 int id = IngredientsInProduct[i].Id;
                 PR.AddToProdukt(id, pro_id);
             }
+            IngredientsInProduct.Clear();
             
         }
         public void AddContentToProduct(IngredientViewModel IVM)
@@ -70,12 +80,17 @@ namespace AdminApp.ViewModels
             IngredientViewModel CVM = new(ingredients);
             Ingredients.Add(CVM);
         }
-        
+
 
         public void RemoveContent()
         {
             IR.Remove(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
+        }
+        public void RemoveProduct()
+        {
+            PR.Remove(SelectedProduct.Id);
+            Products.Remove(SelectedProduct);
         }
     }
 }

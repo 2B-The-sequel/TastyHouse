@@ -96,19 +96,46 @@
                         </Button>
                     </StackPanel>
                 </DockPanel>
-                <ListBox Name="Sides" Background="LightGray" ItemsSource="{Binding Sides}">
+                <ListBox Name="Sides" Background="LightGray" ItemsSource="{Binding Products}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                            </Style.Resources>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </StackPanel>
+                                <DockPanel>
+                                    <Border BorderBrush="Black" BorderThickness="1">
+                                        <Image Source="{Binding Image}" Width="64" Height="64" Margin="0 0 5 0"/>
+                                    </Border>
+                                    <StackPanel Margin="10 0">
+                                        <DockPanel>
+                                            <TextBlock Text="Navn: "/>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Pris: "/>
+                                            <TextBlock Text="{Binding Price}"/>
+                                            <TextBlock Text=" kr."/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="ID: "/>
+                                            <TextBlock Text="{Binding Id}"/>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </DockPanel>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -146,7 +173,7 @@
                         </Button>
                     </StackPanel>
                 </DockPanel>
-                <ListBox Name="Contents" Background="LightGray" ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedContent}">
+                <ListBox Name="Contents" Background="LightGray" ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedIngredient}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>

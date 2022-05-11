@@ -80,29 +80,57 @@ namespace FoodMenuUtility.Persistence
 
 
                 string table = "Product";
-                string coloumns = "Product_id, Name, Price, FK_TP_id, Image";
-                string values = "@Product_id, @Name, @Price, @Type, @Image";
-                string query =
-                    $"INSERT INTO {table} ({coloumns})" +
-                    $"VALUES ({values})";
+                string coloumns = "Product.Name, Product.Price, Product.FK_PT_id, Product.Image";
+                string values = "@Name, @Price, @Type, @Image";
+                
+                if (Image == null)
+                {
+                    coloumns = "Product.Name, Product.Price, Product.FK_PT_id";
+                    values = "@Name, @Price, @Type";
+                }
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
+                
                 SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add("@Name", SqlDbType.NVarChar).Value = Name;
-                sqlCommand.Parameters.Add("@Price", SqlDbType.Float).Value = ExtraPrice;
-                sqlCommand.Parameters.Add("@Type", SqlDbType.Int).Value =  (int)Type;
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Image;
+
+                sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));                
+                sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));                
+                sqlCommand.Parameters.Add(new SqlParameter("@Type", Type));
+                if (Image != null)
+                {
+                    sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = Image;
+                }
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 product.Id = ID;
             }
             return product;
         }
-        public Ingredient AddToProdukt(int ing_id, int pro_id) 
+        public void AddToProdukt(int ing_id, int pro_id) 
         {
-            int Ingredient_id = ing_id;
-            int Product_id = pro_id;
-            return null;
+            using (SqlConnection connection = new(CnnStr))
+            {
+                connection.Open();
+                int Ingredient_id = ing_id;
+                int Product_id = pro_id;
+
+
+                string table = "Product_Ingredient";
+                string coloumns = "FK_Ingredient_id, FK_Product_id";
+                string values = "@ing_id, @pro_id";
+
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
+
+
+                SqlCommand sqlCommand = new(query, connection);
+
+
+                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", Product_id));
+                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", Ingredient_id));//Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
+                
+                sqlCommand.ExecuteNonQuery();
+            }
         }
 
         // ======================================================
