@@ -55,22 +55,20 @@ namespace AdminApp.ViewModels
                 NotifyPropertyChanged(nameof(Image));
             }
         }
+
+        private int count_total;
+
         public int Count_total
         {
-            get
-            {
-                return model.Count;
-            }
-            set
-            {
-                model.Count = value;
-            }
-        }        
+            get { return count_total; }
+            set { count_total = value; }
+        }
 
 
 
-        public bool SoldOut 
-        { 
+
+        public bool SoldOut
+        {
             get
             {
                 return model.SoldOut;
@@ -79,10 +77,9 @@ namespace AdminApp.ViewModels
             {
                 model.SoldOut = value;
                 NotifyPropertyChanged(nameof(SoldOut));
-            } 
+            }
         }
 
         public IngredientViewModel(Ingredient model) : base(model) { }
     }
 }
-

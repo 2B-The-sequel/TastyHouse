@@ -33,7 +33,7 @@ namespace FoodMenuUtility.Models
         }
 
         public Product(int id, string name, double price, ProductType type, byte[] image) :
-            this(id, name, price, type, image, null)
+             this(id, name, price, type, image, null)
         {
 
         }
@@ -46,7 +46,7 @@ namespace FoodMenuUtility.Models
             this(-1, name, price, type, image, ingredients)
         {
 
-        }        
+        }
         public Product(string name, double price, ProductType type) :
             this(-1, name, price, type, null, null)
         {
@@ -62,7 +62,7 @@ namespace FoodMenuUtility.Models
         {
 
         }
-        
+
 
     }
 }

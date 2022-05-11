@@ -21,6 +21,7 @@ namespace PhoneApp.Views
     /// </summary>
     public partial class CartPage : Page
     {
+      
         public MainViewModel MVM;
         public CartPage()
         {

@@ -52,14 +52,14 @@ namespace AdminApp.ViewModels
             }            
         }
 
-        public void AddProduct(string name, double price,ProductType type, byte[] image)
+        public void AddProduct(string name, double price, ProductType type, byte[] image)
         {
 
             Product side = PR.Add(name, price, type, image);
             ProductViewModel _side = new(side);
             Products.Add(_side);
 
-            
+
             int pro_id = side.Id;
             for (int i = 0; i < IngredientsInProduct.Count; i++)
             {
@@ -67,11 +67,11 @@ namespace AdminApp.ViewModels
                 PR.AddToProdukt(id, pro_id);
             }
             IngredientsInProduct.Clear();
-            
+
         }
         public void AddContentToProduct(IngredientViewModel IVM)
         {
-            
+        }  
         public void AddIngredient(string name, double price, byte[] image, bool soldOut)
         {
             Ingredient ingredients = IR.Create(name, price, image, soldOut);

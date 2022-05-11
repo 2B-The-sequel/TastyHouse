@@ -66,7 +66,7 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Product Add(string name, double price, ProductType type , byte[] image)
+        public Product Add(string name, double price, ProductType type, byte[] image)
         {
             Product product = new(name, price, type, image);
             using (SqlConnection connection = new(CnnStr))
@@ -82,7 +82,7 @@ namespace FoodMenuUtility.Persistence
                 string table = "Product";
                 string coloumns = "Product.Name, Product.Price, Product.FK_PT_id, Product.Image";
                 string values = "@Name, @Price, @Type, @Image";
-                
+
                 if (Image == null)
                 {
                     coloumns = "Product.Name, Product.Price, Product.FK_PT_id";
@@ -90,12 +90,12 @@ namespace FoodMenuUtility.Persistence
                 }
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
-                
+
                 SqlCommand sqlCommand = new(query, connection);
 
 
-                sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));                
-                sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));                
+                sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));
+                sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));
                 sqlCommand.Parameters.Add(new SqlParameter("@Type", Type));
                 if (Image != null)
                 {

@@ -1,11 +1,7 @@
 ﻿using FoodMenuUtility.Models;
-using System;
+using FoodMenuUtility.Persistence;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using FoodMenuUtility.Persistence;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PhoneApp.ViewModels
 {
@@ -16,7 +12,14 @@ namespace PhoneApp.ViewModels
         public ObservableCollection<ProductViewModel> Sides { get; set; }
         public ObservableCollection<ProductViewModel> Refreshments { get; set; }
         public ObservableCollection<ProductViewModel> Cart { get; set; }
-       
+
+
+        public double CartTotal
+        {
+            get { return GetCartTotal(); }
+        }
+
+
         //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
 
@@ -30,6 +33,22 @@ namespace PhoneApp.ViewModels
                     _instance = new MainViewModel();
                 return _instance;
             }
+        }
+
+        public double GetCartTotal()
+        {
+            double CartTotal = 0;
+            double itemPrice;
+
+            foreach (ProductViewModel item in Cart)
+            {
+                itemPrice = item.Price;
+
+                CartTotal = itemPrice + CartTotal;
+            }
+
+            return CartTotal;
+           
         }
 
         private MainViewModel()

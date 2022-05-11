@@ -23,7 +23,7 @@
                                     <StackPanel>
                                         <TextBlock Text="{Binding Name}"/>
                                         <DockPanel>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                            <TextBlock Text="{Binding Price}"></TextBlock>
                                         </DockPanel>
                                     </StackPanel>
                                     <Button Name="RemoveItemButton" Click="RemoveItemButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
@@ -44,5 +44,13 @@
                 </ListBox>
             </StackPanel>
         </StackPanel>
+        <Button Margin="0,667,0,94">
+            <StackPanel>
+                <TextBlock Text="Færdiggør bestilling"></TextBlock>
+                <TextBlock Text="{Binding CartTotal}">
+                    
+                </TextBlock>
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>
