@@ -62,6 +62,51 @@ namespace FoodMenuUtility.Persistence
             }
         }
 
+        public void AmazingMethod()
+        {
+            public List<String> stringList = new List<string> ();
+        public String[] IDList = new string[500];
+
+            using (SqlConnection connection = new(CnnStr))
+            {
+
+                connection.Open();
+                
+                    string table = "Product_Ingredient";
+                    string values = "FK_Ingredient_id, FK_Product_id";
+                    string CommandText = $"SELECT {values} FROM {table}";
+
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                {
+                    while (sqldatareader.Read() != false)
+                    {
+                        string ing_id = int.Parse(sqldatareader.GetInt32("FK_Ingredient_id"));
+                        string pro_id = int.Parse(sqldatareader.GetInt32("FK_Product_id"));
+                        string splitString = ing_id + "," + pro_id;
+                        StringList.Add(splitString);
+                    }
+                        foreach (String s in stringList)
+                        {
+                          String[] IDList =+ s.Split(",");
+                        }
+                        foreach (Product product in Products)
+                        {
+                                for (int i = 0; i > StringList.Count; i++)
+                                 {
+                                    
+                                    if (product.Id == IDList[i] && i%2 == 0 || i == 0)
+                                     {
+                                         AddIngredient(int.Parse(IDList[i + 1]),product);
+                                     }
+                                     
+
+                                 }
+                        }
+                    }
+
+        }
+
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
@@ -133,6 +178,7 @@ namespace FoodMenuUtility.Persistence
             }
         }
 
+
         // ======================================================
         // Repository CRUD: Read (Reading entity from database)
         // ======================================================
@@ -154,6 +200,11 @@ namespace FoodMenuUtility.Persistence
                 }
             }
             return result;
+        }
+
+        public void AddIngredient(int ing_id,Product product)
+        {
+            product.Ingredients.Add(GetById(ing_id));
         }
 
         // ======================================================
