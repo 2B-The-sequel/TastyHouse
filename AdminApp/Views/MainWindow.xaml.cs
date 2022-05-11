@@ -46,7 +46,7 @@ namespace AdminApp
         {
             if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                MVM.RemoveContent();
+                MVM.RemoveProduct();
             }
         }
 

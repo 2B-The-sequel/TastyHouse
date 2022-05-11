@@ -71,6 +71,7 @@ namespace AdminApp.ViewModels
         }
         public void AddContentToProduct(IngredientViewModel IVM)
         {
+        }
             
         public void AddIngredient(string name, double price, byte[] image, bool soldOut)
         {
