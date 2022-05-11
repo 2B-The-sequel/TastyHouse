@@ -36,7 +36,6 @@ namespace FoodMenuUtility.Models
             get { return extraPrice; }
             set { extraPrice = value; }
         }
-        private int count;
 
         private bool soldOut;
         public bool SoldOut
@@ -53,6 +52,11 @@ namespace FoodMenuUtility.Models
             Image = image;
 
             SoldOut = soldOut;
+        }
+        public Ingredient(int id, string name) :
+            this(id, name, 0, null, false)
+        {
+
         }
     }
 }

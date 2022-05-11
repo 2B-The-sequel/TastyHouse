@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AdminApp.Views"
         mc:Ignorable="d"
 
-        Title="Tilføj vare" Height="500" Width="500" ResizeMode="NoResize">
+        Title="Tilføj vare" Height="600" Width="500" ResizeMode="NoResize">
     <Grid>
         <StackPanel Margin="10">
             <Label Content="Tilføj ny vare" HorizontalAlignment="Center"></Label>
@@ -24,9 +24,23 @@
                     <TextBox Text="{Binding Type}" Width="150" HorizontalAlignment="Right"></TextBox>
                 </DockPanel>
                 <DockPanel Margin="10">
-                    <Label Content="Billede:"></Label>
-                    <Button Name="OpenImageButton" Content="Gennemse" Width="150" HorizontalAlignment="Right" Click="OpenImageButton_Click"></Button>
+                    <Label Content="Billede"/>
+                    <DockPanel HorizontalAlignment="Right">
+                        <DockPanel>
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="10" Width="200">
+                                <Image Height="100" Source="{Binding ProductImage}"/>
+                            </Border>
+                        </DockPanel>
+                        <DockPanel>
+
+                            <TextBox Text="{Binding ImagePath}" IsReadOnly="True" Width="110" Height="25" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalContentAlignment="Center"/>
+                            <Button Content="Gennemse" Width="70" Height="25" Click="OpenImageButton_Click"/>
+                        </DockPanel>
+                        
+                        
+                    </DockPanel>
                 </DockPanel>
+                
                 <ListBox x:Name="IngredientBox" ItemsSource="{Binding Ingredients}" Height="150" Width="480">
                     <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">

@@ -63,15 +63,17 @@ namespace AdminApp.ViewModels
             int pro_id = side.Id;
             for (int i = 0; i < IngredientsInProduct.Count; i++)
             {
-                int id = IngredientsInProduct[i].Id;
-                PR.AddToProdukt(id, pro_id);
+                for (int x = 0; x < IngredientsInProduct[i].Count_total; x++)
+                {
+                    int id = IngredientsInProduct[i].Id;
+                    PR.AddToProdukt(id, pro_id);
+                }
+                
             }
             IngredientsInProduct.Clear();
             
         }
-        public void AddContentToProduct(IngredientViewModel IVM)
-        {
-        }
+
             
         public void AddIngredient(string name, double price, byte[] image, bool soldOut)
         {
@@ -89,6 +91,10 @@ namespace AdminApp.ViewModels
             SelectedIngredient.SoldOut = soldOut;
 
             //MANGLER AT SENDE VIDERE TIL SQL
+        }
+        public void GetIngredientsInBurger()
+        {
+
         }
 
         public void RemoveIngredient()
