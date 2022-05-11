@@ -27,8 +27,8 @@ namespace PhoneApp.Views
         public MenuPage()
         {
             InitializeComponent();
-            MVM = new MainViewModel();
-            DataContext = MVM;
+            DataContext = MainViewModel.Instance;
+            MVM = MainViewModel.Instance;
         }
 
 

@@ -20,7 +20,19 @@ namespace PhoneApp.ViewModels
         //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
 
-        public MainViewModel()
+        // Singleton
+        private static MainViewModel _instance;
+        public static MainViewModel Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new MainViewModel();
+                return _instance;
+            }
+        }
+
+        private MainViewModel()
         {
             
             Burgers = new ObservableCollection<ProductViewModel>();

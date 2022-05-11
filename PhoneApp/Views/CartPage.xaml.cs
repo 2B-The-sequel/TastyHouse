@@ -25,8 +25,13 @@ namespace PhoneApp.Views
         public CartPage()
         {
             InitializeComponent();
-            MVM = new MainViewModel();
-            DataContext = MVM;
+            DataContext = MainViewModel.Instance;
+            MVM = MainViewModel.Instance;
+        }
+
+        private void RemoveItemButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -26,7 +26,7 @@
                                         <TextBlock Text="{Binding Price}"></TextBlock>
                                         </DockPanel>
                                     </StackPanel>
-                                    <Button HorizontalAlignment="Right" Width="100" Padding="5">
+                                    <Button Name="RemoveItemButton" Click="RemoveItemButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="5"></Setter>

@@ -27,8 +27,8 @@ namespace DesignIdeTastyHouse
         public MainWindow()
         {
             InitializeComponent();
-            mvm = new MainViewModel();  
-            DataContext = mvm;
+            DataContext = MainViewModel.Instance;
+            mvm = MainViewModel.Instance;
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
