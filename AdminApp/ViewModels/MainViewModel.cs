@@ -13,8 +13,7 @@ namespace AdminApp.ViewModels
         public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
         public ObservableCollection<IngredientViewModel> IngredientsInProduct { get; set; }
 
-        private readonly IngredientRepo IR = IngredientRepo.Instance;
-        public ProductRepo PR;
+        private ProductRepo PR = new();
 
         public OrderViewModel SelectedOrder { get; set; }
         public ProductViewModel SelectedProduct { get; set; }
@@ -25,7 +24,6 @@ namespace AdminApp.ViewModels
             Orders = new ObservableCollection<OrderViewModel>();
             Ingredients = new ObservableCollection<IngredientViewModel>();
             IngredientsInProduct = new ObservableCollection<IngredientViewModel>();
-            PR = new();
             Products = new ObservableCollection<ProductViewModel> {};
 
             //TESTING
@@ -36,25 +34,22 @@ namespace AdminApp.ViewModels
                 Orders.Add(ovm);
             }
 
-            List<Ingredient> contentList = IR.GetAll();
+            List<Ingredient> contentList = IngredientRepo.Instance.GetAll();
             foreach (Ingredient content in contentList)
             {
-
                 Ingredients.Add(new IngredientViewModel(content));
-
             }
+
             List<Product> ProList = PR.GetAll();
             foreach (Product prolist in ProList)
             {
-
                 Products.Add(new ProductViewModel(prolist));
-
             }            
         }
 
+        // Products
         public void AddProduct(string name, double price,ProductType type, byte[] image)
         {
-
             Product product = PR.Create(name, price, type, image);
             ProductViewModel pvm = new(product);
             Products.Add(pvm);
@@ -68,14 +63,16 @@ namespace AdminApp.ViewModels
             IngredientsInProduct.Clear();
         }
 
-        public void AddContentToProduct(IngredientViewModel IVM)
+        public void RemoveProduct()
         {
-
+            PR.Remove(SelectedProduct.Id);
+            Products.Remove(SelectedProduct);
         }
-            
+
+        // Ingredients
         public void AddIngredient(string name, double price, byte[] image, bool soldOut)
         {
-            Ingredient ingredients = IR.Create(name, price, image, soldOut);
+            Ingredient ingredients = IngredientRepo.Instance.Create(name, price, image, soldOut);
             IngredientViewModel ivm = new(ingredients);
             Ingredients.Add(ivm);
         }
@@ -87,19 +84,13 @@ namespace AdminApp.ViewModels
             SelectedIngredient.Image = image;
             SelectedIngredient.SoldOut = soldOut;
 
-            //MANGLER AT SENDE VIDERE TIL SQL
+            IngredientRepo.Instance.Update(SelectedIngredient.Id);
         }
 
         public void RemoveIngredient()
         {
-            IR.Remove(SelectedIngredient.Id);
+            IngredientRepo.Instance.Remove(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
-        }
-
-        public void RemoveProduct()
-        {
-            PR.Remove(SelectedProduct.Id);
-            Products.Remove(SelectedProduct);
         }
     }
 }

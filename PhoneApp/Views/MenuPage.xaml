@@ -15,7 +15,6 @@
             <Setter Property="Background" Value="#9E2A2A"/>
             <Setter Property="Foreground" Value="#FFA900"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-        
         </Style>
         <Style TargetType="TabItem">
             <Setter Property="Height" Value="40"></Setter>
@@ -32,11 +31,10 @@
     <Grid>
         <StackPanel>
             <DockPanel Background="White">
-                <Label Content="Menukort" Margin="10" HorizontalAlignment="Center" FontSize="24" Foreground="#FF9E2A2A"></Label>
+                <TextBlock Text="Menukort" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lemon" FontSize="24" Foreground="#FF9E2A2A"/>
                 <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
             </DockPanel>
             <TabControl Height="720">
-             
                 <TabItem Name="ProductTab" Background="White">
                     <TabItem.Style>
                         <Style TargetType="TabItem">
@@ -60,7 +58,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
-                                    <DockPanel Width="325">
+                                    <DockPanel Width="300">
                                         <StackPanel>
                                             <Image Source="{Binding Image}" Width="10"></Image>
                                             <TextBlock Text="{Binding Name}"/>
@@ -111,7 +109,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
-                                    <DockPanel Width="325">
+                                    <DockPanel Width="300">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
                                         <TextBlock Text=" kr."></TextBlock>
@@ -161,7 +159,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
-                                    <DockPanel Width="325">
+                                    <DockPanel Width="300">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
                                         <Button HorizontalAlignment="Right" Width="100" Padding="5">
@@ -209,7 +207,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
-                                    <DockPanel Width="325">
+                                    <DockPanel Width="300">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
                                         <Button HorizontalAlignment="Right" Width="100" Padding="5">

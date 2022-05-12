@@ -31,7 +31,7 @@
 
     <StackPanel Background="LightGray">
         <DockPanel Background="White">
-            <Label Content="Kontakt" Margin="10" HorizontalAlignment="Center" FontSize="24" Foreground="#FF9E2A2A"></Label>
+            <TextBlock Text="Kontakt" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lemon" FontSize="24" Foreground="#FF9E2A2A"/>
             <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
         </DockPanel>
         <Label Content="Åbningstider:" FontSize="24" HorizontalAlignment="Center" Foreground="#FFFFA900" ></Label>
