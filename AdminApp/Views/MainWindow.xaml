@@ -82,7 +82,7 @@
                                 <TextBlock Text="Ny" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>
                             </StackPanel>
                         </Button>
-                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Sides, Path=SelectedItems.Count}">
+                        <Button Margin="0 0 0 10" IsEnabled="{Binding ElementName=Sides, Path=SelectedItems.Count}" Click="EditProduct_Click">
                             <StackPanel Margin="5">
                                 <Image Source="/Resources/Edit.png" Width="32"/>
                                 <TextBlock Text="Ændr" HorizontalAlignment="Center" FontFamily="Comic Sans MS"/>

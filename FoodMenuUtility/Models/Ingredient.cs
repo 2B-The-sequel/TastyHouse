@@ -53,5 +53,10 @@ namespace FoodMenuUtility.Models
 
             SoldOut = soldOut;
         }
+        public Ingredient(int id, string name) :
+            this(id, name, 0, null, false)
+        {
+
+        }
     }
 }

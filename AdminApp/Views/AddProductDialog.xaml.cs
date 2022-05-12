@@ -5,25 +5,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using FoodMenuUtility.Models;
 using FoodMenuUtility.Persistence;
+using System.ComponentModel;
 
 namespace AdminApp.Views
 {
     /// <summary>
     /// Interaction logic for AddSideWindow.xaml
     /// </summary>
-    public partial class AddProductDialog : Window
+    public partial class AddProductDialog : Window, INotifyPropertyChanged
     {
         public ObservableCollection<IngredientViewModel> Ingredients { get; set; }      
         public AddProductDialog()
@@ -39,11 +30,56 @@ namespace AdminApp.Views
             }
         }
 
-        public string ProductName { get; set; } 
-        public string Price { get; set; } 
-        public int Type { get; set; }
-        public byte[] Image { get; set; }
-        
+        private string productName = string.Empty;
+
+        public string ProductName
+        {
+            get { return productName; }
+            set
+            {
+                productName = value;
+                NotifyPropertyChanged(nameof(productName));
+            }
+        }
+        private string price = string.Empty;
+
+        public string Price
+        {
+            get { return price; }
+            set { price = value; NotifyPropertyChanged(nameof(price)); }
+        }
+        private int type;
+
+        public int Type
+        {
+            get { return type; }
+            set { type = value; NotifyPropertyChanged(nameof(type)); }
+        }
+        private byte[] productImage;
+
+        public byte[] ProductImage
+        {
+            get { return productImage; }
+            set { productImage = value; NotifyPropertyChanged(nameof(productImage)); }
+        }
+
+
+        private string _imagePath = string.Empty;
+
+
+        public string ImagePath
+        {
+            get
+            {
+                return _imagePath;
+            }
+            set
+            {
+                _imagePath = value;
+                NotifyPropertyChanged(nameof(ImagePath));
+            }
+        }
+
 
 
         private void OpenImageButton_Click(object sender, RoutedEventArgs e)
@@ -52,7 +88,8 @@ namespace AdminApp.Views
             openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                Image = File.ReadAllBytes(openFileDialog.FileName);
+                ProductImage = File.ReadAllBytes(openFileDialog.FileName);
+                ImagePath = openFileDialog.FileName;
             }
         }
 
@@ -66,6 +103,16 @@ namespace AdminApp.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DialogResult= false;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Used to notify UI of changes in a property.
+        /// </summary>
+        // <param name="propertyName">Name of the property changed.</param>
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
