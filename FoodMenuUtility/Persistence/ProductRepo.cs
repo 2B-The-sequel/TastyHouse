@@ -14,9 +14,7 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
 
         private List<Product> Products;
-        private List<Ingredient> IngredientInProduct;
-        private List<int> ingIdToProId;
-        private string CnnStr = Properties.Settings.Default.WPF_Connection;
+        private string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // ======================================================
         // Constructor: Adding every Content entity from database to "Contents" list.
@@ -25,7 +23,7 @@ namespace FoodMenuUtility.Persistence
         public ProductRepo()
         {
             Products = new List<Product>();
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 byte[] image = null;
@@ -49,10 +47,7 @@ namespace FoodMenuUtility.Persistence
                         }
 
                         type = type - 1;
-                        Product product = (id != -1)
-
-                            ? new(id, name, price, (ProductType)type, image, IngredientInProduct)
-                            : new(name, price, (ProductType)type, image);
+                        Product product = new(id, name, price, (ProductType)type, image);
 
                         Products.Add(product);
                     }
@@ -69,7 +64,7 @@ namespace FoodMenuUtility.Persistence
             List<int> FK_Ingredients = new();
             List<int> FK_Products = new();
 
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 
@@ -104,8 +99,8 @@ namespace FoodMenuUtility.Persistence
 
         public Product Create(string name, double price, ProductType type , byte[] image)
         {
-            Product product = new(name, price, type, image);
-            using (SqlConnection connection = new(CnnStr))
+            Product product;
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 string Name = name;
@@ -139,13 +134,13 @@ namespace FoodMenuUtility.Persistence
                 }
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
-                product.Id = ID;
+                product = new(ID, name, price, type, image);
             }
             return product;
         }
         public void AddToProdukt(int ing_id, int pro_id) 
         {
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 int Ingredient_id = ing_id;
@@ -181,7 +176,7 @@ namespace FoodMenuUtility.Persistence
         }
         public List<Product> GetIngredientFromProduct()
         {
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 // får ing id som passer til pro id
                 string table = "Product_Ingredient";
@@ -237,7 +232,7 @@ namespace FoodMenuUtility.Persistence
 
         public void Update(Product product)
         {
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 int id = product.Id;
@@ -270,7 +265,7 @@ namespace FoodMenuUtility.Persistence
                     Products.Remove(PT);
                 }
             }
-            using (SqlConnection connection = new(CnnStr))
+            using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 string table = "Product";

@@ -22,47 +22,15 @@ namespace FoodMenuUtility.Models
         }
 
 
-        public Product(int id, string name, double price, ProductType type, byte[] image, List<Ingredient> ingredients)
+        public Product(int id, string name, double price, ProductType type, byte[] image)
         {
             Id = id;
             Name = name;
             Price = price;
             ProductType = type;
             Image = image;
-            Ingredients = ingredients;
+
+            Ingredients = new List<Ingredient>();
         }
-
-        public Product(int id, string name, double price, ProductType type, byte[] image) :
-            this(id, name, price, type, image, new List<Ingredient>())
-        {
-
-        }
-        public Product(string name, double price, ProductType type, byte[] image) :
-            this(-1, name, price, type, image, new List<Ingredient>())
-        {
-
-        }
-        public Product(string name, double price, ProductType type, byte[] image, List<Ingredient> ingredients) :
-            this(-1, name, price, type, image, ingredients)
-        {
-
-        }
-        public Product(string name, double price, ProductType type) :
-            this(-1, name, price, type, null, new List<Ingredient>())
-        {
-
-        }
-        public Product(int id, string name, double price, ProductType type, List<Ingredient> ingredients) :
-            this(id, name, price, type, null, ingredients)
-        {
-
-        }
-        public Product(string name, double price, ProductType type, List<Ingredient> ingredients) :
-            this(-1, name, price, type, null, ingredients)
-        {
-
-        }
-
-
     }
 }
