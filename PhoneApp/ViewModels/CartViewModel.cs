@@ -2,7 +2,7 @@ using FoodMenuUtility.Models;
 
 namespace PhoneApp.ViewModels
 {
-    public class CartViewModel : ViewModel<CartItem>, INotifyPropertyChanged
+    public class CartViewModel : ViewModel<CartItem>
     {
         public int Id 
         { 
