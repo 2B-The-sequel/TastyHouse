@@ -44,7 +44,7 @@
                 </ListBox>
             </StackPanel>
         </StackPanel>
-        <Button Margin="0,727,0,0" Background="#FFFFA900">
+        <Button Name="CompleteOrderButton" Tag="{Binding .}"  Margin="0,727,0,0" Background="#FFFFA900" Click="CompleteOrderButton_Click">
             <StackPanel>
                 <TextBlock Text="Færdiggør bestilling" FontSize="20" FontFamily="Lemon-Regular.ttf" Foreground="#FF9E2A2A"></TextBlock>
                 <DockPanel HorizontalAlignment="Center">
