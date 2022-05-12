@@ -55,22 +55,22 @@ namespace AdminApp.ViewModels
         public void AddProduct(string name, double price,ProductType type, byte[] image)
         {
 
-            Product side = PR.Add(name, price, type, image);
-            ProductViewModel _side = new(side);
-            Products.Add(_side);
-
+            Product product = PR.Create(name, price, type, image);
+            ProductViewModel pvm = new(product);
+            Products.Add(pvm);
             
-            int pro_id = side.Id;
+            int pro_id = product.Id;
             for (int i = 0; i < IngredientsInProduct.Count; i++)
             {
                 int id = IngredientsInProduct[i].Id;
                 PR.AddToProdukt(id, pro_id);
             }
             IngredientsInProduct.Clear();
-            
         }
+
         public void AddContentToProduct(IngredientViewModel IVM)
         {
+
         }
             
         public void AddIngredient(string name, double price, byte[] image, bool soldOut)
@@ -79,7 +79,6 @@ namespace AdminApp.ViewModels
             IngredientViewModel ivm = new(ingredients);
             Ingredients.Add(ivm);
         }
-
 
         public void EditIngredient(string name, double price, byte[] image, bool soldOut)
         {
@@ -96,6 +95,7 @@ namespace AdminApp.ViewModels
             IR.Remove(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
         }
+
         public void RemoveProduct()
         {
             PR.Remove(SelectedProduct.Id);
