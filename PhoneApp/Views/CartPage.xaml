@@ -8,7 +8,12 @@
       d:DesignHeight="844" d:DesignWidth="360"
       Title="BasketPage">
 
-    <Grid>
+   <Grid>
+    <StackPanel>
+        <DockPanel Background="White">
+            <TextBlock Text="Kurv" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lemon" FontSize="24" Foreground="#FF9E2A2A"/>
+            <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
+        </DockPanel>
         <StackPanel>
             <DockPanel Background="White">
                 <Label Content="Kurv" Margin="10" HorizontalAlignment="Center" FontSize="24" Foreground="#FF9E2A2A"></Label>
@@ -23,26 +28,35 @@
                                     <StackPanel>
                                         <TextBlock Text="{Binding Name}"/>
                                         <DockPanel>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                            <TextBlock Text="{Binding Price}"></TextBlock>
                                         </DockPanel>
+                                </StackPanel>
+                                <Button Name="RemoveItemButton" Click="RemoveItemButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"></Setter>
+                                        </Style>
+                                    </Button.Resources>
+                                    <StackPanel>
+                                        <Image Source="/Resources/TrashCan.png" Width="32"></Image>
+                                        <TextBlock FontSize="16" Text="Fjern"></TextBlock>
                                     </StackPanel>
-                                    <Button Name="RemoveItemButton" Click="RemoveItemButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
-                                        <Button.Resources>
-                                            <Style TargetType="Border">
-                                                <Setter Property="CornerRadius" Value="5"></Setter>
-                                            </Style>
-                                        </Button.Resources>
-                                        <StackPanel>
-                                            <Image Source="/Resources/TrashCan.png" Width="32"></Image>
-                                            <TextBlock FontSize="16" Text="Fjern"></TextBlock>
-                                        </StackPanel>
-                                    </Button>
-                                </DockPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
+                                </Button>
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
+        <Button Name="CompleteOrderButton" Tag="{Binding .}"  Margin="0,727,0,0" Background="#FFFFA900" Click="CompleteOrderButton_Click">
+            <StackPanel>
+                <TextBlock Text="Færdiggør bestilling" FontSize="20" FontFamily="Lemon-Regular.ttf" Foreground="#FF9E2A2A"></TextBlock>
+                <DockPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Total: " Foreground="#FF9E2A2A"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding CartTotal}" Foreground="#FF9E2A2A"/>
+                    <TextBlock Text=" kr." Foreground="#FF9E2A2A"></TextBlock>
+                </DockPanel>
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>

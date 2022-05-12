@@ -2,6 +2,7 @@
 using PhoneApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,9 @@ namespace PhoneApp.Views
     /// <summary>
     /// Interaction logic for MenuPage.xaml
     /// </summary>
-    public partial class MenuPage : Page
+    public partial class MenuPage : Page, INotifyPropertyChanged
     {
+
         public MainViewModel MVM;
         public CartViewModel cartViewModel;
         public MenuPage()
@@ -40,6 +42,50 @@ namespace PhoneApp.Views
 
 
             MVM.Cart.Add(obj);
+            NotifyPropertyChanged("CartTotal");
+        }
+
+        private void AddToCartButton1_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var obj = (ProductViewModel)button.DataContext;
+
+
+            MVM.Cart.Add(obj);
+            NotifyPropertyChanged("CartTotal");
+        }
+
+        private void AddToCartButton2_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var obj = (ProductViewModel)button.DataContext;
+
+
+            MVM.Cart.Add(obj);
+            NotifyPropertyChanged("CartTotal");
+        }
+
+        private void AddToCartButton3_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            var obj = (ProductViewModel)button.DataContext;
+
+
+            MVM.Cart.Add(obj);
+            NotifyPropertyChanged("CartTotal");
+        }
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Used to notify UI of changes in a property.
+        /// </summary>
+        // <param name="propertyName">Name of the property changed.</param>
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

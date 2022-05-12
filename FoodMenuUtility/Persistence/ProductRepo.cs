@@ -25,7 +25,6 @@ namespace FoodMenuUtility.Persistence
             Products = new List<Product>();
             using (SqlConnection connection = new(CnnStr))
             {
-                
                 connection.Open();
                 byte[] image = null;
                 // Hvis billeder skal være der skal de tilføjes til table og values
@@ -60,13 +59,51 @@ namespace FoodMenuUtility.Persistence
                     }
                 }
             }
+            AddIngredientsToProducts();
+        }
+
+        /// <summary>
+        /// Adds ingredients to the products.
+        /// </summary>
+        private void AddIngredientsToProducts()
+        {
+            List<int> FK_Ingredients = new();
+            List<int> FK_Products = new();
+
+            using (SqlConnection connection = new(CnnStr))
+            {
+                connection.Open();
+                
+                string table = "Product_Ingredient";
+                string values = "FK_Ingredient_id, FK_Product_id";
+                string CommandText = $"SELECT {values} FROM {table}";
+
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                {
+                    while (sqldatareader.Read() != false)
+                    {
+                        FK_Ingredients.Add(sqldatareader.GetInt32("FK_Ingredient_id"));
+                        FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
+                    }
+
+                    for (int i = 0; i < FK_Products.Count; i++)
+                    {
+                        foreach (Product product in Products)
+                        {
+                            if (product.Id == FK_Products[i])
+                                AddIngredient(FK_Ingredients[i], product);
+                        }
+                    }
+                }
+            }
         }
 
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Product Add(string name, double price, ProductType type , byte[] image)
+        public Product Create(string name, double price, ProductType type , byte[] image)
         {
             Product product = new(name, price, type, image);
             using (SqlConnection connection = new(CnnStr))
@@ -82,7 +119,7 @@ namespace FoodMenuUtility.Persistence
                 string table = "Product";
                 string coloumns = "Product.Name, Product.Price, Product.FK_PT_id, Product.Image";
                 string values = "@Name, @Price, @Type, @Image";
-                
+
                 if (Image == null)
                 {
                     coloumns = "Product.Name, Product.Price, Product.FK_PT_id";
@@ -90,12 +127,12 @@ namespace FoodMenuUtility.Persistence
                 }
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
-                
+
                 SqlCommand sqlCommand = new(query, connection);
 
 
-                sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));                
-                sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));                
+                sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));
+                sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));
                 sqlCommand.Parameters.Add(new SqlParameter("@Type", Type));
                 if (Image != null)
                 {
@@ -133,6 +170,7 @@ namespace FoodMenuUtility.Persistence
             }
         }
 
+
         // ======================================================
         // Repository CRUD: Read (Reading entity from database)
         // ======================================================
@@ -154,6 +192,11 @@ namespace FoodMenuUtility.Persistence
                 }
             }
             return result;
+        }
+
+        public void AddIngredient(int ing_id,Product product)
+        {
+            product.Ingredients.Add(IngredientRepo.Instance.GetById(ing_id));
         }
 
         // ======================================================

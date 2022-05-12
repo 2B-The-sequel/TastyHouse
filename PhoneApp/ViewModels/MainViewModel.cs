@@ -1,11 +1,7 @@
 ﻿using FoodMenuUtility.Models;
-using System;
+using FoodMenuUtility.Persistence;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using FoodMenuUtility.Persistence;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PhoneApp.ViewModels
 {
@@ -16,9 +12,18 @@ namespace PhoneApp.ViewModels
         public ObservableCollection<ProductViewModel> Sides { get; set; }
         public ObservableCollection<ProductViewModel> Refreshments { get; set; }
         public ObservableCollection<ProductViewModel> Cart { get; set; }
-       
+
+
+        public double CartTotal
+        {
+            get { return GetCartTotal(); }
+        }
+
+
         //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
+
+        public AccountViewModel avm { get; set; }
 
         // Singleton
         private static MainViewModel _instance;
@@ -32,21 +37,32 @@ namespace PhoneApp.ViewModels
             }
         }
 
+        public double GetCartTotal()
+        {
+            double CartTotal = 0;
+            double itemPrice;
+
+            foreach (ProductViewModel item in Cart)
+            {
+                itemPrice = item.Price;
+
+                CartTotal = itemPrice + CartTotal;
+            }
+
+            return CartTotal;
+           
+        }
+
         private MainViewModel()
         {
-            
             Burgers = new ObservableCollection<ProductViewModel>();
             Sandwiches = new ObservableCollection<ProductViewModel>();
             Sides = new ObservableCollection<ProductViewModel>();
             Refreshments = new ObservableCollection<ProductViewModel>();
             Cart = new ObservableCollection<ProductViewModel>();
-           
-            /*List<Menu> menuList = mr.GetAll();
-            foreach (Menu menu in menuList)
-            {
-                Menus.Add(new MenuViewModel(menu));
-            }
-            */
+
+            avm = new(new Account("will@smith.dk", "12345", 88888888, "Will", "Smith", "Viljesmedvej 20", 5000, "Odense"));
+
             List<Product> burgerList = pr.GetAll();
             foreach (Product product in burgerList)
             {
@@ -84,8 +100,5 @@ namespace PhoneApp.ViewModels
             }
 
         }
-
-        
-
-}
+    }
 }
