@@ -13,12 +13,13 @@ namespace PhoneApp.ViewModels
         public ObservableCollection<ProductViewModel> Refreshments { get; set; }
         public ObservableCollection<ProductViewModel> Cart { get; set; }
 
-
         public double CartTotal
         {
-            get { return GetCartTotal(); }
+            get 
+            { 
+                return GetCartTotal(); 
+            }
         }
-
 
         //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
