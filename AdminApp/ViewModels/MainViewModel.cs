@@ -8,12 +8,9 @@ namespace AdminApp.ViewModels
     public class MainViewModel
     {
         public ObservableCollection<OrderViewModel> Orders { get; set; }
-
         public ObservableCollection<ProductViewModel> Products { get; set; }
         public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
         public ObservableCollection<IngredientViewModel> IngredientsInProduct { get; set; }
-
-        private ProductRepo PR = new();
 
         public OrderViewModel SelectedOrder { get; set; }
         public ProductViewModel SelectedProduct { get; set; }
@@ -33,6 +30,7 @@ namespace AdminApp.ViewModels
                 OrderViewModel ovm = new(order);
                 Orders.Add(ovm);
             }
+            //TEST SLUT :(
 
             List<Ingredient> contentList = IngredientRepo.Instance.GetAll();
             foreach (Ingredient content in contentList)
@@ -40,7 +38,7 @@ namespace AdminApp.ViewModels
                 Ingredients.Add(new IngredientViewModel(content));
             }
 
-            List<Product> ProList = PR.GetAll();
+            List<Product> ProList = ProductRepo.Instance.GetAll();
             foreach (Product prolist in ProList)
             {
                 Products.Add(new ProductViewModel(prolist));
@@ -50,7 +48,7 @@ namespace AdminApp.ViewModels
         // Products
         public void AddProduct(string name, double price,ProductType type, byte[] image)
         {
-            Product product = PR.Create(name, price, type, image);
+            Product product = ProductRepo.Instance.Create(name, price, type, image);
             ProductViewModel pvm = new(product);
             Products.Add(pvm);
             
@@ -60,16 +58,15 @@ namespace AdminApp.ViewModels
                 for (int x = 0; x < IngredientsInProduct[i].Count_total; x++)
                 {
                     int id = IngredientsInProduct[i].Id;
-                    PR.AddToProdukt(id, pro_id);
+                    ProductRepo.Instance.AddToProduct(id, pro_id);
                 }
-                
             }
             IngredientsInProduct.Clear();
         }
       
         public void RemoveProduct()
-        { 
-            PR.Remove(SelectedProduct.Id);
+        {
+            ProductRepo.Instance.Delete(SelectedProduct.Id);
             Products.Remove(SelectedProduct);
         }
 
@@ -93,7 +90,7 @@ namespace AdminApp.ViewModels
 
         public void RemoveIngredient()
         {
-            IngredientRepo.Instance.Remove(SelectedIngredient.Id);
+            IngredientRepo.Instance.Delete(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
         }
     }

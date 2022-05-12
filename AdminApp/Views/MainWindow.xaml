@@ -7,7 +7,7 @@
             <TabItem.Header>
                 <DockPanel Margin="5">
                     <Image Source="/Resources/Order.png" Width="32"/>
-                    <TextBlock Text="Bestillinger" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
+                    <TextBlock Text="Bestillinger" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Lemon"/>
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
@@ -69,8 +69,8 @@
         <TabItem>
             <TabItem.Header>
                 <DockPanel Margin="5">
-                    <Image Source="/Resources/Order.png" Width="32"/>
-                    <TextBlock Text="Varer" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
+                    <Image Source="/Resources/Bruger.png" Width="32"/>
+                    <TextBlock Text="Madvarer" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Lemon"/>
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">
@@ -96,7 +96,7 @@
                         </Button>
                     </StackPanel>
                 </DockPanel>
-                <ListBox Name="Sides" Background="LightGray" ItemsSource="{Binding Products}">
+                <ListBox Name="Sides" Background="LightGray" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0"/>
@@ -149,8 +149,8 @@
         <TabItem>
             <TabItem.Header>
                 <DockPanel Margin="5">
-                    <Image Source="/Resources/Order.png" Width="32"/>
-                    <TextBlock Text="Ingredienser" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Comic Sans MS"/>
+                    <Image Source="/Resources/Steak.png" Width="32"/>
+                    <TextBlock Text="Ingredienser" VerticalAlignment="Center" Margin="5" FontSize="18" FontFamily="Lemon"/>
                 </DockPanel>
             </TabItem.Header>
             <DockPanel Margin="10">

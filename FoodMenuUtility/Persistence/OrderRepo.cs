@@ -42,11 +42,10 @@ namespace FoodMenuUtility.Persistence
                         DateTime date = sqldatareader.GetDateTime("Date");
                         DateTime time = sqldatareader.GetDateTime("Estimate_Time");
 
-                        if (time != null)
+                        if (time != DateTime.MinValue)
                         {
                             Order order = new(id, date, time);
                             orders.Add(order);
-
                         }
                         else
                         {

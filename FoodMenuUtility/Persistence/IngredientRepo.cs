@@ -1,5 +1,4 @@
 ﻿using FoodMenuUtility.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,7 +12,7 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
 
         private List<Ingredient> Ingredients;
-        private string connectionString = Properties.Settings.Default.WPF_Connection;
+        private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
         private static IngredientRepo _instance;
@@ -142,7 +141,7 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================
 
-        public void Remove(int id)
+        public void Delete(int id)
         {
             int i = 0;
             bool found = false;

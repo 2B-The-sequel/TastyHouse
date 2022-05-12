@@ -16,6 +16,18 @@ namespace FoodMenuUtility.Persistence
         private List<Product> Products;
         private string connectionString = Properties.Settings.Default.WPF_Connection;
 
+        // Singleton
+        private static ProductRepo _instance;
+        public static ProductRepo Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new ProductRepo();
+                return _instance;
+            }
+        }
+
         // ======================================================
         // Constructor: Adding every Content entity from database to "Contents" list.
         // ======================================================
@@ -138,7 +150,8 @@ namespace FoodMenuUtility.Persistence
             }
             return product;
         }
-        public void AddToProdukt(int ing_id, int pro_id) 
+
+        public void AddToProduct(int ing_id, int pro_id) 
         {
             using (SqlConnection connection = new(connectionString))
             {
@@ -174,6 +187,7 @@ namespace FoodMenuUtility.Persistence
         {
             return Products;
         }
+
         public List<Product> GetIngredientFromProduct()
         {
             using (SqlConnection connection = new(connectionString))
@@ -256,20 +270,36 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Delete (Delete existing entity from database)
         // ======================================================
 
-        public void Remove(int id)
+        public void Delete(int id)
         {
-            foreach (Product PT in Products)
+            int i = 0;
+            bool found = false;
+
+            while(i < Products.Count && !found)
             {
-                if (PT.Id == id)
-                {
-                    Products.Remove(PT);
-                }
+                if (Products[i].Id == id)
+                    found = true;
+                else
+                    i++;
             }
+
+            if (found)
+                Products.RemoveAt(i);
+
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
                 string table = "Product";
                 string query = $"DELETE FROM {table} WHERE {id} = Product_id";
+                SqlCommand sqlCommand = new(query, connection);
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string table = "Product_Ingredient";
+                string query = $"DELETE FROM {table} WHERE {id} = FK_Product_id";
                 SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
             }

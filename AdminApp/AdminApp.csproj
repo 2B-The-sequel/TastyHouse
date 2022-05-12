@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\Accept.png" />
     <None Remove="Resources\Add.png" />
+    <None Remove="Resources\Bruger.png" />
     <None Remove="Resources\Decline.png" />
     <None Remove="Resources\Done.png" />
     <None Remove="Resources\Edit.png" />
@@ -23,6 +24,8 @@
 
     <None Remove="Resources\Question.png" />
 
+    <None Remove="Resources\Steak.png" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +37,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Bruger.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Decline.png">
@@ -56,6 +62,10 @@
 
     <Resource Include="Resources\Question.png">
 
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+
+    <Resource Include="Resources\Steak.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
