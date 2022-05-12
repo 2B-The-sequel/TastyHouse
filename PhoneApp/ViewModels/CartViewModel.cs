@@ -1,8 +1,8 @@
-﻿using FoodMenuUtility.Models;
+using FoodMenuUtility.Models;
 
 namespace PhoneApp.ViewModels
 {
-    public class CartViewModel : ViewModel<CartItem>
+    public class CartViewModel : ViewModel<CartItem>, INotifyPropertyChanged
     {
         public int Id 
         { 

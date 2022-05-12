@@ -46,7 +46,7 @@ namespace FoodMenuUtility.Models
             this(-1, name, price, type, image, ingredients)
         {
 
-        }        
+        }
         public Product(string name, double price, ProductType type) :
             this(-1, name, price, type, null, new List<Ingredient>())
         {
@@ -62,7 +62,7 @@ namespace FoodMenuUtility.Models
         {
 
         }
-        
+
 
     }
 }

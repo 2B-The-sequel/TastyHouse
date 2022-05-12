@@ -64,7 +64,7 @@ namespace AdminApp.ViewModels
         }
 
         public void RemoveProduct()
-        {
+        { 
             PR.Remove(SelectedProduct.Id);
             Products.Remove(SelectedProduct);
         }
