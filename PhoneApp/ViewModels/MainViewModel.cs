@@ -20,6 +20,8 @@ namespace PhoneApp.ViewModels
         //MenuRepo mr = new MenuRepo();
         ProductRepo pr = new ProductRepo();
 
+        public AccountViewModel avm { get; set; }
+
         // Singleton
         private static MainViewModel _instance;
         public static MainViewModel Instance
@@ -34,19 +36,14 @@ namespace PhoneApp.ViewModels
 
         private MainViewModel()
         {
-            
             Burgers = new ObservableCollection<ProductViewModel>();
             Sandwiches = new ObservableCollection<ProductViewModel>();
             Sides = new ObservableCollection<ProductViewModel>();
             Refreshments = new ObservableCollection<ProductViewModel>();
             Cart = new ObservableCollection<ProductViewModel>();
-           
-            /*List<Menu> menuList = mr.GetAll();
-            foreach (Menu menu in menuList)
-            {
-                Menus.Add(new MenuViewModel(menu));
-            }
-            */
+
+            avm = new(new Account("will@smith.dk", "12345", 88888888, "Will", "Smith", "Viljesmedvej 20", 5000, "Odense"));
+
             List<Product> burgerList = pr.GetAll();
             foreach (Product product in burgerList)
             {
@@ -84,8 +81,5 @@ namespace PhoneApp.ViewModels
             }
 
         }
-
-        
-
-}
+    }
 }
