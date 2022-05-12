@@ -8,41 +8,49 @@
       d:DesignHeight="844" d:DesignWidth="360"
       Title="BasketPage">
 
-    <Grid>
+    <StackPanel>
+        <DockPanel Background="White">
+            <TextBlock Text="Kurv" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lemon" FontSize="24" Foreground="#FF9E2A2A"/>
+            <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
+        </DockPanel>
         <StackPanel>
-            <DockPanel Background="White">
-                <Label Content="Kurv" Margin="10" HorizontalAlignment="Center" FontSize="24" Foreground="#FF9E2A2A"></Label>
-                <Image Margin="10" HorizontalAlignment="Right" Source="../Resources/Logo.png" Width="50"></Image>
-            </DockPanel>
-            <StackPanel>
-                <ListBox Name="BurgerListBox" ItemsSource="{Binding Cart}" SelectedIndex="1">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
-                                <DockPanel Width="325">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Name}"/>
-                                        <DockPanel>
+            <ListBox Name="BurgerListBox" ItemsSource="{Binding Cart}" SelectedIndex="1" Height="670">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
+                            <DockPanel Width="325">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <DockPanel>
                                         <TextBlock Text="{Binding Price}"></TextBlock>
-                                        </DockPanel>
+                                    </DockPanel>
+                                </StackPanel>
+                                <Button Name="RemoveItemButton" Click="RemoveItemButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"></Setter>
+                                        </Style>
+                                    </Button.Resources>
+                                    <StackPanel>
+                                        <Image Source="/Resources/TrashCan.png" Width="32"></Image>
+                                        <TextBlock FontSize="16" Text="Fjern"></TextBlock>
                                     </StackPanel>
-                                    <Button Name="RemoveItemButton" Click="RemoveItemButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
-                                        <Button.Resources>
-                                            <Style TargetType="Border">
-                                                <Setter Property="CornerRadius" Value="5"></Setter>
-                                            </Style>
-                                        </Button.Resources>
-                                        <StackPanel>
-                                            <Image Source="/Resources/TrashCan.png" Width="32"></Image>
-                                            <TextBlock FontSize="16" Text="Fjern"></TextBlock>
-                                        </StackPanel>
-                                    </Button>
-                                </DockPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
+                                </Button>
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
-    </Grid>
+        <Button Background="#FFFFA900" Click="CompleteOrderButton_Click" Height="50">
+            <StackPanel>
+                <TextBlock Text="Færdiggør bestilling" FontSize="20" FontFamily="Lemon-Regular.ttf" Foreground="#FF9E2A2A"/>
+                <DockPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Total: " Foreground="#FF9E2A2A"/>
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding CartTotal}" Foreground="#FF9E2A2A"/>
+                    <TextBlock Text=" kr." Foreground="#FF9E2A2A"/>
+                </DockPanel>
+            </StackPanel>
+        </Button>
+    </StackPanel>
 </Page>

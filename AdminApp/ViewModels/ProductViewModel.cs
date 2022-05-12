@@ -9,18 +9,26 @@ namespace AdminApp.ViewModels
 {
     public class ProductViewModel : ViewModel<Product>
     {
-        private readonly Product product;
+        public int Id 
+        { 
+            get 
+            { 
+                return model.Id; 
+            } 
+            set 
+            {
+                model.Id = value; 
+            } 
+        }
 
-        public int Id { get { return product.Id; } set { product.Id = value; } }
+        public string Name { get { return model.Name; } set { model.Name = value; } }
 
-        public string Name { get { return product.Name; } set { product.Name = value; } }
-
-        public double Price { get { return product.Price; } set { product.Price = value; } }
-        public List<Ingredient> ingredients { get { return product.Ingredients; } set {product.Ingredients  = value; } }
+        public double Price { get { return model.Price; } set { model.Price = value; } }
+        public List<Ingredient> ingredients { get { return model.Ingredients; } set { model.Ingredients  = value; } }
         public int ProductType
         {
-            get { return (int)product.ProductType; }
-            set { product.ProductType = (ProductType)value; }
+            get { return (int)model.ProductType; }
+            set { model.ProductType = (ProductType)value; }
         }
 
         public byte[] Image
@@ -35,9 +43,24 @@ namespace AdminApp.ViewModels
             }
         }
 
+        public string Ingredients
+        {
+            get
+            {
+                string ingredients = string.Empty;
+
+                for (int i = 0; i < model.Ingredients.Count; i++)
+                {
+                    ingredients += model.Ingredients[i].Name + ", ";
+                }
+
+                return ingredients;
+            }
+        }
+
         public ProductViewModel (Product model) : base (model)
         {
-            this.product = model;
+            
         }
     }
 }

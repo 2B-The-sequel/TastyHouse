@@ -24,21 +24,14 @@ namespace AdminApp
             AddProductDialog addSideDialog = new();
             if (addSideDialog.ShowDialog() == true)
             {
-                
                 for (int i = 0; i < addSideDialog.IngredientBox.Items.Count; i++)
                 {
                     if (addSideDialog.Ingredients[i].Count_total != 0)
                     {
                         MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i]);
-                        //MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i].Id, addSideDialog.Ingredients[i].Name, addSideDialog.Ingredients[i].Count_total, addSideDialog.Ingredients[i].Image, addSideDialog.Ingredients[i].ExtraPrice);
                     }
-                    
-
                 }
                 MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.ProductImage);
-                
-                
-                
             } 
         }
 
@@ -72,8 +65,6 @@ namespace AdminApp
             MVM.SelectedOrder.State = OrderState.Done;
         }
 
-        
-
         private void NewIngredient_Click(object sender, RoutedEventArgs e)
         {
             AddContentDialog dialog = new();
@@ -106,19 +97,8 @@ namespace AdminApp
         }
         
         private void EditProduct_Click(object sender, RoutedEventArgs e)
-        {/*
-            AddProductDialog dialog = new();
-            dialog.ProductName = MVM.SelectedProduct.Name;
-            dialog.Price = MVM.SelectedProduct.Price.ToString();
-            dialog.ProductImage = MVM.SelectedProduct.Image;
-            dialog.Type = MVM.SelectedProduct.ProductType;
-            dialog.IngredientBox = 
-
-            if (dialog.ShowDialog() == true)
-            {
-                MVM.EditIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
-            }
-        */
+        {
+        
         }
     }
 }

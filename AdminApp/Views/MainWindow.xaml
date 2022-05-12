@@ -134,6 +134,10 @@
                                             <TextBlock Text="ID: "/>
                                             <TextBlock Text="{Binding Id}"/>
                                         </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Ingredienser: "/>
+                                            <TextBlock Text="{Binding Ingredients}"/>
+                                        </DockPanel>
                                     </StackPanel>
                                 </DockPanel>
                             </Border>

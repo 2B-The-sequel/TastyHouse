@@ -61,5 +61,13 @@ namespace DesignIdeTastyHouse
             Index.Visibility = Visibility.Hidden;
             MainFrameWindow.Visibility = Visibility.Visible;
         }
+
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            AccountPage acpa = new();
+            MainFrameWindow.Navigate(acpa);
+            Index.Visibility = Visibility.Hidden;
+            MainFrameWindow.Visibility = Visibility.Visible;
+        }
     }
 }
