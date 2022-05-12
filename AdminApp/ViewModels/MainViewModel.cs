@@ -50,11 +50,11 @@ namespace AdminApp.ViewModels
         // Products
         public void AddProduct(string name, double price,ProductType type, byte[] image)
         {
-            Product side = PR.Add(name, price, type, image);
-            ProductViewModel _side = new(side);
-            Products.Add(_side);
+            Product product = PR.Create(name, price, type, image);
+            ProductViewModel pvm = new(product);
+            Products.Add(pvm);
             
-            int pro_id = side.Id;
+            int pro_id = product.Id;
             for (int i = 0; i < IngredientsInProduct.Count; i++)
             {
                 int id = IngredientsInProduct[i].Id;
