@@ -24,21 +24,14 @@ namespace AdminApp
             AddProductDialog addSideDialog = new();
             if (addSideDialog.ShowDialog() == true)
             {
-                
                 for (int i = 0; i < addSideDialog.IngredientBox.Items.Count; i++)
                 {
                     if (addSideDialog.Ingredients[i].Count_total != 0)
                     {
                         MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i]);
-                        //MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i].Id, addSideDialog.Ingredients[i].Name, addSideDialog.Ingredients[i].Count_total, addSideDialog.Ingredients[i].Image, addSideDialog.Ingredients[i].ExtraPrice);
                     }
-                    
-
                 }
                 MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.Image);
-                
-                
-                
             } 
         }
 
@@ -46,7 +39,7 @@ namespace AdminApp
         {
             if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                //MVM.RemoveContent();
+                MVM.RemoveProduct();
             }
         }
 
@@ -71,8 +64,6 @@ namespace AdminApp
         {
             MVM.SelectedOrder.State = OrderState.Done;
         }
-
-        
 
         private void NewIngredient_Click(object sender, RoutedEventArgs e)
         {

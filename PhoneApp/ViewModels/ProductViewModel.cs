@@ -16,8 +16,6 @@ namespace PhoneApp.ViewModels
 
         public double Price { get { return product.Price; } set { product.Price = value; } }
 
-        private ProductType productType;
-
         public ProductType ProductType
         {
             get { return (ProductType)product.ProductType; }

@@ -44,25 +44,23 @@
             </StackPanel>
         </Grid>
         <DockPanel VerticalAlignment="Bottom">
-                <DockPanel Margin="0 ">
-                    <Button x:Name="HomeButton" Width="72" Click="HomeButton_Click">
-                        <Image Source="../Resources/Home.png" Margin="10"/>
-                    </Button>
-                    <Button Width="72" Click="MenuButton_Click">
-                        <Image Source="../Resources/Food.png" Margin="10"/>
-                    </Button>
-                    <Button x:Name="CartButton" Width="72" Click="CartButton_Click">
-                        <Image Source="../Resources/Cart.png" Margin="10"/>
-                    </Button>
-                    <Button Name="ContactButton" Width="72" Click="ContactButton_Click">
-                        <Image Source="../Resources/PhoneIcon.png" Margin="10"/>
-                    </Button>
-                    <Button Width="72">
-                        <Image Source="../Resources/Profile.png" Margin="10"/>
-                    </Button>
-                </DockPanel>
+            <DockPanel Margin="0 ">
+                <Button x:Name="HomeButton" Width="72" Click="HomeButton_Click">
+                    <Image Source="../Resources/Home.png" Margin="10"/>
+                </Button>
+                <Button Width="72" Click="MenuButton_Click">
+                    <Image Source="../Resources/Food.png" Margin="10"/>
+                </Button>
+                <Button x:Name="CartButton" Width="72" Click="CartButton_Click">
+                    <Image Source="../Resources/Cart.png" Margin="10"/>
+                </Button>
+                <Button Name="ContactButton" Width="72" Click="ContactButton_Click">
+                    <Image Source="../Resources/PhoneIcon.png" Margin="10"/>
+                </Button>
+                <Button Width="72" Click="AccountButton_Click">
+                    <Image Source="../Resources/Profile.png" Margin="10"/>
+                </Button>
             </DockPanel>
-       
+        </DockPanel>
     </Grid>
-    
 </Window>

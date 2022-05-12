@@ -36,7 +36,6 @@ namespace FoodMenuUtility.Models
             get { return extraPrice; }
             set { extraPrice = value; }
         }
-        private int count;
 
         private bool soldOut;
         public bool SoldOut
