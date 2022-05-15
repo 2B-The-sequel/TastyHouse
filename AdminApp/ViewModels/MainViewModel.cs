@@ -93,5 +93,9 @@ namespace AdminApp.ViewModels
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
         }
+
+        // EDIT ORDER
+        public void ChangeOr
+
     }
 }

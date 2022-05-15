@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using AdminApp.ViewModels;
 using AdminApp.Views;
 using FoodMenuUtility.Models;
@@ -49,6 +50,8 @@ namespace AdminApp
             if (dialog.ShowDialog() == true)
             {
                 MVM.SelectedOrder.State = OrderState.Accepted;
+                string datestring = dialog.Hour + ":" + dialog.Minute;
+               MVM.SelectedOrder.DoneTime = DateTime.ParseExact(datestring,"t",null);
             }
         }
 

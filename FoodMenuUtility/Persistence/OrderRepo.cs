@@ -118,5 +118,47 @@ namespace FoodMenuUtility.Persistence
                     $"WHERE Order_id = {id}";
             }
         }
+
+        public void Delete(int id)
+        {
+            int i = 0;
+            bool found = false;
+
+            while (i < orders.Count && !found)
+            {
+                if (orders[i].Id == id)
+                    found = true;
+                else
+                    i++;
+            }
+
+            if (found)
+                orders.RemoveAt(i);
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string table = "Order";
+                string query = $"DELETE FROM {table} WHERE {id} = Order_id";
+                SqlCommand sqlCommand = new(query, connection);
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                string table = "Order_Product";
+                string query = $"DELETE FROM {table} WHERE {id} = FK_Order_id";
+                SqlCommand sqlCommand = new(query, connection);
+                sqlCommand.ExecuteNonQuery();
+            }
+        }
+
+        public void AcceptOrder(int id)
+        {
+            GetById(id).State = OrderState.Accepted;
+        }
+
+
     }
 }
