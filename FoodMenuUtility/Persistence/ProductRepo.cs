@@ -41,7 +41,7 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Product Create(string name, double price, ProductType type , byte[] image)
+        public Product Create(string name, double price, ProductType type , byte[] image, List<int> ingredients)
         {
             Product product;
             using (SqlConnection connection = new(connectionString))
@@ -77,32 +77,32 @@ namespace FoodMenuUtility.Persistence
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 product = new(ID, name, price, type, image);
             }
+
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                using (SqlConnection connection = new(connectionString))
+                {
+                    connection.Open();
+
+                    string table = "Product_Ingredient";
+                    string coloumns = "FK_Ingredient_id, FK_Product_id";
+                    string values = "@ing_id, @pro_id";
+
+                    string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
+
+                    SqlCommand sqlCommand = new(query, connection);
+
+                    sqlCommand.Parameters.Add(new SqlParameter("@pro_id", product.Id));
+                    sqlCommand.Parameters.Add(new SqlParameter("@ing_id", ingredients[i]));//Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
+
+                    sqlCommand.ExecuteNonQuery();
+
+                    product.Ingredients.Add(IngredientRepo.Instance.GetById(ingredients[i]));
+                }
+            }
+
             return product;
         }
-
-        public void AddToProduct(int ing_id, int pro_id) 
-        {
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                int Ingredient_id = ing_id;
-                int Product_id = pro_id;
-
-                string table = "Product_Ingredient";
-                string coloumns = "FK_Ingredient_id, FK_Product_id";
-                string values = "@ing_id, @pro_id";
-
-                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
-
-                SqlCommand sqlCommand = new(query, connection);
-
-                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", Product_id));
-                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", Ingredient_id));//Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
-                
-                sqlCommand.ExecuteNonQuery();
-            }
-        }
-
 
         // ======================================================
         // Repository CRUD: Read (Reading entity from database)

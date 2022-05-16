@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using AdminApp.ViewModels;
 using AdminApp.Views;
 using FoodMenuUtility.Models;
@@ -24,14 +25,16 @@ namespace AdminApp
             AddProductDialog addSideDialog = new();
             if (addSideDialog.ShowDialog() == true)
             {
+                List<IngredientViewModel> ingredients = new();
+
                 for (int i = 0; i < addSideDialog.IngredientBox.Items.Count; i++)
                 {
-                    if (addSideDialog.Ingredients[i].Count_total != 0)
+                    for (int j = 0; j < addSideDialog.Ingredients[i].Count_total; j++)
                     {
-                        MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i]);
+                        ingredients.Add(addSideDialog.Ingredients[i]);
                     }
                 }
-                MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.ProductImage);
+                MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.ProductImage, ingredients);
             } 
         }
 
