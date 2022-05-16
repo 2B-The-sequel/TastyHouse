@@ -40,7 +40,7 @@ namespace AdminApp.Views
         public AcceptDialog()
         {
             Hour = DateTime.Now.Hour.ToString();
-            Minute = DateTime.Now.Minute.ToString("00");
+            Minute = DateTime.Now.Minute.ToString();
             InitializeComponent();
             DataContext = this;
         }

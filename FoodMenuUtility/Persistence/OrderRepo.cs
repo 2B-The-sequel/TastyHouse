@@ -31,7 +31,7 @@ namespace FoodMenuUtility.Persistence
                 connection.Open();
                 // Hvis billeder skal være der skal de tilføjes til table og values
                 string values = "Order_id, Date, Estimate_Time";
-                string table = "Order";
+                string table = "[Order]";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
                 using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
@@ -83,6 +83,13 @@ namespace FoodMenuUtility.Persistence
             return order;
         }
 
+        public void Add(int id)
+        {
+            Order order =new(id);
+            orders.Add(order);
+
+        }
+
         public List<Order> GetAll()
         {
             return orders;
@@ -111,7 +118,7 @@ namespace FoodMenuUtility.Persistence
                 DateTime date = GetById(id).Date;
                 DateTime DoneTime = GetById(id).DoneTime;
 
-                string table = "Order";
+                string table = "[Order]";
                 string values = $"@{id}, @{date}, @{DoneTime}";
                 string query =
                     $"UPDATE {table}" +
@@ -139,7 +146,7 @@ namespace FoodMenuUtility.Persistence
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
-                string table = "Order";
+                string table = "[Order]";
                 string query = $"DELETE FROM {table} WHERE {id} = Order_id";
                 SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
