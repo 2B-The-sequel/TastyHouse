@@ -131,7 +131,6 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.Parameters.Add(new SqlParameter("Extra_Price", ingredient.ExtraPrice));
                 sqlCommand.Parameters.Add(new SqlParameter("Sold_Out", ingredient.SoldOut ? 1 : 0));
                 sqlCommand.Parameters.Add(new SqlParameter("Ingredient_ID", ingredient.Id));
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ingredient.Image;
 
                 sqlCommand.ExecuteNonQuery();
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using FoodMenuUtility.Models;
 using FoodMenuUtility.Persistence;
@@ -95,7 +96,11 @@ namespace AdminApp.ViewModels
         }
 
         // EDIT ORDER
-        public void ChangeOr
+        public void EditOrder()
+        {
+            OrderRepo.Instance.Update(SelectedOrder.Id);
+
+        }
 
     }
 }

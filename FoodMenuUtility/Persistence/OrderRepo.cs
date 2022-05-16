@@ -101,16 +101,17 @@ namespace FoodMenuUtility.Persistence
             return result;
         }
 
-        public void Update(Order order)
+        public void Update(int id)
         {
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
-                int id = order.Id;
-                DateTime date = order.Date;
-                DateTime DoneTime = order.DoneTime;
+                
+                int ID = GetById(id).Id;
+                DateTime date = GetById(id).Date;
+                DateTime DoneTime = GetById(id).DoneTime;
 
-                string table = "Ingredient";
+                string table = "Order";
                 string values = $"@{id}, @{date}, @{DoneTime}";
                 string query =
                     $"UPDATE {table}" +
