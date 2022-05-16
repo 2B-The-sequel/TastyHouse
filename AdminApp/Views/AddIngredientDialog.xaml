@@ -1,4 +1,4 @@
-﻿<Window x:Class="AdminApp.Views.AddContentDialog"
+﻿<Window x:Class="AdminApp.Views.AddIngredientDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Tilføj ingrediens" Width="300" SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">

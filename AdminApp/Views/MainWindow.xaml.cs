@@ -70,7 +70,7 @@ namespace AdminApp
 
         private void NewIngredient_Click(object sender, RoutedEventArgs e)
         {
-            AddContentDialog dialog = new();
+            AddIngredientDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
                 MVM.AddIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
@@ -87,7 +87,7 @@ namespace AdminApp
 
         private void EditIngredient_Click(object sender, RoutedEventArgs e)
         {
-            AddContentDialog dialog = new();
+            AddIngredientDialog dialog = new();
             dialog.IngredientName = MVM.SelectedIngredient.Name;
             dialog.IngredientPrice = MVM.SelectedIngredient.ExtraPrice;
             dialog.IngredientImage = MVM.SelectedIngredient.Image;
