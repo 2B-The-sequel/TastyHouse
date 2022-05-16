@@ -34,7 +34,7 @@ namespace PhoneApp.Views
         }
 
 
-        private void AddToCartButton_Click(object sender, RoutedEventArgs e)
+        private void AddBurgerToCartButton_Click(object sender, RoutedEventArgs e)
         {
            
             var button = (Button)sender;
@@ -45,7 +45,7 @@ namespace PhoneApp.Views
             NotifyPropertyChanged("CartTotal");
         }
 
-        private void AddToCartButton1_Click(object sender, RoutedEventArgs e)
+        private void AddSandwichToCartButton_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
@@ -55,7 +55,7 @@ namespace PhoneApp.Views
             NotifyPropertyChanged("CartTotal");
         }
 
-        private void AddToCartButton2_Click(object sender, RoutedEventArgs e)
+        private void AddSideToCartButton_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
@@ -65,7 +65,7 @@ namespace PhoneApp.Views
             NotifyPropertyChanged("CartTotal");
         }
 
-        private void AddToCartButton3_Click(object sender, RoutedEventArgs e)
+        private void AddRefreshmentToCartButton_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;

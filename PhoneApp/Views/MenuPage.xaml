@@ -63,7 +63,7 @@
                                             <Image Source="{Binding Image}" Width="10"></Image>
                                             <TextBlock Text="{Binding Name}"/>
                                         </StackPanel>
-                                        <Button Name="AddToCartButton" Tag="{Binding .}" Click="AddToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Name="AddBurgerToCartButton" Tag="{Binding .}" Click="AddBurgerToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>
@@ -113,7 +113,7 @@
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
                                         <TextBlock Text=" kr."></TextBlock>
-                                        <Button Tag="{Binding .}" Name="AddToCartButton1" Click="AddToCartButton1_Click" HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Tag="{Binding .}" Name="AddSandwichToCartButton" Click="AddSandwichToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>
@@ -162,7 +162,7 @@
                                     <DockPanel Width="300">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <Button Tag="{Binding .}" Name="AddToCartButton2" Click="AddToCartButton2_Click" HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Tag="{Binding .}" Name="AddSideToCartButton" Click="AddSideToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>
@@ -210,7 +210,7 @@
                                     <DockPanel Width="300">
                                         <Image Source="{Binding Image}" Width="10"></Image>
                                         <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <Button Tag="{Binding .}" Name="AddToCartButton3" Click="AddToCartButton3_Click" HorizontalAlignment="Right" Width="100" Padding="5">
+                                        <Button Tag="{Binding .}" Name="AddRefreshmentToCartButton" Click="AddRefreshmentToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
                                                     <Setter Property="CornerRadius" Value="5"></Setter>
