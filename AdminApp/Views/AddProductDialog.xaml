@@ -3,10 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AdminApp.Views"
+        xmlns:q="clr-namespace:AdminApp.Views"
+        xmlns:local="clr-namespace:FoodMenuUtility.Models;assembly=FoodMenuUtility"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
 
         Title="Tilføj vare" Height="600" Width="500" ResizeMode="NoResize">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:ProductType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
     <Grid>
         <StackPanel Margin="10">
             <Label Content="Tilføj ny vare" HorizontalAlignment="Center"></Label>
@@ -22,6 +32,7 @@
                 <DockPanel Margin="10">
                     <Label Content="Type mad:"></Label>
                     <TextBox Text="{Binding Type}" Width="150" HorizontalAlignment="Right"></TextBox>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}"></ComboBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Billede"/>
