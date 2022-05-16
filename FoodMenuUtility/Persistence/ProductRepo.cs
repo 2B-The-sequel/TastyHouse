@@ -13,18 +13,18 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private List<Product> Products;
-        private string connectionString = Properties.Settings.Default.WPF_Connection;
+        private readonly List<Product> Products;
+        private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
-        private static ProductRepo _instance;
+        private static ProductRepo s_instance;
         public static ProductRepo Instance
         {
             get
             {
-                if (_instance == null)
-                    _instance = new ProductRepo();
-                return _instance;
+                if (s_instance == null)
+                    s_instance = new ProductRepo();
+                return s_instance;
             }
         }
 
@@ -34,37 +34,7 @@ namespace FoodMenuUtility.Persistence
 
         public ProductRepo()
         {
-            Products = new List<Product>();
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                byte[] image = null;
-                // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Product_id, Name, Price, FK_PT_id, Image";
-
-                string table = "Product";
-                string CommandText = $"SELECT {values} FROM {table}";
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
-                {
-                    while (sqldatareader.Read() != false)
-                    {
-                        int id = sqldatareader.GetInt32("Product_id");
-                        string name = sqldatareader.GetString("Name");
-                        double price = sqldatareader.GetDouble("Price");
-                        int type = sqldatareader.GetInt32("FK_PT_id");
-                        if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
-                        {
-                            image = (byte[])sqldatareader["Image"];
-                        }
-
-                        type = type - 1;
-                        Product product = new(id, name, price, (ProductType)type, image);
-
-                        Products.Add(product);
-                    }
-                }
-            }
+            Products = GetAll();
             AddIngredientsToProducts();
         }
 
@@ -185,7 +155,39 @@ namespace FoodMenuUtility.Persistence
         // Get all from database
         public List<Product> GetAll()
         {
-            return Products;
+            List<Product> products = new List<Product>();
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                byte[] image = null;
+                // Hvis billeder skal være der skal de tilføjes til table og values
+                string values = "Product_id, Name, Price, FK_PT_id, Image";
+
+                string table = "Product";
+                string CommandText = $"SELECT {values} FROM {table}";
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                {
+                    while (sqldatareader.Read() != false)
+                    {
+                        int id = sqldatareader.GetInt32("Product_id");
+                        string name = sqldatareader.GetString("Name");
+                        double price = sqldatareader.GetDouble("Price");
+                        int type = sqldatareader.GetInt32("FK_PT_id");
+                        if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
+                        {
+                            image = (byte[])sqldatareader["Image"];
+                        }
+
+                        type = type - 1;
+                        Product product = new(id, name, price, (ProductType)type, image);
+
+                        products.Add(product);
+                    }
+                }
+            }
+
+            return products;
         }
 
         public List<Product> GetIngredientFromProduct()

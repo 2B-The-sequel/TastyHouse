@@ -11,18 +11,18 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private List<Ingredient> Ingredients;
+        private readonly List<Ingredient> Ingredients;
         private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
-        private static IngredientRepo _instance;
+        private static IngredientRepo s_instance;
         public static IngredientRepo Instance
         {
             get
             {
-                if (_instance == null)
-                    _instance = new IngredientRepo();
-                return _instance;
+                if (s_instance == null)
+                    s_instance = new IngredientRepo();
+                return s_instance;
             }
         }
 
@@ -72,7 +72,7 @@ namespace FoodMenuUtility.Persistence
         // Get all from database
         public List<Ingredient> GetAll()
         {
-            Ingredients = new List<Ingredient>();
+            List<Ingredient> Ingredients = new();
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
