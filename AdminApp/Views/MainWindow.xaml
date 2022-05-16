@@ -136,7 +136,7 @@
                                         </DockPanel>
                                         <DockPanel>
                                             <TextBlock Text="Ingredienser: "/>
-                                            <TextBlock Text="{Binding Ingredients}"/>
+                                            <TextBlock Text="{Binding IngredientsText}"/>
                                         </DockPanel>
                                     </StackPanel>
                                 </DockPanel>

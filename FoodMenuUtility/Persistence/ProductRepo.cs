@@ -35,44 +35,6 @@ namespace FoodMenuUtility.Persistence
         public ProductRepo()
         {
             Products = GetAll();
-            AddIngredientsToProducts();
-        }
-
-        /// <summary>
-        /// Adds ingredients to the products.
-        /// </summary>
-        private void AddIngredientsToProducts()
-        {
-            List<int> FK_Ingredients = new();
-            List<int> FK_Products = new();
-
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                
-                string table = "Product_Ingredient";
-                string values = "FK_Ingredient_id, FK_Product_id";
-                string CommandText = $"SELECT {values} FROM {table}";
-
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
-                {
-                    while (sqldatareader.Read() != false)
-                    {
-                        FK_Ingredients.Add(sqldatareader.GetInt32("FK_Ingredient_id"));
-                        FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
-                    }
-
-                    for (int i = 0; i < FK_Products.Count; i++)
-                    {
-                        foreach (Product product in Products)
-                        {
-                            if (product.Id == FK_Products[i])
-                                AddIngredient(FK_Ingredients[i], product);
-                        }
-                    }
-                }
-            }
         }
 
         // ======================================================
@@ -91,7 +53,6 @@ namespace FoodMenuUtility.Persistence
                 ProductType Type = type;
                 byte[] Image = image;
 
-
                 string table = "Product";
                 string coloumns = "Product.Name, Product.Price, Product.FK_PT_id, Product.Image";
                 string values = "@Name, @Price, @Type, @Image";
@@ -103,9 +64,7 @@ namespace FoodMenuUtility.Persistence
                 }
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
-
                 SqlCommand sqlCommand = new(query, connection);
-
 
                 sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));
                 sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));
@@ -129,16 +88,13 @@ namespace FoodMenuUtility.Persistence
                 int Ingredient_id = ing_id;
                 int Product_id = pro_id;
 
-
                 string table = "Product_Ingredient";
                 string coloumns = "FK_Ingredient_id, FK_Product_id";
                 string values = "@ing_id, @pro_id";
 
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
 
-
                 SqlCommand sqlCommand = new(query, connection);
-
 
                 sqlCommand.Parameters.Add(new SqlParameter("@pro_id", Product_id));
                 sqlCommand.Parameters.Add(new SqlParameter("@ing_id", Ingredient_id));//Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
@@ -183,6 +139,39 @@ namespace FoodMenuUtility.Persistence
                         Product product = new(id, name, price, (ProductType)type, image);
 
                         products.Add(product);
+                    }
+                }
+            }
+
+            List<int> FK_Ingredients = new();
+            List<int> FK_Products = new();
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+
+                string table = "Product_Ingredient";
+                string values = "FK_Ingredient_id, FK_Product_id";
+                string CommandText = $"SELECT {values} FROM {table}";
+
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                {
+                    while (sqldatareader.Read() != false)
+                    {
+                        FK_Ingredients.Add(sqldatareader.GetInt32("FK_Ingredient_id"));
+                        FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
+                    }
+
+                    for (int i = 0; i < FK_Products.Count; i++)
+                    {
+                        System.Diagnostics.Debug.WriteLine(FK_Products[i] + ":" + FK_Ingredients[i]);
+
+                        foreach (Product product in products)
+                        {
+                            if (product.Id == FK_Products[i])
+                                product.Ingredients.Add(IngredientRepo.Instance.GetById(FK_Ingredients[i]));
+                        }
                     }
                 }
             }
@@ -235,11 +224,6 @@ namespace FoodMenuUtility.Persistence
                 }
             }
             return result;
-        }
-
-        public void AddIngredient(int ing_id,Product product)
-        {
-            product.Ingredients.Add(IngredientRepo.Instance.GetById(ing_id));
         }
 
         // ======================================================
