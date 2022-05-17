@@ -1,14 +1,9 @@
 ﻿<Window x:Class="AdminApp.Views.AddProductDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:q="clr-namespace:AdminApp.Views"
         xmlns:local="clr-namespace:FoodMenuUtility.Models;assembly=FoodMenuUtility"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        mc:Ignorable="d"
-
-        Title="Tilføj vare" Height="600" Width="500" ResizeMode="NoResize">
+        Title="Tilføj madvare" Height="600" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type sys:Enum}">
@@ -17,66 +12,61 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
-    <Grid>
-        <StackPanel Margin="10">
-            <Label Content="Tilføj ny vare" HorizontalAlignment="Center"></Label>
-            <StackPanel>
-                <DockPanel Margin="10">
-                    <Label Content="Navn:"></Label>
-                    <TextBox Text="{Binding ProductName}" Width="150" HorizontalAlignment="Right"></TextBox>
-                </DockPanel>
-                <DockPanel Margin="10">
-                    <Label Content="Pris:"></Label>
-                    <TextBox Text="{Binding Price}" Width="150" HorizontalAlignment="Right"></TextBox>
-                </DockPanel>
-                <DockPanel Margin="10">
-                    <Label Content="Type mad:"></Label>
-                    <ComboBox SelectedItem="{Binding Type}" HorizontalAlignment="Right" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" Width="150"></ComboBox>
-                </DockPanel>
-                <DockPanel Margin="10">
-                    <Label Content="Billede"/>
-                    <DockPanel HorizontalAlignment="Right">
-                        <DockPanel>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="10" Width="200">
-                                <Image Height="100" Source="{Binding ProductImage}"/>
-                            </Border>
-                        </DockPanel>
-                        <DockPanel>
-
-                            <TextBox Text="{Binding ImagePath}" IsReadOnly="True" Width="110" Height="25" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalContentAlignment="Center"/>
-                            <Button Content="Gennemse" Width="70" Height="25" Click="OpenImageButton_Click"/>
-                        </DockPanel>
-                        
-                        
+    <StackPanel Margin="10">
+        <StackPanel>
+            <DockPanel Margin="10">
+                <Label Content="Navn"></Label>
+                <TextBox Text="{Binding ProductName}" Width="200" HorizontalAlignment="Right"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="10">
+                <Label Content="Pris"></Label>
+                <TextBox Text="{Binding Price}" Width="200" HorizontalAlignment="Right" PreviewTextInput="NumberValidationTextBox"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="10">
+                <Label Content="Type"></Label>
+                <ComboBox SelectedItem="{Binding Type}" HorizontalAlignment="Right" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" Width="200"></ComboBox>
+            </DockPanel>
+            <DockPanel Margin="10">
+                <Label Content="Billede"/>
+                <StackPanel HorizontalAlignment="Right">
+                    <DockPanel>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="200">
+                            <Image Height="100" Source="{Binding ProductImage}"/>
+                        </Border>
                     </DockPanel>
-                </DockPanel>
-                
-                <ListBox x:Name="IngredientBox" ItemsSource="{Binding Ingredients}" Height="150" Width="480">
-                    <ListBox.ItemContainerStyle>
+                    <DockPanel Margin="0 10">
+                        <TextBox Text="{Binding ImagePath}" IsReadOnly="True" Width="120" Height="25" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalContentAlignment="Center"/>
+                        <Button Content="Gennemse" Width="70" Height="25" Click="OpenImageButton_Click" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                </StackPanel>
+            </DockPanel>
+
+            <ListBox x:Name="IngredientBox" ItemsSource="{Binding Ingredients}" Height="150" Width="310">
+                <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                            <Setter Property="Padding" Value="0"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="Foreground" Value="Black"/>
-                                </Trigger>
-                            </Style.Triggers>
-                            <Style.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
-                            </Style.Resources>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        </Style.Resources>
                     </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
-                                    <DockPanel>
-                                        <Label Content="{Binding Name}"/>
-                                        <TextBox Width="20" Text="{Binding Count_total}"/>
-                                    </DockPanel>
+                                <DockPanel>
+                                    <Image Source="{Binding Image}" Width="20" Height="20"/>
+                                    <Label Content="{Binding Name}"/>
+                                    <TextBox Width="20" Text="{Binding CountTotal}" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                </DockPanel>
                             </Border>
                             </StackPanel>
                         </DataTemplate>
@@ -91,11 +81,25 @@
                     <Button Width="100" HorizontalAlignment="Right" Margin="10" Click="Button_Click">
                         <StackPanel>
                             <Image Source="/Resources/Decline.png" Width="32"></Image>
+
                         </StackPanel>
-                    </Button>
-                </DockPanel>
-            </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <DockPanel>
+                <Button Name="SaveSideButton" Margin="10" Click="SaveProductButton_Click" Width="89">
+                    <StackPanel Margin="10">
+                        <Image Source="/Resources/Accept.png" Width="32"></Image>
+                        <TextBlock Text="Tilføj Vare"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Width="100" HorizontalAlignment="Right" Margin="10" Click="Button_Click">
+                    <StackPanel>
+                        <Image Source="/Resources/Decline.png" Width="32"></Image>
+                        <TextBlock Text="Annullér"></TextBlock>
+                    </StackPanel>
+                </Button>
+            </DockPanel>
         </StackPanel>
-        
-    </Grid>
+    </StackPanel>
 </Window>
