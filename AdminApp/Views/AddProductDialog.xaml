@@ -31,8 +31,7 @@
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Type mad:"></Label>
-                    <TextBox Text="{Binding Type}" Width="150" HorizontalAlignment="Right"></TextBox>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}"></ComboBox>
+                    <ComboBox SelectedItem="{Binding Type}" HorizontalAlignment="Right" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" Width="150"></ComboBox>
                 </DockPanel>
                 <DockPanel Margin="10">
                     <Label Content="Billede"/>
