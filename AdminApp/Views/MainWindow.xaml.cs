@@ -48,30 +48,9 @@ namespace AdminApp
         {
             AcceptDialog dialog = new();
             
-
             if (dialog.ShowDialog() == true)
             {
                 string datestring = dialog.Hour + ":" + dialog.Minute;
-
-               
-                if (datestring.Length < 5)
-                {
-
-                    if (datestring.Length == 3)
-                    {
-                        datestring = "0" + datestring[0].ToString() + datestring[1].ToString() + "0" + datestring[2].ToString();
-                    }   
-                    else if (datestring[1] == ':')
-                    {
-                        datestring = "0" + datestring;
-                    }
-                    else if (datestring[2] == ':' && datestring.Length == 4)
-                    {
-                        datestring = datestring[0].ToString() + datestring[1].ToString() + datestring[2].ToString() + "0" + datestring[3].ToString();
-
-                    }
-                    
-                }
 
                 if (OnlyDigits(datestring))
                 {
@@ -82,13 +61,9 @@ namespace AdminApp
                 }
                 else
                 {
-                    MessageBox.Show("Input må kun være tal imellem \n 00 - 23 : 00 - 59" , "Input fejl", MessageBoxButton.OK);
-
-
+                    MessageBox.Show("Input må kun være tal imellem \n 00 - 23 : 00 - 59" , "Input fejl", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             }
-        
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
@@ -136,37 +111,29 @@ namespace AdminApp
         }
 
         //Metode til at tjekke input for Leveringstid færdigt i AdminApp
-        public static Boolean OnlyDigits(string s)
+        public static bool OnlyDigits(string s)
         {
-            
+            bool onlyDigits = true;
+
             try
             {
-                int holder3 = int.Parse(s[0].ToString() + s[1].ToString());
-                int holder4 = int.Parse(s[3].ToString() + s[4].ToString());
-            }
-            catch (Exception x)
-            {
-                if (x is FormatException || x is IndexOutOfRangeException)
-                {
-                    return false;
-                }
-   
-            }
-            int holder = int.Parse(s[0].ToString() + s[1].ToString());
-            int holder2 = int.Parse(s[3].ToString() + s[4].ToString());
+                int holder = int.Parse(s[0].ToString() + s[1].ToString());
+                int holder2 = int.Parse(s[3].ToString() + s[4].ToString());
 
-            if (holder >= 24 || holder2 > 59)
-            { return false; }
+                if (holder >= 24 || holder2 > 59)
+                    onlyDigits = false;
 
-            for (int i = 0; i < s.Length; i++)
+                for (int i = 0; i < s.Length && onlyDigits; i++)
                 {
-                    if (!Char.IsNumber(s[i]) && s[i] != ':')
+                    if (!char.IsNumber(s[i]) && s[i] != ':')
                     {
-                        return false;
+                        onlyDigits = false;
                     }
                 }
-                return true;
+            }
+            catch (Exception) { onlyDigits = false; }
 
+            return onlyDigits;
         }
         
         private void EditProduct_Click(object sender, RoutedEventArgs e)
