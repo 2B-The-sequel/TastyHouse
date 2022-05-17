@@ -21,7 +21,7 @@ namespace AdminApp.ViewModels
             Orders = new ObservableCollection<OrderViewModel>();
             Ingredients = new ObservableCollection<IngredientViewModel>();
             IngredientsInProduct = new ObservableCollection<IngredientViewModel>();
-            Products = new ObservableCollection<ProductViewModel> {};
+            Products = new ObservableCollection<ProductViewModel> { };
 
             //TESTING
             for (int i = 1; i <= 10; i++)
@@ -42,16 +42,16 @@ namespace AdminApp.ViewModels
             foreach (Product prolist in ProList)
             {
                 Products.Add(new ProductViewModel(prolist));
-            }            
+            }
         }
 
         // Products
-        public void AddProduct(string name, double price,ProductType type, byte[] image)
+        public void AddProduct(string name, double price, ProductType type, byte[] image)
         {
             Product product = ProductRepo.Instance.Create(name, price, type, image);
             ProductViewModel pvm = new(product);
             Products.Add(pvm);
-            
+
             int pro_id = product.Id;
             for (int i = 0; i < IngredientsInProduct.Count; i++)
             {
@@ -62,6 +62,16 @@ namespace AdminApp.ViewModels
                 }
             }
             IngredientsInProduct.Clear();
+        }
+
+
+        public void EditProduct(string name, double price, byte[] image)
+        {
+            SelectedProduct.Name = name;
+            SelectedProduct.Price = price;
+            SelectedProduct.Image = image;
+
+            ProductRepo.Instance.Update(SelectedProduct.Id);
         }
       
         public void RemoveProduct()

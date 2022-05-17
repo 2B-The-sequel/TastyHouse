@@ -98,7 +98,17 @@ namespace AdminApp
         
         private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
-        
+            AddProductDialog dialog = new();
+            dialog.ProductName = MVM.SelectedProduct.Name;
+            dialog.Price = MVM.SelectedProduct.Price.ToString();
+            dialog.ProductImage = MVM.SelectedProduct.Image;
+
+            if (dialog.ShowDialog() == true)
+            {
+                MVM.EditProduct(dialog.ProductName, double.Parse (dialog.Price), dialog.ProductImage);
+            }
+
+
         }
     }
 }
