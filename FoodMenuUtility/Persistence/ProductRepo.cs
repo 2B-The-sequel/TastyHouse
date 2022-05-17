@@ -110,7 +110,7 @@ namespace FoodMenuUtility.Persistence
                 string Name = name;
                 double ExtraPrice = price;
 
-                ProductType Type = type;
+                ProductType Type = type +1;
                 byte[] Image = image;
 
 

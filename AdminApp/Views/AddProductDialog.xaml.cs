@@ -36,10 +36,10 @@ namespace AdminApp.Views
         }
 
         private int type;
-        public int Type
+        public ProductType Type
         {
-            get { return type; }
-            set { type = value; NotifyPropertyChanged(nameof(type)); }
+            get { return (ProductType)type; }
+            set { type = (int)value; NotifyPropertyChanged(nameof(type)); }
         }
 
         private byte[] productImage;
