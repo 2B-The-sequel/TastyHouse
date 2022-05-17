@@ -53,6 +53,26 @@ namespace AdminApp
             {
                 string datestring = dialog.Hour + ":" + dialog.Minute;
 
+               
+                if (datestring.Length < 5)
+                {
+
+                    if (datestring.Length == 3)
+                    {
+                        datestring = "0" + datestring[0].ToString() + datestring[1].ToString() + "0" + datestring[2].ToString();
+                    }   
+                    else if (datestring[1] == ':')
+                    {
+                        datestring = "0" + datestring;
+                    }
+                    else if (datestring[2] == ':' && datestring.Length == 4)
+                    {
+                        datestring = datestring[0].ToString() + datestring[1].ToString() + datestring[2].ToString() + "0" + datestring[3].ToString();
+
+                    }
+                    
+                }
+
                 if (OnlyDigits(datestring))
                 {
                     MVM.SelectedOrder.State = OrderState.Accepted;
@@ -118,7 +138,7 @@ namespace AdminApp
         //Metode til at tjekke input for Leveringstid færdigt i AdminApp
         public static Boolean OnlyDigits(string s)
         {
-
+            
             try
             {
                 int holder3 = int.Parse(s[0].ToString() + s[1].ToString());

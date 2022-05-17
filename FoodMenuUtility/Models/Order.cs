@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace FoodMenuUtility.Models
 {
     public class Order
     {
+
+        public List<Product> products { get; set; }
         public int Id { get; set; }
 
         public DateTime DoneTime { get; set; }
@@ -16,6 +19,8 @@ namespace FoodMenuUtility.Models
         {
             this.Id = Id;
             State = OrderState.Awaiting;
+            products = new List<Product>();
+
         }
 
         public Order(int id, DateTime Date)
@@ -23,7 +28,7 @@ namespace FoodMenuUtility.Models
             this.Id = id;
             this.Date = Date;
             State = OrderState.Awaiting;
-
+            products = new List<Product>();
         }
 
         public Order(int Id, DateTime Date, DateTime DoneTime)
@@ -31,7 +36,7 @@ namespace FoodMenuUtility.Models
             this.Id = Id;
             this.Date = Date;
             this.DoneTime = DoneTime;
-
+            products = new List<Product>();
         }
     }
 }

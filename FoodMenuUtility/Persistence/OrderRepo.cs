@@ -58,8 +58,74 @@ namespace FoodMenuUtility.Persistence
                 }
             }
         }
-        public Order Create(int id, DateTime Date)
+
+
+        private void AddProductsToOrder()
         {
+            List<int> FK_Order = new();
+            List<int> FK_Products = new();
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+
+                string table = "Order_Product";
+                string values = "FK_Order_id, FK_Product_id";
+                string CommandText = $"SELECT {values} FROM {table}";
+
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                {
+                    while (sqldatareader.Read() != false)
+                    {
+                        FK_Order.Add(sqldatareader.GetInt32("FK_Order_id"));
+                        FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
+                    }
+
+                    for (int i = 0; i < FK_Order.Count; i++)
+                    {
+                        foreach (Order order in orders)
+                        {
+                            if (order.Id == FK_Products[i])
+                                AddProducts(FK_Products[i], order.Id);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void AddAssociationOrderProduct(int Order_id, int pro_id)
+        {
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                int Ord_id = Order_id;
+                int Product_id = pro_id;
+
+
+                string table = "Order_Product";
+                string coloumns = "FK_Order_id, FK_Product_id";
+                string values = "@Ord_id, @Product_id";
+
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
+
+
+                SqlCommand sqlCommand = new(query, connection);
+
+                sqlCommand.Parameters.Add(new SqlParameter("@Ord_id", Ord_id));
+                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", Product_id));
+                //Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
+
+                sqlCommand.ExecuteNonQuery();
+            }
+        }
+        public void AddProducts(int ord_id,int pro_id)
+            {
+                GetById(ord_id).products.Add(ProductRepo.Instance.GetById(pro_id));
+            }
+
+            public Order Create(int id, DateTime Date)
+           {
             Order order;
 
             using (SqlConnection connection = new(connectionString))
@@ -80,8 +146,8 @@ namespace FoodMenuUtility.Persistence
                 order = new(ID, Date);
             }
 
-            return order;
-        }
+              return order;
+            }
 
         public void Add(int id)
         {
