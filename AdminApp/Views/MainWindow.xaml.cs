@@ -81,7 +81,11 @@ namespace AdminApp
         {
             if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                MVM.RemoveIngredient();
+                DeleteIngredientDialog dialog = new();
+                if (dialog.ShowDialog() == true)
+                {
+                    MVM.RemoveIngredient(dialog.RemoveIngredientFromProduct);
+                }
             }
         }        
 
