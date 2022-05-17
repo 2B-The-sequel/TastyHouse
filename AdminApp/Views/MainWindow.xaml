@@ -56,7 +56,7 @@
                             <Border Background="White" BorderThickness="1" BorderBrush="Gray" Padding="5">
                                 <DockPanel>
                                     <Image Source="{Binding Image}" Width="32" Margin="0 0 5 0"/>
-                                    <TextBlock Text="Order id: "/>
+                                    <TextBlock Text="Bestillingsnummer: "/>
                                     <TextBlock Text="{Binding Id}"/>
                                 </DockPanel>
                             </Border>
@@ -131,12 +131,8 @@
                                             <TextBlock Text=" kr."/>
                                         </DockPanel>
                                         <DockPanel>
-                                            <TextBlock Text="ID: "/>
-                                            <TextBlock Text="{Binding Id}"/>
-                                        </DockPanel>
-                                        <DockPanel>
                                             <TextBlock Text="Ingredienser: "/>
-                                            <TextBlock Text="{Binding Ingredients}"/>
+                                            <TextBlock Text="{Binding IngredientsText}"/>
                                         </DockPanel>
                                     </StackPanel>
                                 </DockPanel>
@@ -210,13 +206,9 @@
                                             <TextBlock Text="{Binding Name}"/>
                                         </DockPanel>
                                         <DockPanel>
-                                            <TextBlock Text="Pris: "/>
+                                            <TextBlock Text="Tilkøbspris: "/>
                                             <TextBlock Text="{Binding ExtraPrice}"/>
                                             <TextBlock Text=" kr."/>
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <TextBlock Text="ID: "/>
-                                            <TextBlock Text="{Binding Id}"/>
                                         </DockPanel>
                                     </StackPanel>
                                 </DockPanel>

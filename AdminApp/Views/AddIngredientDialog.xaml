@@ -1,4 +1,4 @@
-﻿<Window x:Class="AdminApp.Views.AddContentDialog"
+﻿<Window x:Class="AdminApp.Views.AddIngredientDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Tilføj ingrediens" Width="300" SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
@@ -9,7 +9,7 @@
                 <TextBox Text="{Binding IngredientName}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
             </DockPanel>
             <DockPanel Margin="10">
-                <Label Content="Pris"/>
+                <Label Content="Tilkøbspris"/>
                 <TextBox Text="{Binding IngredientPrice}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox"/>
             </DockPanel>
             <DockPanel Margin="10">

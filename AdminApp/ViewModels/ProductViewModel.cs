@@ -81,7 +81,7 @@ namespace AdminApp.ViewModels
             }
         }
 
-        public string Ingredients
+        public string IngredientsText
         {
             get
             {
@@ -89,16 +89,13 @@ namespace AdminApp.ViewModels
 
                 for (int i = 0; i < model.Ingredients.Count; i++)
                 {
-                    ingredients += model.Ingredients[i].Name + ", ";
+                    ingredients += model.Ingredients[i].Name + ((i == model.Ingredients.Count - 1) ? string.Empty : ", ");
                 }
 
                 return ingredients;
             }
         }
 
-        public ProductViewModel (Product model) : base (model)
-        {
-            
-        }
+        public ProductViewModel (Product model) : base (model) { }
     }
 }

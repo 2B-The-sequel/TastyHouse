@@ -64,9 +64,6 @@ namespace AdminApp.ViewModels
             set { count_total = value; }
         }
 
-
-
-
         public bool SoldOut
         {
             get

@@ -1,0 +1,13 @@
+﻿<Window x:Class="AdminApp.Views.DeleteIngredientDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Fjern ingrediens" Width="300" ResizeMode="NoResize" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="20">
+        <TextBlock Text="Hvad vil du gøre?" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+        <StackPanel>
+            <Button Content="Fjern ingrediensen fra alle madvarer" Width="220" Height="40" Click="RemoveIngredientFromProduct_Click"/>
+            <Button Content="Slet alle madvarer med den ingrediens" Width="220" Height="40" Margin="0 10" Click="RemoveProductsWithIngredient_Click"/>
+            <Button Content="Annullér" Width="220" Height="40" Click="Cancel_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

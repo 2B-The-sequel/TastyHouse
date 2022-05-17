@@ -34,45 +34,7 @@ namespace FoodMenuUtility.Persistence
 
         public ProductRepo()
         {
-            Products = GetAll();
-            AddIngredientsToProducts();
-        }
-
-        /// <summary>
-        /// Adds ingredients to the products.
-        /// </summary>
-        private void AddIngredientsToProducts()
-        {
-            List<int> FK_Ingredients = new();
-            List<int> FK_Products = new();
-
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                
-                string table = "Product_Ingredient";
-                string values = "FK_Ingredient_id, FK_Product_id";
-                string CommandText = $"SELECT {values} FROM {table}";
-
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
-                {
-                    while (sqldatareader.Read() != false)
-                    {
-                        FK_Ingredients.Add(sqldatareader.GetInt32("FK_Ingredient_id"));
-                        FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
-                    }
-
-                    for (int i = 0; i < FK_Products.Count; i++)
-                    {
-                        foreach (Product product in Products)
-                        {
-                            if (product.Id == FK_Products[i])
-                                AddIngredient(FK_Ingredients[i], product);
-                        }
-                    }
-                }
-            }
+            Products = RetrieveAll();
         }
 
         public void Update(int id)
@@ -101,7 +63,7 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
 
-        public Product Create(string name, double price, ProductType type , byte[] image)
+        public Product Create(string name, double price, ProductType type , byte[] image, List<int> ingredients)
         {
             Product product;
             using (SqlConnection connection = new(connectionString))
@@ -112,7 +74,6 @@ namespace FoodMenuUtility.Persistence
 
                 ProductType Type = type +1;
                 byte[] Image = image;
-
 
                 string table = "Product";
                 string coloumns = "Product.Name, Product.Price, Product.FK_PT_id, Product.Image";
@@ -125,9 +86,7 @@ namespace FoodMenuUtility.Persistence
                 }
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
-
                 SqlCommand sqlCommand = new(query, connection);
-
 
                 sqlCommand.Parameters.Add(new SqlParameter("@Name", Name));
                 sqlCommand.Parameters.Add(new SqlParameter("@Price", ExtraPrice));
@@ -140,17 +99,11 @@ namespace FoodMenuUtility.Persistence
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 product = new(ID, name, price, type, image);
             }
-            return product;
-        }
 
-        public void AddToProduct(int ing_id, int pro_id) 
-        {
-            using (SqlConnection connection = new(connectionString))
+            for (int i = 0; i < ingredients.Count; i++)
             {
+                using SqlConnection connection = new(connectionString);
                 connection.Open();
-                int Ingredient_id = ing_id;
-                int Product_id = pro_id;
-
 
                 string table = "Product_Ingredient";
                 string coloumns = "FK_Ingredient_id, FK_Product_id";
@@ -158,26 +111,27 @@ namespace FoodMenuUtility.Persistence
 
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
 
-
                 SqlCommand sqlCommand = new(query, connection);
 
+                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", product.Id));
+                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", ingredients[i]));//Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
 
-                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", Product_id));
-                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", Ingredient_id));//Kunne måske lave en foreach her så den ikke bruger ligeså lang tid
-                
                 sqlCommand.ExecuteNonQuery();
-            }
-        }
 
+                product.Ingredients.Add(IngredientRepo.Instance.Retrieve(ingredients[i]));
+            }
+
+            return product;
+        }
 
         // ======================================================
         // Repository CRUD: Read (Reading entity from database)
         // ======================================================
 
         // Get all from database
-        public List<Product> GetAll()
+        public List<Product> RetrieveAll()
         {
-            List<Product> products = new List<Product>();
+            List<Product> products = new();
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
@@ -188,23 +142,50 @@ namespace FoodMenuUtility.Persistence
                 string table = "Product";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+                while (sqldatareader.Read() != false)
                 {
-                    while (sqldatareader.Read() != false)
+                    int id = sqldatareader.GetInt32("Product_id");
+                    string name = sqldatareader.GetString("Name");
+                    double price = sqldatareader.GetDouble("Price");
+                    int type = sqldatareader.GetInt32("FK_PT_id");
+                    if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
                     {
-                        int id = sqldatareader.GetInt32("Product_id");
-                        string name = sqldatareader.GetString("Name");
-                        double price = sqldatareader.GetDouble("Price");
-                        int type = sqldatareader.GetInt32("FK_PT_id");
-                        if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
-                        {
-                            image = (byte[])sqldatareader["Image"];
-                        }
+                        image = (byte[])sqldatareader["Image"];
+                    }
 
-                        type = type - 1;
-                        Product product = new(id, name, price, (ProductType)type, image);
+                    type--;
+                    Product product = new(id, name, price, (ProductType)type, image);
 
-                        products.Add(product);
+                    products.Add(product);
+                }
+            }
+
+            List<int> FK_Ingredients = new();
+            List<int> FK_Products = new();
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+
+                string table = "Product_Ingredient";
+                string values = "FK_Ingredient_id, FK_Product_id";
+                string CommandText = $"SELECT {values} FROM {table}";
+
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+                while (sqldatareader.Read() != false)
+                {
+                    FK_Ingredients.Add(sqldatareader.GetInt32("FK_Ingredient_id"));
+                    FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
+                }
+
+                for (int i = 0; i < FK_Products.Count; i++)
+                {
+                    foreach (Product product in products)
+                    {
+                        if (product.Id == FK_Products[i])
+                            product.Ingredients.Add(IngredientRepo.Instance.Retrieve(FK_Ingredients[i]));
                     }
                 }
             }
@@ -212,41 +193,7 @@ namespace FoodMenuUtility.Persistence
             return products;
         }
 
-        public List<Product> GetIngredientFromProduct()
-        {
-            using (SqlConnection connection = new(connectionString))
-            {
-                // får ing id som passer til pro id
-                string table = "Product_Ingredient";
-                string values = "FK_Ingredient_id, FK_Product_id";
-
-                string CommandText = $"SELECT {values} FROM {table}";
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
-                {
-                    while (sqldatareader.Read() != false)
-                    {
-                        int FK_Ingredient_id = sqldatareader.GetInt32("FK_Ingredient_id");
-                        int FK_Product_id = sqldatareader.GetInt32("FK_Product_id");
-                    }
-                }
-            }
-
-
-
-
-
-                    // få alle ing id der passer til pro id
-
-
-
-                    // lig alle ing ids til pro list
-
-
-                    return null;
-        }
-
-        public Product GetById(int id)
+        public Product Retrieve(int id)
         {
             Product result = null;
             foreach (Product product in Products)
@@ -259,35 +206,28 @@ namespace FoodMenuUtility.Persistence
             return result;
         }
 
-        public void AddIngredient(int ing_id,Product product)
-        {
-            product.Ingredients.Add(IngredientRepo.Instance.GetById(ing_id));
-        }
-
         // ======================================================
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
 
         public void Update(Product product)
         {
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                int id = product.Id;
-                string Name = product.Name;
-                double Price = product.Price;
+            using SqlConnection connection = new(connectionString);
+            connection.Open();
+            int id = product.Id;
+            string Name = product.Name;
+            double Price = product.Price;
 
-                ProductType Type = product.ProductType;
-                byte[] Image = product.Image;
+            ProductType Type = product.ProductType;
+            byte[] Image = product.Image;
 
 
-                string table = "Content";
-                string values = $"@{id}, @{Name}, @{Price}, @{Type}, @{Image}";
-                string query =
-                    $"UPDATE {table}" +
-                    $"SET Name = @'{Name}', Price = @'{Price}', FK_TP_id = @'{(int)Type}', Image = @'{Image}' " +
-                    $"WHERE Product_id = {id}";
-            }
+            string table = "Content";
+            string values = $"@{id}, @{Name}, @{Price}, @{Type}, @{Image}";
+            string query =
+                $"UPDATE {table}" +
+                $"SET Name = @'{Name}', Price = @'{Price}', FK_TP_id = @'{(int)Type}', Image = @'{Image}' " +
+                $"WHERE Product_id = {id}";
         }
 
         // ======================================================

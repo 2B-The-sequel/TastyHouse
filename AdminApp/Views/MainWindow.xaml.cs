@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using AdminApp.ViewModels;
 using AdminApp.Views;
 using FoodMenuUtility.Models;
@@ -24,14 +25,16 @@ namespace AdminApp
             AddProductDialog addSideDialog = new();
             if (addSideDialog.ShowDialog() == true)
             {
+                List<IngredientViewModel> ingredients = new();
+
                 for (int i = 0; i < addSideDialog.IngredientBox.Items.Count; i++)
                 {
-                    if (addSideDialog.Ingredients[i].Count_total != 0)
+                    for (int j = 0; j < addSideDialog.Ingredients[i].Count_total; j++)
                     {
-                        MVM.IngredientsInProduct.Add(addSideDialog.Ingredients[i]);
+                        ingredients.Add(addSideDialog.Ingredients[i]);
                     }
                 }
-                MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.ProductImage);
+                MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.ProductImage, ingredients);
             } 
         }
 
@@ -67,7 +70,7 @@ namespace AdminApp
 
         private void NewIngredient_Click(object sender, RoutedEventArgs e)
         {
-            AddContentDialog dialog = new();
+            AddIngredientDialog dialog = new();
             if (dialog.ShowDialog() == true)
             {
                 MVM.AddIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
@@ -78,13 +81,17 @@ namespace AdminApp
         {
             if (MessageBox.Show("Er du sikker på at du vil slette dette?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                MVM.RemoveIngredient();
+                DeleteIngredientDialog dialog = new();
+                if (dialog.ShowDialog() == true)
+                {
+                    MVM.RemoveIngredient(dialog.RemoveIngredientFromProduct);
+                }
             }
         }        
 
         private void EditIngredient_Click(object sender, RoutedEventArgs e)
         {
-            AddContentDialog dialog = new();
+            AddIngredientDialog dialog = new();
             dialog.IngredientName = MVM.SelectedIngredient.Name;
             dialog.IngredientPrice = MVM.SelectedIngredient.ExtraPrice;
             dialog.IngredientImage = MVM.SelectedIngredient.Image;

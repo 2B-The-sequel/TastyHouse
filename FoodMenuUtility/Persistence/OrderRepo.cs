@@ -25,7 +25,7 @@ namespace FoodMenuUtility.Persistence
 
         private OrderRepo()
         {
-            orders = GetAll();
+            orders = RetrieveAll();
         }
 
         public Order Create(int id, DateTime Date)
@@ -53,7 +53,7 @@ namespace FoodMenuUtility.Persistence
             return order;
         }
 
-        public List<Order> GetAll()
+        public List<Order> RetrieveAll()
         {
             List<Order> orders = new();
             using (SqlConnection connection = new(connectionString))
@@ -64,24 +64,22 @@ namespace FoodMenuUtility.Persistence
                 string table = "Order";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+                while (sqldatareader.Read() != false)
                 {
-                    while (sqldatareader.Read() != false)
-                    {
-                        int id = sqldatareader.GetInt32("Order_id");
-                        DateTime date = sqldatareader.GetDateTime("Date");
-                        DateTime time = sqldatareader.GetDateTime("Estimate_Time");
+                    int id = sqldatareader.GetInt32("Order_id");
+                    DateTime date = sqldatareader.GetDateTime("Date");
+                    DateTime time = sqldatareader.GetDateTime("Estimate_Time");
 
-                        if (time != DateTime.MinValue)
-                        {
-                            Order order = new(id, date, time);
-                            orders.Add(order);
-                        }
-                        else
-                        {
-                            Order order = new(id, date);
-                            orders.Add(order);
-                        }
+                    if (time != DateTime.MinValue)
+                    {
+                        Order order = new(id, date, time);
+                        orders.Add(order);
+                    }
+                    else
+                    {
+                        Order order = new(id, date);
+                        orders.Add(order);
                     }
                 }
             }
@@ -89,7 +87,7 @@ namespace FoodMenuUtility.Persistence
             return orders;
         }
 
-        public Order GetById(int id)
+        public Order Retrieve(int id)
         {
             Order result = null;
             foreach (Order order in orders)
@@ -104,20 +102,18 @@ namespace FoodMenuUtility.Persistence
 
         public void Update(Order order)
         {
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                int id = order.Id;
-                DateTime date = order.Date;
-                DateTime DoneTime = order.DoneTime;
+            using SqlConnection connection = new(connectionString);
+            connection.Open();
+            int id = order.Id;
+            DateTime date = order.Date;
+            DateTime DoneTime = order.DoneTime;
 
-                string table = "Ingredient";
-                string values = $"@{id}, @{date}, @{DoneTime}";
-                string query =
-                    $"UPDATE {table}" +
-                    $"SET Date = @'{date}', Estimate_Time = @'{DoneTime}'" +
-                    $"WHERE Order_id = {id}";
-            }
+            string table = "Ingredient";
+            string values = $"@{id}, @{date}, @{DoneTime}";
+            string query =
+                $"UPDATE {table}" +
+                $"SET Date = @'{date}', Estimate_Time = @'{DoneTime}'" +
+                $"WHERE Order_id = {id}";
         }
     }
 }

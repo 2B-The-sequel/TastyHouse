@@ -20,7 +20,10 @@ namespace AdminApp.Views
         private string productName = string.Empty;
         public string ProductName
         {
-            get { return productName; }
+            get 
+            { 
+                return productName; 
+            }
             set
             {
                 productName = value;
@@ -31,22 +34,43 @@ namespace AdminApp.Views
         private string price = string.Empty;
         public string Price
         {
-            get { return price; }
-            set { price = value; NotifyPropertyChanged(nameof(price)); }
+            get 
+            { 
+                return price; 
+            }
+            set 
+            { 
+                price = value; 
+                NotifyPropertyChanged(nameof(price)); 
+            }
         }
 
         private int type;
         public ProductType Type
         {
-            get { return (ProductType)type; }
-            set { type = (int)value; NotifyPropertyChanged(nameof(type)); }
+            get 
+            { 
+                return type; 
+            }
+            set 
+            { 
+                type = value; 
+                NotifyPropertyChanged(nameof(type)); 
+            }
         }
 
         private byte[] productImage;
         public byte[] ProductImage
         {
-            get { return productImage; }
-            set { productImage = value; NotifyPropertyChanged(nameof(productImage)); }
+            get 
+            { 
+                return productImage; 
+            }
+            set 
+            { 
+                productImage = value; 
+                NotifyPropertyChanged(nameof(productImage)); 
+            }
         }
 
         private string _imagePath = string.Empty;
@@ -68,7 +92,7 @@ namespace AdminApp.Views
             InitializeComponent();
             DataContext = this;
             Ingredients = new ObservableCollection<IngredientViewModel>();
-            List<Ingredient> test = IngredientRepo.Instance.GetAll();
+            List<Ingredient> test = IngredientRepo.Instance.RetrieveAll();
 
             foreach (Ingredient content in test)
             {
