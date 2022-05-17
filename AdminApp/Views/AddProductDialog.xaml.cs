@@ -92,7 +92,7 @@ namespace AdminApp.Views
             InitializeComponent();
             DataContext = this;
             Ingredients = new ObservableCollection<IngredientViewModel>();
-            List<Ingredient> test = IngredientRepo.Instance.GetAll();
+            List<Ingredient> test = IngredientRepo.Instance.RetrieveAll();
 
             foreach (Ingredient content in test)
             {

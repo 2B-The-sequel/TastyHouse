@@ -9,7 +9,7 @@
                 <TextBox Text="{Binding IngredientName}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
             </DockPanel>
             <DockPanel Margin="10">
-                <Label Content="Pris"/>
+                <Label Content="Tilkøbspris"/>
                 <TextBox Text="{Binding IngredientPrice}" Width="190" HorizontalAlignment="Right" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox"/>
             </DockPanel>
             <DockPanel Margin="10">

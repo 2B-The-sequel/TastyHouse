@@ -30,13 +30,13 @@ namespace AdminApp.ViewModels
             }
             //TEST SLUT :(
 
-            List<Ingredient> contentList = IngredientRepo.Instance.GetAll();
+            List<Ingredient> contentList = IngredientRepo.Instance.RetrieveAll();
             foreach (Ingredient content in contentList)
             {
                 Ingredients.Add(new IngredientViewModel(content));
             }
 
-            List<Product> ProList = ProductRepo.Instance.GetAll();
+            List<Product> ProList = ProductRepo.Instance.RetrieveAll();
             foreach (Product prolist in ProList)
             {
                 Products.Add(new ProductViewModel(prolist));
@@ -65,7 +65,7 @@ namespace AdminApp.ViewModels
 
         public void AddIngredientToProduct(IngredientViewModel ingredient)
         {
-            SelectedProduct.Ingredients.Add(IngredientRepo.Instance.GetById(ingredient.Id));
+            SelectedProduct.Ingredients.Add(IngredientRepo.Instance.Retrieve(ingredient.Id));
         }
 
         // Ingredients

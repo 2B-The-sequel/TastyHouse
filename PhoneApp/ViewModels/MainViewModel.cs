@@ -22,9 +22,6 @@ namespace PhoneApp.ViewModels
             }
         }
 
-        //MenuRepo mr = new MenuRepo();
-        ProductRepo pr = new ProductRepo();
-
         public AccountViewModel AVM { get; set; }
 
         // Singleton
@@ -65,7 +62,7 @@ namespace PhoneApp.ViewModels
 
             AVM = new(new Account("will@smith.dk", "12345", 88888888, "Will", "Smith", "Viljesmedvej 20", 5000, "Odense"));
 
-            List<Product> burgerList = pr.GetAll();
+            List<Product> burgerList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in burgerList)
             {
                 if (product.ProductType.ToString() == "Burger")
@@ -74,7 +71,7 @@ namespace PhoneApp.ViewModels
                 }
             }
 
-            List<Product> sandwichList = pr.GetAll();
+            List<Product> sandwichList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in sandwichList)
             {
                 if (product.ProductType.ToString() == "Sandwich")
@@ -83,7 +80,7 @@ namespace PhoneApp.ViewModels
                 }
             }
 
-            List<Product> sidesList = pr.GetAll();
+            List<Product> sidesList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in sidesList)
             {
                 if (product.ProductType.ToString() == "Side")
@@ -92,7 +89,7 @@ namespace PhoneApp.ViewModels
                 }
             }
 
-            List<Product> refreshmentsList = pr.GetAll();
+            List<Product> refreshmentsList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in refreshmentsList)
             {
                 if (product.ProductType.ToString() == "Refreshment")
@@ -105,7 +102,7 @@ namespace PhoneApp.ViewModels
         public void RemoveFromCart(ProductViewModel cvm)
         {
             Cart.Remove(cvm);
-            NotifyPropertyChanged("CartTotal");
+            NotifyPropertyChanged(nameof(CartTotal));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
