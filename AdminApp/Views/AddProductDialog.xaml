@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:FoodMenuUtility.Models;assembly=FoodMenuUtility"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Tilføj madvare" Height="600" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Tilføj madvare" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Height">
     <Window.Resources>
         <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type sys:Enum}">
@@ -16,11 +16,11 @@
         <StackPanel>
             <DockPanel Margin="10">
                 <Label Content="Navn"></Label>
-                <TextBox Text="{Binding ProductName}" Width="200" HorizontalAlignment="Right"></TextBox>
+                <TextBox Text="{Binding ProductName}" Width="200" HorizontalAlignment="Right" VerticalContentAlignment="Center"></TextBox>
             </DockPanel>
             <DockPanel Margin="10">
                 <Label Content="Pris"></Label>
-                <TextBox Text="{Binding Price}" Width="200" HorizontalAlignment="Right" PreviewTextInput="NumberValidationTextBox"></TextBox>
+                <TextBox Text="{Binding Price}" Width="200" HorizontalAlignment="Right" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox"></TextBox>
             </DockPanel>
             <DockPanel Margin="10">
                 <Label Content="Type"></Label>
@@ -34,14 +34,14 @@
                             <Image Height="100" Source="{Binding ProductImage}"/>
                         </Border>
                     </DockPanel>
-                    <DockPanel Margin="0 10">
-                        <TextBox Text="{Binding ImagePath}" IsReadOnly="True" Width="120" Height="25" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalContentAlignment="Center"/>
+                    <DockPanel Margin="0 10 0 0">
+                        <TextBox Text="{Binding ImagePath}" IsReadOnly="True" Width="120" Height="25" HorizontalAlignment="Right" VerticalContentAlignment="Center"/>
                         <Button Content="Gennemse" Width="70" Height="25" Click="OpenImageButton_Click" HorizontalAlignment="Right"/>
                     </DockPanel>
                 </StackPanel>
             </DockPanel>
 
-            <ListBox x:Name="IngredientBox" ItemsSource="{Binding Ingredients}" Height="150" Width="310">
+            <ListBox x:Name="IngredientBox" ItemsSource="{Binding Ingredients}" Height="150" Margin="10 0">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Padding" Value="0"/>

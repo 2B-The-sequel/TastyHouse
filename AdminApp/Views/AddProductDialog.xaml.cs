@@ -33,8 +33,8 @@ namespace AdminApp.Views
             }
         }
 
-        private string price = string.Empty;
-        public string Price
+        private double price = 0.0;
+        public double Price
         {
             get 
             { 
