@@ -83,16 +83,14 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <DockPanel>
-                    <Button Name="SaveSideButton" Margin="10" Click="SaveProductButton_Click" Width="89">
+                    <Button Name="SaveSideButton" Margin="10" Click="SaveProductButton_Click" Width="89" Height="70">
                         <StackPanel Margin="10">
                             <Image Source="/Resources/Accept.png" Width="32"></Image>
-                            <TextBlock Text="Tilføj Vare"></TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Width="100" HorizontalAlignment="Right" Margin="10" Click="Button_Click">
                         <StackPanel>
                             <Image Source="/Resources/Decline.png" Width="32"></Image>
-                            <TextBlock Text="Annullér"></TextBlock>
                         </StackPanel>
                     </Button>
                 </DockPanel>

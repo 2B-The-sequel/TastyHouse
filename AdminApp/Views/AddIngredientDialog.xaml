@@ -30,13 +30,11 @@
                 <Button Width="100" Margin="10" Click="SaveIngredientButton_Click">
                     <StackPanel Margin="10">
                         <Image Source="/Resources/Accept.png" Width="32"/>
-                        <TextBlock Text="Tilføj" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Width="100" Margin="10" HorizontalAlignment="Right" Click="Button_Click">
                     <StackPanel>
                         <Image Source="/Resources/Decline.png" Width="32"/>
-                        <TextBlock Text="Annullér" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </DockPanel>
