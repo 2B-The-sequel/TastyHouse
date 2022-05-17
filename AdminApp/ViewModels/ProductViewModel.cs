@@ -13,18 +13,61 @@ namespace AdminApp.ViewModels
             } 
             set 
             {
-                model.Id = value; 
+                model.Id = value;
+                NotifyPropertyChanged(nameof(Id));
             } 
         }
 
-        public string Name { get { return model.Name; } set { model.Name = value; } }
+        public string Name 
+        { 
+            get 
+            { 
+                return model.Name; 
+            } 
+            set 
+            { 
+                model.Name = value;
+                NotifyPropertyChanged(nameof(Name));
+            } 
+        }
 
-        public double Price { get { return model.Price; } set { model.Price = value; } }
-        public List<Ingredient> ingredients { get { return model.Ingredients; } set { model.Ingredients  = value; } }
+        public double Price 
+        { 
+            get 
+            { 
+                return model.Price;
+            } 
+            set 
+            { 
+                model.Price = value;
+                NotifyPropertyChanged(nameof(Price));
+
+            }
+        }
+
+        public List<Ingredient> Ingredients 
+        { 
+            get 
+            { 
+                return model.Ingredients; 
+            } 
+            set 
+            { 
+                model.Ingredients  = value;
+                NotifyPropertyChanged(nameof(Ingredients));
+            } 
+        }
+
         public int ProductType
         {
-            get { return (int)model.ProductType; }
-            set { model.ProductType = (ProductType)value; }
+            get 
+            {
+                return (int)model.ProductType; 
+            }
+            set 
+            { 
+                model.ProductType = (ProductType)value; 
+            }
         }
 
         public byte[] Image
@@ -36,10 +79,11 @@ namespace AdminApp.ViewModels
             set
             {
                 model.Image = value;
+                NotifyPropertyChanged(nameof(Image));
             }
         }
 
-        public string Ingredients
+        public string IngredientsText
         {
             get
             {
@@ -47,16 +91,13 @@ namespace AdminApp.ViewModels
 
                 for (int i = 0; i < model.Ingredients.Count; i++)
                 {
-                    ingredients += model.Ingredients[i].Name + ", ";
+                    ingredients += model.Ingredients[i].Name + ((i == model.Ingredients.Count - 1) ? string.Empty : ", ");
                 }
 
                 return ingredients;
             }
         }
 
-        public ProductViewModel (Product model) : base (model)
-        {
-            
-        }
+        public ProductViewModel (Product model) : base (model) { }
     }
 }

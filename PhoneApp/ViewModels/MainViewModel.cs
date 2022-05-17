@@ -2,10 +2,11 @@
 using FoodMenuUtility.Persistence;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace PhoneApp.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<ProductViewModel> Burgers { get; set; }
         public ObservableCollection<ProductViewModel> Sandwiches { get; set; }
@@ -21,10 +22,7 @@ namespace PhoneApp.ViewModels
             }
         }
 
-        //MenuRepo mr = new MenuRepo();
-        ProductRepo pr = new ProductRepo();
-
-        public AccountViewModel avm { get; set; }
+        public AccountViewModel AVM { get; set; }
 
         // Singleton
         private static MainViewModel _instance;
@@ -62,9 +60,9 @@ namespace PhoneApp.ViewModels
             Refreshments = new ObservableCollection<ProductViewModel>();
             Cart = new ObservableCollection<ProductViewModel>();
 
-            avm = new(new Account("will@smith.dk", "12345", 88888888, "Will", "Smith", "Viljesmedvej 20", 5000, "Odense"));
+            AVM = new(new Account("will@smith.dk", "12345", 88888888, "Will", "Smith", "Viljesmedvej 20", 5000, "Odense"));
 
-            List<Product> burgerList = pr.GetAll();
+            List<Product> burgerList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in burgerList)
             {
                 if (product.ProductType.ToString() == "Burger")
@@ -73,7 +71,7 @@ namespace PhoneApp.ViewModels
                 }
             }
 
-            List<Product> sandwichList = pr.GetAll();
+            List<Product> sandwichList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in sandwichList)
             {
                 if (product.ProductType.ToString() == "Sandwich")
@@ -82,7 +80,7 @@ namespace PhoneApp.ViewModels
                 }
             }
 
-            List<Product> sidesList = pr.GetAll();
+            List<Product> sidesList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in sidesList)
             {
                 if (product.ProductType.ToString() == "Side")
@@ -91,7 +89,7 @@ namespace PhoneApp.ViewModels
                 }
             }
 
-            List<Product> refreshmentsList = pr.GetAll();
+            List<Product> refreshmentsList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in refreshmentsList)
             {
                 if (product.ProductType.ToString() == "Refreshment")
@@ -99,7 +97,23 @@ namespace PhoneApp.ViewModels
                     Refreshments.Add(new ProductViewModel(product));
                 }
             }
+        }
 
+        public void RemoveFromCart(ProductViewModel cvm)
+        {
+            Cart.Remove(cvm);
+            NotifyPropertyChanged(nameof(CartTotal));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Used to notify UI of changes in a property.
+        /// </summary>
+        // <param name="propertyName">Name of the property changed.</param>
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

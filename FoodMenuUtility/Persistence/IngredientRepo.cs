@@ -11,18 +11,18 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private List<Ingredient> Ingredients;
+        private readonly List<Ingredient> Ingredients;
         private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
-        private static IngredientRepo _instance;
+        private static IngredientRepo s_instance;
         public static IngredientRepo Instance
         {
             get
             {
-                if (_instance == null)
-                    _instance = new IngredientRepo();
-                return _instance;
+                if (s_instance == null)
+                    s_instance = new IngredientRepo();
+                return s_instance;
             }
         }
 
@@ -31,7 +31,7 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
         private IngredientRepo() // Constructor er private så man ikke kan lave flere instanser af IngredientRepo.
         {
-            Ingredients = GetAll();
+            Ingredients = RetrieveAll();
         }
 
         // ======================================================
@@ -66,13 +66,13 @@ namespace FoodMenuUtility.Persistence
         }
 
         // ======================================================
-        // Repository CRUD: Read (Reading entity from database)
+        // Repository CRUD: Retrieve (Reading entity from database)
         // ======================================================
 
         // Get all from database
-        public List<Ingredient> GetAll()
+        public List<Ingredient> RetrieveAll()
         {
-            Ingredients = new List<Ingredient>();
+            List<Ingredient> Ingredients = new();
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
@@ -81,25 +81,23 @@ namespace FoodMenuUtility.Persistence
                 string table = "Ingredient";
                 string CommandText = $"SELECT {values} FROM {table}";
                 SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
+                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+                while (sqldatareader.Read() != false)
                 {
-                    while (sqldatareader.Read() != false)
-                    {
-                        int id = sqldatareader.GetInt32("Ingredient_id");
-                        string name = sqldatareader.GetString("Name");
-                        double extraPrice = sqldatareader.GetDouble("Extra_Price");
-                        byte[] image = image = (byte[])sqldatareader["Image"];
-                        bool soldout = sqldatareader.GetBoolean("Sold_Out");
+                    int id = sqldatareader.GetInt32("Ingredient_id");
+                    string name = sqldatareader.GetString("Name");
+                    double extraPrice = sqldatareader.GetDouble("Extra_Price");
+                    byte[] image = (byte[])sqldatareader["Image"];
+                    bool soldout = sqldatareader.GetBoolean("Sold_Out");
 
-                        Ingredient ingredient = new(id, name, extraPrice, image, soldout);
-                        Ingredients.Add(ingredient);
-                    }
+                    Ingredient ingredient = new(id, name, extraPrice, image, soldout);
+                    Ingredients.Add(ingredient);
                 }
             }
             return Ingredients;
         }
 
-        public Ingredient GetById(int id)
+        public Ingredient Retrieve(int id)
         {
             Ingredient result = null;
             foreach (Ingredient Ingredients in Ingredients)
@@ -117,23 +115,23 @@ namespace FoodMenuUtility.Persistence
 
         public void Update(int id)
         {
-            Ingredient ingredient = GetById(id);
+            Ingredient ingredient = Retrieve(id);
 
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
+            using SqlConnection connection = new(connectionString);
+            connection.Open();
 
-                string query = $"UPDATE Ingredient SET Name=@Name, Extra_Price=@Extra_Price, Image=@Image, Sold_Out=@Sold_Out WHERE Ingredient_ID=@Ingredient_ID";
+            string query = $"UPDATE Ingredient SET Name=@Name, Extra_Price=@Extra_Price, Image=@Image, Sold_Out=@Sold_Out WHERE Ingredient_ID=@Ingredient_ID";
 
-                SqlCommand sqlCommand = new(query, connection);
+            SqlCommand sqlCommand = new(query, connection);
 
-                sqlCommand.Parameters.Add(new SqlParameter("Name", ingredient.Name));
-                sqlCommand.Parameters.Add(new SqlParameter("Extra_Price", ingredient.ExtraPrice));
-                sqlCommand.Parameters.Add(new SqlParameter("Sold_Out", ingredient.SoldOut ? 1 : 0));
-                sqlCommand.Parameters.Add(new SqlParameter("Ingredient_ID", ingredient.Id));
 
-                sqlCommand.ExecuteNonQuery();
-            }
+            sqlCommand.Parameters.Add(new SqlParameter("Name", ingredient.Name));
+            sqlCommand.Parameters.Add(new SqlParameter("Extra_Price", ingredient.ExtraPrice));
+            sqlCommand.Parameters.Add(new SqlParameter("Sold_Out", ingredient.SoldOut ? 1 : 0));
+            sqlCommand.Parameters.Add(new SqlParameter("Ingredient_ID", ingredient.Id));
+            sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ingredient.Image;
+
+            sqlCommand.ExecuteNonQuery();
         }
 
         // ======================================================
@@ -154,14 +152,12 @@ namespace FoodMenuUtility.Persistence
             if (found)
                 Ingredients.Remove(Ingredients[i]);
 
-            using (SqlConnection connection = new(connectionString)) // missing inner, delete connection to product
-            {
-                connection.Open();
-                string table = "Ingredient";
-                string query = $"DELETE from Product_Ingredient WHERE FK_Ingredient_id = {id}; Delete from {table} where Ingredient_id = {id};";
-                SqlCommand sqlCommand = new(query, connection);
-                sqlCommand.ExecuteNonQuery();
-            }
+            using SqlConnection connection = new(connectionString); // missing inner, delete connection to product
+            connection.Open();
+            string table = "Ingredient";
+            string query = $"DELETE from Product_Ingredient WHERE FK_Ingredient_id = {id}; Delete from {table} where Ingredient_id = {id};";
+            SqlCommand sqlCommand = new(query, connection);
+            sqlCommand.ExecuteNonQuery();
         }
     }
 }

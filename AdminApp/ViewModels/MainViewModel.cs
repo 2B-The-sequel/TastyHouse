@@ -11,7 +11,6 @@ namespace AdminApp.ViewModels
         public ObservableCollection<OrderViewModel> Orders { get; set; }
         public ObservableCollection<ProductViewModel> Products { get; set; }
         public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
-        public ObservableCollection<IngredientViewModel> IngredientsInProduct { get; set; }
 
         public OrderViewModel SelectedOrder { get; set; }
         public ProductViewModel SelectedProduct { get; set; }
@@ -21,8 +20,8 @@ namespace AdminApp.ViewModels
         {
             Orders = new ObservableCollection<OrderViewModel>();
             Ingredients = new ObservableCollection<IngredientViewModel>();
-            IngredientsInProduct = new ObservableCollection<IngredientViewModel>();
             Products = new ObservableCollection<ProductViewModel> {};
+
 
             //TESTING
             for (int i = 1; i <= 10; i++)
@@ -34,42 +33,52 @@ namespace AdminApp.ViewModels
             }
             //TEST SLUT :(
 
-            List<Ingredient> contentList = IngredientRepo.Instance.GetAll();
+            List<Ingredient> contentList = IngredientRepo.Instance.RetrieveAll();
             foreach (Ingredient content in contentList)
             {
                 Ingredients.Add(new IngredientViewModel(content));
             }
 
-            List<Product> ProList = ProductRepo.Instance.GetAll();
+            List<Product> ProList = ProductRepo.Instance.RetrieveAll();
             foreach (Product prolist in ProList)
             {
                 Products.Add(new ProductViewModel(prolist));
-            }            
+            }
         }
 
         // Products
-        public void AddProduct(string name, double price,ProductType type, byte[] image)
+        public void AddProduct(string name, double price,ProductType type, byte[] image, List<IngredientViewModel> ingredients)
         {
-            Product product = ProductRepo.Instance.Create(name, price, type, image);
+            List<int> ingredient_ids = new();
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                ingredient_ids.Add(ingredients[i].Id);
+            }
+
+            Product product = ProductRepo.Instance.Create(name, price, type, image, ingredient_ids);
             ProductViewModel pvm = new(product);
             Products.Add(pvm);
-            
-            int pro_id = product.Id;
-            for (int i = 0; i < IngredientsInProduct.Count; i++)
-            {
-                for (int x = 0; x < IngredientsInProduct[i].Count_total; x++)
-                {
-                    int id = IngredientsInProduct[i].Id;
-                    ProductRepo.Instance.AddToProduct(id, pro_id);
-                }
-            }
-            IngredientsInProduct.Clear();
+        }
+
+
+        public void EditProduct(string name, double price, byte[] image)
+        {
+            SelectedProduct.Name = name;
+            SelectedProduct.Price = price;
+            SelectedProduct.Image = image;
+
+            ProductRepo.Instance.Update(SelectedProduct.Id);
         }
       
         public void RemoveProduct()
         {
             ProductRepo.Instance.Delete(SelectedProduct.Id);
             Products.Remove(SelectedProduct);
+        }
+
+        public void AddIngredientToProduct(IngredientViewModel ingredient)
+        {
+            SelectedProduct.Ingredients.Add(IngredientRepo.Instance.Retrieve(ingredient.Id));
         }
 
         // Ingredients
@@ -90,8 +99,22 @@ namespace AdminApp.ViewModels
             IngredientRepo.Instance.Update(SelectedIngredient.Id);
         }
 
-        public void RemoveIngredient()
+        public void RemoveIngredient(bool RemoveIngredientFromProducts)
         {
+            List<Product> products = ProductRepo.Instance.RetrieveAll();
+
+            foreach (Product product in products)
+            {
+                if (RemoveIngredientFromProducts)
+                {
+                    
+                }
+                else
+                {
+
+                }
+            }
+
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
         }

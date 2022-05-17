@@ -10,7 +10,7 @@ namespace AdminApp.Views
     /// <summary>
     /// Interaction logic for NewContent.xaml
     /// </summary>
-    public partial class AddContentDialog : Window, INotifyPropertyChanged
+    public partial class AddIngredientDialog : Window, INotifyPropertyChanged
     {
         private string _ingredientName = string.Empty;
         public string IngredientName 
@@ -82,7 +82,7 @@ namespace AdminApp.Views
             } 
         }
 
-        public AddContentDialog()
+        public AddIngredientDialog()
         {
             InitializeComponent();
             DataContext = this;
