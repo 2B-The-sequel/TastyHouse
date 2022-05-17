@@ -75,6 +75,28 @@ namespace FoodMenuUtility.Persistence
             }
         }
 
+        public void Update(int id)
+        {
+            Product product = GetById(id);
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+
+                string query = $"UPDATE Product SET Name=@Name, Price=@Price, Image=@Image WHERE Product_id=@Product_id";
+
+                SqlCommand sqlCommand = new(query, connection);
+
+                sqlCommand.Parameters.Add(new SqlParameter("Product_id", product.Id));
+                sqlCommand.Parameters.Add(new SqlParameter("Name", product.Name));
+                sqlCommand.Parameters.Add(new SqlParameter("Price", product.Price));
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+        }
+
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================

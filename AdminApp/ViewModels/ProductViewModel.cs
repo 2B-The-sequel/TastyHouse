@@ -13,18 +13,59 @@ namespace AdminApp.ViewModels
             } 
             set 
             {
-                model.Id = value; 
+                model.Id = value;
+                NotifyPropertyChanged(nameof(Id));
             } 
         }
 
-        public string Name { get { return model.Name; } set { model.Name = value; } }
+        public string Name 
+        { 
+            get 
+            { 
+                return model.Name; 
+            } 
+            set 
+            { 
+                model.Name = value;
+                NotifyPropertyChanged(nameof(Name));
+            } 
+        }
 
-        public double Price { get { return model.Price; } set { model.Price = value; } }
-        public List<Ingredient> ingredients { get { return model.Ingredients; } set { model.Ingredients  = value; } }
+        public double Price 
+        { 
+            get 
+            { 
+                return model.Price;
+            } 
+            set 
+            { 
+                model.Price = value;
+                NotifyPropertyChanged(nameof(Price));
+
+            }
+        }
+        public List<Ingredient> ingredients 
+        { 
+            get 
+            { 
+                return model.Ingredients; 
+            } 
+            set 
+            { 
+                model.Ingredients  = value;
+                NotifyPropertyChanged(nameof(Ingredient));
+            } 
+        }
         public int ProductType
         {
-            get { return (int)model.ProductType; }
-            set { model.ProductType = (ProductType)value; }
+            get 
+            {
+                return (int)model.ProductType; 
+            }
+            set 
+            { 
+                model.ProductType = (ProductType)value; 
+            }
         }
 
         public byte[] Image
@@ -36,6 +77,7 @@ namespace AdminApp.ViewModels
             set
             {
                 model.Image = value;
+                NotifyPropertyChanged(nameof(Image));
             }
         }
 
