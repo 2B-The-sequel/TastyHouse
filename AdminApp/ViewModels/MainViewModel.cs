@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using FoodMenuUtility.Models;
 using FoodMenuUtility.Persistence;
@@ -28,6 +29,7 @@ namespace AdminApp.ViewModels
                 Order order = new(i);
                 OrderViewModel ovm = new(order);
                 Orders.Add(ovm);
+                OrderRepo.Instance.Add(ovm.Id);
             }
             //TEST SLUT :(
 
@@ -116,5 +118,13 @@ namespace AdminApp.ViewModels
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
         }
+
+        // EDIT ORDER
+        public void UpdateOrder(int id)
+        {
+            OrderRepo.Instance.Update(id);
+
+        }
+
     }
 }

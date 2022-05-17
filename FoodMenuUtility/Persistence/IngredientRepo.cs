@@ -124,6 +124,7 @@ namespace FoodMenuUtility.Persistence
 
             SqlCommand sqlCommand = new(query, connection);
 
+
             sqlCommand.Parameters.Add(new SqlParameter("Name", ingredient.Name));
             sqlCommand.Parameters.Add(new SqlParameter("Extra_Price", ingredient.ExtraPrice));
             sqlCommand.Parameters.Add(new SqlParameter("Sold_Out", ingredient.SoldOut ? 1 : 0));

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+
+﻿using System;
+
+
 using System.Windows;
 using AdminApp.ViewModels;
 using AdminApp.Views;
@@ -49,9 +52,14 @@ namespace AdminApp
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
             AcceptDialog dialog = new();
+            
             if (dialog.ShowDialog() == true)
             {
+                string datestring = dialog.Hour + ":" + dialog.Minute;
+
                 MVM.SelectedOrder.State = OrderState.Accepted;
+                MVM.SelectedOrder.DoneTime = DateTime.ParseExact(datestring, "t", null);
+                MVM.UpdateOrder(MVM.SelectedOrder.Id);
             }
         }
 
@@ -102,9 +110,10 @@ namespace AdminApp
                 MVM.EditIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
             }
         }
-        
+
         private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
+
             AddProductDialog dialog = new();
             dialog.ProductName = MVM.SelectedProduct.Name;
             dialog.Price = MVM.SelectedProduct.Price.ToString();
@@ -117,5 +126,6 @@ namespace AdminApp
 
 
         }
+
     }
 }

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using FoodMenuUtility.Models;
 
-namespace AdminApp.ViewModels
+namespace PhoneApp.ViewModels
 {
     public class OrderViewModel : ViewModel<Order>
     {
 
         public List<Product> products { get { return model.products; } set { model.products = value; } }
-        public int Id 
-        { 
+        public int Id
+        {
             get
             {
                 return model.Id;
@@ -19,7 +19,7 @@ namespace AdminApp.ViewModels
                 model.Id = value;
             }
         }
-        
+
         public string Image
         {
             get
@@ -47,8 +47,8 @@ namespace AdminApp.ViewModels
             }
         }
 
-        public OrderState State 
-        { 
+        public OrderState State
+        {
             get
             {
                 return model.State;
