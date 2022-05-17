@@ -47,13 +47,28 @@ namespace AdminApp
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
             AcceptDialog dialog = new();
+            
+
             if (dialog.ShowDialog() == true)
             {
-                MVM.SelectedOrder.State = OrderState.Accepted;
                 string datestring = dialog.Hour + ":" + dialog.Minute;
-               MVM.SelectedOrder.DoneTime = DateTime.ParseExact(datestring,"t",null);
-                MVM.EditOrder();
+
+                if (OnlyDigits(datestring))
+                {
+                    MVM.SelectedOrder.State = OrderState.Accepted;
+
+                    MVM.SelectedOrder.DoneTime = DateTime.ParseExact(datestring, "t", null);
+                    MVM.UpdateOrder(MVM.SelectedOrder.Id);
+                }
+                else
+                {
+                    MessageBox.Show("Input må kun være tal imellem \n 00 - 23 : 00 - 59" , "Input fejl", MessageBoxButton.OK);
+
+
+                }
+
             }
+        
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
@@ -98,6 +113,40 @@ namespace AdminApp
             {
                 MVM.EditIngredient(dialog.IngredientName, dialog.IngredientPrice, dialog.IngredientImage, dialog.IngredientSoldOut);
             }
+        }
+
+        //Metode til at tjekke input for Leveringstid færdigt i AdminApp
+        public static Boolean OnlyDigits(string s)
+        {
+
+            try
+            {
+                int holder3 = int.Parse(s[0].ToString() + s[1].ToString());
+                int holder4 = int.Parse(s[3].ToString() + s[4].ToString());
+            }
+            catch (Exception x)
+            {
+                if (x is FormatException || x is IndexOutOfRangeException)
+                {
+                    return false;
+                }
+   
+            }
+            int holder = int.Parse(s[0].ToString() + s[1].ToString());
+            int holder2 = int.Parse(s[3].ToString() + s[4].ToString());
+
+            if (holder >= 24 || holder2 > 59)
+            { return false; }
+
+            for (int i = 0; i < s.Length; i++)
+                {
+                    if (!Char.IsNumber(s[i]) && s[i] != ':')
+                    {
+                        return false;
+                    }
+                }
+                return true;
+
         }
         
         private void EditProduct_Click(object sender, RoutedEventArgs e)

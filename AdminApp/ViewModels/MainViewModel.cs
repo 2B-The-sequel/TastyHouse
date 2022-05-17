@@ -30,6 +30,7 @@ namespace AdminApp.ViewModels
                 Order order = new(i);
                 OrderViewModel ovm = new(order);
                 Orders.Add(ovm);
+                OrderRepo.Instance.Add(ovm.Id);
             }
             //TEST SLUT :(
 
@@ -96,9 +97,9 @@ namespace AdminApp.ViewModels
         }
 
         // EDIT ORDER
-        public void EditOrder()
+        public void UpdateOrder(int id)
         {
-            OrderRepo.Instance.Update(SelectedOrder.Id);
+            OrderRepo.Instance.Update(id);
 
         }
 
