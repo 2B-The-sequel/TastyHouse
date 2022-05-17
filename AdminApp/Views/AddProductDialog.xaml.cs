@@ -46,7 +46,7 @@ namespace AdminApp.Views
         }
 
         private int type;
-        public int Type
+        public ProductType Type
         {
             get 
             { 

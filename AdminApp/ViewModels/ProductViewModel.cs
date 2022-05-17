@@ -13,7 +13,8 @@ namespace AdminApp.ViewModels
             } 
             set 
             {
-                model.Id = value; 
+                model.Id = value;
+                NotifyPropertyChanged(nameof(Id));
             } 
         }
 
@@ -25,7 +26,8 @@ namespace AdminApp.ViewModels
             } 
             set 
             { 
-                model.Name = value; 
+                model.Name = value;
+                NotifyPropertyChanged(nameof(Name));
             } 
         }
 
@@ -33,15 +35,16 @@ namespace AdminApp.ViewModels
         { 
             get 
             { 
-                return model.Price; 
+                return model.Price;
             } 
             set 
             { 
-                model.Price = value; 
-            } 
+                model.Price = value;
+                NotifyPropertyChanged(nameof(Price));
+
+            }
         }
-        
-        public List<Ingredient> Ingredients 
+        public List<Ingredient> ingredients 
         { 
             get 
             { 
@@ -49,14 +52,14 @@ namespace AdminApp.ViewModels
             } 
             set 
             { 
-                model.Ingredients  = value; 
+                model.Ingredients  = value;
+                NotifyPropertyChanged(nameof(Ingredient));
             } 
         }
-
         public int ProductType
         {
             get 
-            { 
+            {
                 return (int)model.ProductType; 
             }
             set 
@@ -74,6 +77,7 @@ namespace AdminApp.ViewModels
             set
             {
                 model.Image = value;
+                NotifyPropertyChanged(nameof(Image));
             }
         }
 
