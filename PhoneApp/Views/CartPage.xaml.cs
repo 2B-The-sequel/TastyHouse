@@ -24,7 +24,15 @@ namespace PhoneApp.Views
 
         private void CompleteOrderButton_Click(object sender, RoutedEventArgs e)
         {
+            //Alle produkter i Cart skal gemmes i order, samt datoen bestillingen er lavet.
+            //Dette skal så persisteres hen til SQL-database, samt relationerne mellem den besteme ordre og produkterne
+            //Måske en god idé med en ekstra attribut i Order "WantedDone"
+            MainViewModel.Instance.AcceptOrder();
+
 
         }
+
+       
+
     }
 }

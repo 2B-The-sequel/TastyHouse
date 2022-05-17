@@ -38,5 +38,10 @@ namespace FoodMenuUtility.Models
             this.DoneTime = DoneTime;
             products = new List<Product>();
         }
+
+        public Order(DateTime Date)
+        { this.Date = Date;
+        products = new List<Product>();
+        }
     }
 }

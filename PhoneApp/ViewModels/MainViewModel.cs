@@ -1,5 +1,6 @@
 ﻿using FoodMenuUtility.Models;
 using FoodMenuUtility.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -52,6 +53,21 @@ namespace PhoneApp.ViewModels
            
         }
 
+        public void AcceptOrder()
+        {
+            DateTime DateOfOrder = DateTime.Now;
+            OrderRepo.Instance.Create(DateOfOrder);
+            int IdNumber = OrderRepo.Instance.ShowLatestId() +4;
+
+            foreach (ProductViewModel product in Cart)
+            {
+
+                OrderRepo.Instance.AddAssociationOrderProduct(IdNumber, product.Id);
+            }
+            Cart.Clear();
+
+        }
+
         private MainViewModel()
         {
             Burgers = new ObservableCollection<ProductViewModel>();
@@ -98,7 +114,7 @@ namespace PhoneApp.ViewModels
                 }
             }
         }
-
+        
         public void RemoveFromCart(ProductViewModel cvm)
         {
             Cart.Remove(cvm);
