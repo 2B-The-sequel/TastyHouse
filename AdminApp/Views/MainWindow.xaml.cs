@@ -29,7 +29,7 @@ namespace AdminApp
 
                 for (int i = 0; i < addSideDialog.IngredientBox.Items.Count; i++)
                 {
-                    for (int j = 0; j < addSideDialog.Ingredients[i].Count_total; j++)
+                    for (int j = 0; j < addSideDialog.Ingredients[i].CountTotal; j++)
                     {
                         ingredients.Add(addSideDialog.Ingredients[i]);
                     }

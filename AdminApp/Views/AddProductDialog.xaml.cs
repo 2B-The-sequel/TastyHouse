@@ -7,6 +7,8 @@ using System.Windows;
 using FoodMenuUtility.Models;
 using FoodMenuUtility.Persistence;
 using System.ComponentModel;
+using System.Windows.Input;
+using System.Text.RegularExpressions;
 
 namespace AdminApp.Views
 {
@@ -119,6 +121,15 @@ namespace AdminApp.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DialogResult= false;
+        }
+
+        /// <summary>
+        /// Ensures that the textbox can only contain numbers.
+        /// </summary>
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
