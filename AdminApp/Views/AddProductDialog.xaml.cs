@@ -50,11 +50,11 @@ namespace AdminApp.Views
         {
             get 
             { 
-                return type; 
+                return (ProductType)type; 
             }
             set 
             { 
-                type = value; 
+                type = (int)value; 
                 NotifyPropertyChanged(nameof(type)); 
             }
         }

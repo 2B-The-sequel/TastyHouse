@@ -44,7 +44,8 @@ namespace AdminApp.ViewModels
 
             }
         }
-        public List<Ingredient> ingredients 
+
+        public List<Ingredient> Ingredients 
         { 
             get 
             { 
@@ -53,9 +54,10 @@ namespace AdminApp.ViewModels
             set 
             { 
                 model.Ingredients  = value;
-                NotifyPropertyChanged(nameof(Ingredient));
+                NotifyPropertyChanged(nameof(Ingredients));
             } 
         }
+
         public int ProductType
         {
             get 

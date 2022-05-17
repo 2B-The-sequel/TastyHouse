@@ -39,7 +39,7 @@ namespace FoodMenuUtility.Persistence
 
         public void Update(int id)
         {
-            Product product = GetById(id);
+            Product product = Retrieve(id);
 
             using (SqlConnection connection = new(connectionString))
             {
