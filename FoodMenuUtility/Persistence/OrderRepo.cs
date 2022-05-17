@@ -155,10 +155,12 @@ namespace FoodMenuUtility.Persistence
             }
         }
 
-        public void AcceptOrder(int id)
-        {
-            GetById(id).State = OrderState.Accepted;
-        }
+
+
+
+
+
+
 
 
     }
