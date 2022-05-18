@@ -19,59 +19,59 @@ namespace AdminApp.Views
     {
         public ObservableCollection<IngredientViewModel> Ingredients { get; set; }
 
-        private string productName = string.Empty;
+        private string _productName = string.Empty;
         public string ProductName
         {
             get 
             { 
-                return productName; 
+                return _productName; 
             }
             set
             {
-                productName = value;
-                NotifyPropertyChanged(nameof(productName));
+                _productName = value;
+                NotifyPropertyChanged(nameof(_productName));
             }
         }
 
-        private double price = 0.0;
+        private double _price = 0.0;
         public double Price
         {
             get 
             { 
-                return price; 
+                return _price; 
             }
             set 
             { 
-                price = value; 
-                NotifyPropertyChanged(nameof(price)); 
+                _price = value; 
+                NotifyPropertyChanged(nameof(_price)); 
             }
         }
 
-        private int type;
+        private int _type;
         public ProductType Type
         {
             get 
             { 
-                return (ProductType)type; 
+                return (ProductType)_type; 
             }
             set 
             { 
-                type = (int)value; 
-                NotifyPropertyChanged(nameof(type)); 
+                _type = (int)value; 
+                NotifyPropertyChanged(nameof(_type)); 
             }
         }
 
-        private byte[] productImage;
+        private byte[] _productImage;
         public byte[] ProductImage
         {
             get 
             { 
-                return productImage; 
+                return _productImage; 
             }
             set 
             { 
-                productImage = value; 
-                NotifyPropertyChanged(nameof(productImage)); 
+                _productImage = value; 
+                NotifyPropertyChanged(nameof(_productImage)); 
             }
         }
 

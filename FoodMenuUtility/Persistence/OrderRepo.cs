@@ -8,8 +8,8 @@ namespace FoodMenuUtility.Persistence
 {
     public class OrderRepo
     {
-        private readonly List<Order> orders;
-        private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
+        private readonly List<Order> _orders;
+        private readonly string _connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
         private static OrderRepo s_instance;
@@ -25,42 +25,33 @@ namespace FoodMenuUtility.Persistence
 
         private OrderRepo()
         {
-            orders = new List<Order>();
+            _orders = new List<Order>();
 
-            using (SqlConnection connection = new(connectionString))
+            using SqlConnection connection = new(_connectionString);
+
+            connection.Open();
+            // Hvis billeder skal være der skal de tilføjes til table og values
+            string values = "Order_id, Date, Estimate_Time";
+            string table = "[Order]";
+            string CommandText = $"SELECT {values} FROM {table}";
+            SqlCommand sQLCommand = new(CommandText, connection);
+            using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+            while (sqldatareader.Read() != false)
             {
-                connection.Open();
-                // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Order_id, Date, Estimate_Time";
-                string table = "[Order]";
-                string CommandText = $"SELECT {values} FROM {table}";
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
-                while (sqldatareader.Read() != false)
-                {
-                    int id = sqldatareader.GetInt32("Order_id");
-                    DateTime date = sqldatareader.GetDateTime("Date");
-                    //DateTime time = sqldatareader.GetDateTime("Estimate_Time")
-                    DateTime time = DateTime.MinValue;
+                int id = sqldatareader.GetInt32("Order_id");
+                DateTime date = sqldatareader.GetDateTime("Date");
+                //DateTime time = sqldatareader.GetDateTime("Estimate_Time")
+                DateTime time = DateTime.MinValue;
 
-                    if (time != DateTime.MinValue)
-                    {
-                        Order order = new(id, date, time);
-                        orders.Add(order);
-                    }
-                    else
-                    {
-                        Order order = new(id, date);
-                        orders.Add(order);
-                    }
-                }
+                Order order = new(id, date, time);
+                _orders.Add(order);
             }
         }
 
         public int SetId()
         {
             int i=0;
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
 
@@ -85,7 +76,7 @@ namespace FoodMenuUtility.Persistence
             List<int> FK_Order = new();
             List<int> FK_Products = new();
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
 
@@ -104,7 +95,7 @@ namespace FoodMenuUtility.Persistence
 
                     for (int i = 0; i < FK_Order.Count; i++)
                     {
-                        foreach (Order order in orders)
+                        foreach (Order order in _orders)
                         {
                             if (order.Id == FK_Order[i])
                                 AddProducts(FK_Products[i], order.Id);
@@ -116,7 +107,7 @@ namespace FoodMenuUtility.Persistence
 
         public void AddAssociationOrderProduct(int Order_id, int pro_id)
         {
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 int Ord_id = Order_id;
@@ -141,19 +132,19 @@ namespace FoodMenuUtility.Persistence
 
         public void AddProducts(int ord_id,int pro_id)
         {
-            Retrieve(ord_id).products.Add(ProductRepo.Instance.Retrieve(pro_id));
+            Retrieve(ord_id).Products.Add(ProductRepo.Instance.Retrieve(pro_id));
         }
 
         public Order Create(DateTime Date)
         {
             Order order;
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 int i = 1;
 
-                string table = "\"Order\"";
+                string table = "[Order]";
                 string coloumns = "FK_Promo_id,FK_Customer_id,FK_State_id,FK_DM_id,FK_PM_id,Date";
                 string values = "@FK_Promo_id,@FK_Customer_id,@FK_State_id,@FK_DM_id,@FK_PM_id,@Date";
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
@@ -169,7 +160,7 @@ namespace FoodMenuUtility.Persistence
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 order = new(ID, Date);
-                orders.Add(order);
+                _orders.Add(order);
             }
 
             return order;
@@ -179,10 +170,10 @@ namespace FoodMenuUtility.Persistence
         {
             DateTime time = DateTime.MinValue;
             int j = 0;
-            for (int i = 0; i < orders.Count; i++)
+            for (int i = 0; i < _orders.Count; i++)
             {
-                if (time.CompareTo(orders[i].Date) != -1)
-                { j = orders[i].Id;  }
+                if (time.CompareTo(_orders[i].Date) != -1)
+                { j = _orders[i].Id;  }
             }
 
             return j; 
@@ -190,13 +181,13 @@ namespace FoodMenuUtility.Persistence
 
         public List<Order> RetrieveAll()
         {
-            return orders;
+            return _orders;
         }
 
         public Order Retrieve(int id)
         {
             Order result = null;
-            foreach (Order order in orders)
+            foreach (Order order in _orders)
             {
                 if (order.Id.Equals(id))
                 {
@@ -208,7 +199,7 @@ namespace FoodMenuUtility.Persistence
 
         public void Update(int id)
         {
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 
@@ -230,18 +221,18 @@ namespace FoodMenuUtility.Persistence
             int i = 0;
             bool found = false;
 
-            while (i < orders.Count && !found)
+            while (i < _orders.Count && !found)
             {
-                if (orders[i].Id == id)
+                if (_orders[i].Id == id)
                     found = true;
                 else
                     i++;
             }
 
             if (found)
-                orders.RemoveAt(i);
+                _orders.RemoveAt(i);
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 string table = "[Order]";
@@ -250,7 +241,7 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.ExecuteNonQuery();
             }
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 string table = "Order_Product";

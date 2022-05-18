@@ -5,6 +5,8 @@ namespace FoodMenuUtility.Models
 {
     public class Product
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public double Price { get; set; }
@@ -22,21 +24,9 @@ namespace FoodMenuUtility.Models
             }
         }
 
-        public int Id { get; set; }
         public List<Ingredient> Ingredients { get; set; }
 
-        private ProductType productType;
-        public ProductType ProductType
-        {
-            get 
-            { 
-                return productType; 
-            }
-            set 
-            { 
-                productType = value; 
-            }
-        }
+        public ProductType ProductType { get; set; }
 
         public Product(int id, string name, double price, ProductType type, byte[] image)
         {

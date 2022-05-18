@@ -11,8 +11,8 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private readonly List<Ingredient> Ingredients;
-        private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
+        private readonly List<Ingredient> _ingredients;
+        private readonly string _connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
         private static IngredientRepo s_instance;
@@ -32,9 +32,9 @@ namespace FoodMenuUtility.Persistence
         
         private IngredientRepo() // Constructor er private så man ikke kan lave flere instanser af IngredientRepo.
         {
-            Ingredients = new List<Ingredient>();
+            _ingredients = new List<Ingredient>();
 
-            using SqlConnection connection = new(connectionString);
+            using SqlConnection connection = new(_connectionString);
 
             connection.Open();
             // Hvis billeder skal være der skal de tilføjes til table og values
@@ -52,7 +52,7 @@ namespace FoodMenuUtility.Persistence
                 bool soldout = sqldatareader.GetBoolean("Sold_Out");
 
                 Ingredient ingredient = new(id, name, extraPrice, image, soldout);
-                Ingredients.Add(ingredient);
+                _ingredients.Add(ingredient);
             }
         }
 
@@ -64,7 +64,7 @@ namespace FoodMenuUtility.Persistence
         {
             Ingredient ingredient;
             
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
 
@@ -93,13 +93,13 @@ namespace FoodMenuUtility.Persistence
 
         public List<Ingredient> RetrieveAll()
         {
-            return Ingredients;
+            return _ingredients;
         }
 
         public Ingredient Retrieve(int id)
         {
             Ingredient result = null;
-            foreach (Ingredient ingredient in Ingredients)
+            foreach (Ingredient ingredient in _ingredients)
             {
                 if (ingredient.Id.Equals(id))
                 {
@@ -117,7 +117,7 @@ namespace FoodMenuUtility.Persistence
         {
             Ingredient ingredient = Retrieve(id);
 
-            using SqlConnection connection = new(connectionString);
+            using SqlConnection connection = new(_connectionString);
             connection.Open();
 
             string query = $"UPDATE Ingredient SET Name=@Name, Extra_Price=@Extra_Price, Image=@Image, Sold_Out=@Sold_Out WHERE Ingredient_id=@Ingredient_id";
@@ -141,17 +141,17 @@ namespace FoodMenuUtility.Persistence
         {
             int i = 0;
             bool found = false;
-            while (i < Ingredients.Count && !found)
+            while (i < _ingredients.Count && !found)
             {
-                if (Ingredients[i].Id == id)
+                if (_ingredients[i].Id == id)
                     found = true;
                 else
                     i++;
             }
             if (found)
-                Ingredients.Remove(Ingredients[i]);
+                _ingredients.Remove(_ingredients[i]);
 
-            using SqlConnection connection = new(connectionString); // missing inner, delete connection to product
+            using SqlConnection connection = new(_connectionString);
             connection.Open();
             string table = "Ingredient";
             string query = $"DELETE from Product_Ingredient WHERE FK_Ingredient_id = {id}; Delete from {table} where Ingredient_id = {id};";

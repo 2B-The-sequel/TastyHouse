@@ -28,11 +28,6 @@ namespace PhoneApp.Views
             //Dette skal så persisteres hen til SQL-database, samt relationerne mellem den besteme ordre og produkterne
             //Måske en god idé med en ekstra attribut i Order "WantedDone"
             MainViewModel.Instance.AcceptOrder();
-
-
         }
-
-       
-
     }
 }

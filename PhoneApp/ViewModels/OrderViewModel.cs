@@ -6,8 +6,18 @@ namespace PhoneApp.ViewModels
 {
     public class OrderViewModel : ViewModel<Order>
     {
+        public List<Product> Products 
+        { 
+            get 
+            { 
+                return model.Products; 
+            } 
+            set 
+            { 
+                model.Products = value; 
+            } 
+        }
 
-        public List<Product> products { get { return model.products; } set { model.products = value; } }
         public int Id
         {
             get

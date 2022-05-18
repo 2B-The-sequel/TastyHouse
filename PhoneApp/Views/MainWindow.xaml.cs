@@ -1,19 +1,6 @@
 ﻿using PhoneApp.ViewModels;
 using PhoneApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DesignIdeTastyHouse
 {
@@ -22,13 +9,10 @@ namespace DesignIdeTastyHouse
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public MainViewModel mvm;
         public MainWindow()
         {
             InitializeComponent();
             DataContext = MainViewModel.Instance;
-            mvm = MainViewModel.Instance;
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -37,7 +21,6 @@ namespace DesignIdeTastyHouse
             MainFrameWindow.Navigate(mp);
             Index.Visibility = Visibility.Hidden;
             MainFrameWindow.Visibility = Visibility.Visible;
-
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)

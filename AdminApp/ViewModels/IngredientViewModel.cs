@@ -56,17 +56,16 @@ namespace AdminApp.ViewModels
             }
         }
 
-        private int countTotal;
-
+        private int _countTotal;
         public int CountTotal
         {
             get 
             { 
-                return countTotal; 
+                return _countTotal; 
             }
             set 
             { 
-                countTotal = value;
+                _countTotal = value;
                 NotifyPropertyChanged(nameof(CountTotal));
             }
         }

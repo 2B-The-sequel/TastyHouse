@@ -13,8 +13,8 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private readonly List<Product> products;
-        private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
+        private readonly List<Product> _products;
+        private readonly string _connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
         private static ProductRepo s_instance;
@@ -34,9 +34,9 @@ namespace FoodMenuUtility.Persistence
 
         public ProductRepo()
         {
-            products = new List<Product>();
+            _products = new List<Product>();
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 byte[] image = null;
@@ -61,14 +61,14 @@ namespace FoodMenuUtility.Persistence
                     type--;
                     Product product = new(id, name, price, (ProductType)type, image);
 
-                    products.Add(product);
+                    _products.Add(product);
                 }
             }
 
             List<int> FK_Ingredients = new();
             List<int> FK_Products = new();
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
 
@@ -86,7 +86,7 @@ namespace FoodMenuUtility.Persistence
 
                 for (int i = 0; i < FK_Products.Count; i++)
                 {
-                    foreach (Product product in products)
+                    foreach (Product product in _products)
                     {
                         if (product.Id == FK_Products[i])
                             product.Ingredients.Add(IngredientRepo.Instance.Retrieve(FK_Ingredients[i]));
@@ -99,7 +99,7 @@ namespace FoodMenuUtility.Persistence
         {
             Product product = Retrieve(id);
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
 
@@ -114,7 +114,6 @@ namespace FoodMenuUtility.Persistence
 
                 sqlCommand.ExecuteNonQuery();
             }
-
         }
 
         // ======================================================
@@ -124,7 +123,7 @@ namespace FoodMenuUtility.Persistence
         public Product Create(string name, double price, ProductType type , byte[] image, List<int> ingredients)
         {
             Product product;
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 string Name = name;
@@ -160,7 +159,7 @@ namespace FoodMenuUtility.Persistence
 
             for (int i = 0; i < ingredients.Count; i++)
             {
-                using SqlConnection connection = new(connectionString);
+                using SqlConnection connection = new(_connectionString);
                 connection.Open();
 
                 string table = "Product_Ingredient";
@@ -189,13 +188,13 @@ namespace FoodMenuUtility.Persistence
         // Get all from database
         public List<Product> RetrieveAll()
         {
-            return products;
+            return _products;
         }
 
         public Product Retrieve(int id)
         {
             Product result = null;
-            foreach (Product product in products)
+            foreach (Product product in _products)
             {
                 if (product.Id.Equals(id))
                 {
@@ -211,7 +210,7 @@ namespace FoodMenuUtility.Persistence
 
         public void Update(Product product)
         {
-            using SqlConnection connection = new(connectionString);
+            using SqlConnection connection = new(_connectionString);
             connection.Open();
             int id = product.Id;
             string Name = product.Name;
@@ -238,18 +237,18 @@ namespace FoodMenuUtility.Persistence
             int i = 0;
             bool found = false;
 
-            while(i < products.Count && !found)
+            while(i < _products.Count && !found)
             {
-                if (products[i].Id == id)
+                if (_products[i].Id == id)
                     found = true;
                 else
                     i++;
             }
 
             if (found)
-                products.RemoveAt(i);
+                _products.RemoveAt(i);
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 string table = "Product";
@@ -258,7 +257,7 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.ExecuteNonQuery();
             }
 
-            using (SqlConnection connection = new(connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
                 string table = "Product_Ingredient";

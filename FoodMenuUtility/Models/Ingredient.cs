@@ -1,48 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodMenuUtility.Models
 {
     public class Ingredient
     {
-        private int id;
+        public int Id { get; set; }
 
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
         private byte[] image = Array.Empty<byte>();
-
         public byte[] Image
         {
-            get { return image; }
-            set { image = value; }
-        }
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        private double extraPrice;
-
-        public double ExtraPrice
-        {
-            get { return extraPrice; }
-            set { extraPrice = value; }
+            get 
+            { 
+                return image;
+            }
+            set
+            { 
+                image = value;
+            }
         }
 
-        private bool soldOut;
-        public bool SoldOut
-        {
-            get { return soldOut; }
-            set { soldOut = value; }
-        }
+        public string Name { get; set; }
+
+        public double ExtraPrice { get; set; }
+
+        public bool SoldOut { get; set; }
 
         public Ingredient(int id, string name, double extraPrice, byte[] image, bool soldOut)
         {
@@ -50,13 +31,7 @@ namespace FoodMenuUtility.Models
             Name = name;
             ExtraPrice = extraPrice;
             Image = image;
-
             SoldOut = soldOut;
-        }
-        public Ingredient(int id, string name) :
-            this(id, name, 0, null, false)
-        {
-
         }
     }
 }

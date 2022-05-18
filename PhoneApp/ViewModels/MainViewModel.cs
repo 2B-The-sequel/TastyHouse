@@ -18,39 +18,33 @@ namespace PhoneApp.ViewModels
         public double CartTotal
         {
             get 
-            { 
-                return GetCartTotal(); 
+            {
+                double cartTotal = 0;
+                double itemPrice;
+
+                foreach (ProductViewModel item in Cart)
+                {
+                    itemPrice = item.Price;
+
+                    cartTotal = itemPrice + cartTotal;
+                }
+
+                return cartTotal; 
             }
         }
 
         public AccountViewModel AVM { get; set; }
 
         // Singleton
-        private static MainViewModel _instance;
+        private static MainViewModel s_instance;
         public static MainViewModel Instance
         {
             get
             {
-                if (_instance == null)
-                    _instance = new MainViewModel();
-                return _instance;
+                if (s_instance == null)
+                    s_instance = new MainViewModel();
+                return s_instance;
             }
-        }
-
-        public double GetCartTotal()
-        {
-            double CartTotal = 0;
-            double itemPrice;
-
-            foreach (ProductViewModel item in Cart)
-            {
-                itemPrice = item.Price;
-
-                CartTotal = itemPrice + CartTotal;
-            }
-
-            return CartTotal;
-           
         }
 
         public void AcceptOrder()
@@ -64,8 +58,8 @@ namespace PhoneApp.ViewModels
 
                 OrderRepo.Instance.AddAssociationOrderProduct(IdNumber, product.Id);
             }
-            Cart.Clear();
 
+            Cart.Clear();
         }
 
         private MainViewModel()

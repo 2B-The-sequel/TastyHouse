@@ -1,20 +1,7 @@
-﻿using FoodMenuUtility.Persistence;
-using PhoneApp.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using PhoneApp.ViewModels;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PhoneApp.Views
 {
@@ -23,9 +10,9 @@ namespace PhoneApp.Views
     /// </summary>
     public partial class MenuPage : Page, INotifyPropertyChanged
     {
-
         public MainViewModel MVM;
         public CartViewModel cartViewModel;
+
         public MenuPage()
         {
             InitializeComponent();
@@ -33,13 +20,10 @@ namespace PhoneApp.Views
             MVM = MainViewModel.Instance;
         }
 
-
         private void AddBurgerToCartButton_Click(object sender, RoutedEventArgs e)
         {
-           
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
-
 
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
@@ -50,7 +34,6 @@ namespace PhoneApp.Views
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
 
-
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
         }
@@ -59,7 +42,6 @@ namespace PhoneApp.Views
         {
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
-
 
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
@@ -70,12 +52,9 @@ namespace PhoneApp.Views
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
 
-
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
         }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
