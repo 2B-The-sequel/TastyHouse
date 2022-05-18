@@ -95,62 +95,6 @@ namespace FoodMenuUtility.Persistence
             }
         }
 
-        public void Update(int id)
-        {
-            Product product = Retrieve(id);
-
-            // UPDATE the name, price and image of the product
-            using (SqlConnection connection = new(_connectionString))
-            {
-                connection.Open();
-
-                string query = $"UPDATE Product SET Name=@Name, Price=@Price, Image=@Image WHERE Product_id=@Product_id";
-
-                SqlCommand sqlCommand = new(query, connection);
-
-                sqlCommand.Parameters.Add(new SqlParameter("Product_id", product.Id));
-                sqlCommand.Parameters.Add(new SqlParameter("Name", product.Name));
-                sqlCommand.Parameters.Add(new SqlParameter("Price", product.Price));
-                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
-
-                sqlCommand.ExecuteNonQuery();
-            }
-
-            // DELETE all associations to ingredients with Product_id=id (Product_Ingredient Table)
-            using (SqlConnection connection = new(_connectionString))
-            {
-                connection.Open();
-
-                string table = "Product_Ingredient";
-                string CommandText = $"DELETE FROM {table} WHERE FK_Product_id=@FK_Product_id";
-
-                SqlCommand sqlCommand = new(CommandText, connection);
-                sqlCommand.Parameters.Add(new SqlParameter("FK_Product_id", id));
-
-                sqlCommand.ExecuteNonQuery();
-            }
-
-            // REINSERT all ingredients after the update
-            for (int i = 0; i < product.Ingredients.Count; i++)
-            {
-                using SqlConnection connection = new(_connectionString);
-                connection.Open();
-
-                string table = "Product_Ingredient";
-                string coloumns = "FK_Ingredient_id, FK_Product_id";
-                string values = "@ing_id, @pro_id";
-
-                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
-
-                SqlCommand sqlCommand = new(query, connection);
-
-                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", product.Id));
-                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", product.Ingredients[i].Id));
-
-                sqlCommand.ExecuteNonQuery();
-            }
-        }
-
         // ======================================================
         // Repository CRUD: Create (Adding entity to database)
         // ======================================================
@@ -243,25 +187,62 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
 
-        public void Update(Product product)
+        public void Update(int id)
         {
-            using SqlConnection connection = new(_connectionString);
-            connection.Open();
-            int id = product.Id;
-            string Name = product.Name;
-            double Price = product.Price;
+            Product product = Retrieve(id);
 
-            ProductType Type = product.ProductType;
-            byte[] Image = product.Image;
+            // UPDATE the name, price and image of the product
+            using (SqlConnection connection = new(_connectionString))
+            {
+                connection.Open();
 
+                string query = $"UPDATE Product SET Name=@Name, Price=@Price, Image=@Image WHERE Product_id=@Product_id";
 
-            string table = "Content";
-            string values = $"@{id}, @{Name}, @{Price}, @{Type}, @{Image}";
-            string query =
-                $"UPDATE {table}" +
-                $"SET Name = @'{Name}', Price = @'{Price}', FK_TP_id = @'{(int)Type}', Image = @'{Image}' " +
-                $"WHERE Product_id = {id}";
+                SqlCommand sqlCommand = new(query, connection);
+
+                sqlCommand.Parameters.Add(new SqlParameter("Product_id", product.Id));
+                sqlCommand.Parameters.Add(new SqlParameter("Name", product.Name));
+                sqlCommand.Parameters.Add(new SqlParameter("Price", product.Price));
+                sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            // DELETE all associations to ingredients with Product_id=id (Product_Ingredient Table)
+            using (SqlConnection connection = new(_connectionString))
+            {
+                connection.Open();
+
+                string table = "Product_Ingredient";
+                string CommandText = $"DELETE FROM {table} WHERE FK_Product_id=@FK_Product_id";
+
+                SqlCommand sqlCommand = new(CommandText, connection);
+                sqlCommand.Parameters.Add(new SqlParameter("FK_Product_id", id));
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            // REINSERT all ingredients after the update
+            for (int i = 0; i < product.Ingredients.Count; i++)
+            {
+                using SqlConnection connection = new(_connectionString);
+                connection.Open();
+
+                string table = "Product_Ingredient";
+                string coloumns = "FK_Ingredient_id, FK_Product_id";
+                string values = "@ing_id, @pro_id";
+
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
+
+                SqlCommand sqlCommand = new(query, connection);
+
+                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", product.Id));
+                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", product.Ingredients[i].Id));
+
+                sqlCommand.ExecuteNonQuery();
+            }
         }
+
 
         // ======================================================
         // Repository CRUD: Delete (Delete existing entity from database)
@@ -286,18 +267,10 @@ namespace FoodMenuUtility.Persistence
             using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
-                string table = "Product";
-                string query = $"DELETE FROM {table} WHERE {id} = Product_id";
+                string query = "DELETE FROM Product_Ingredient WHERE FK_Product_id=@Product_id; DELETE FROM Order_Product WHERE FK_Product_id=@Product_id; DELETE FROM Product WHERE Product_id=@Product_id";
                 SqlCommand sqlCommand = new(query, connection);
-                sqlCommand.ExecuteNonQuery();
-            }
+                sqlCommand.Parameters.Add(new SqlParameter("Product_id", id));
 
-            using (SqlConnection connection = new(_connectionString))
-            {
-                connection.Open();
-                string table = "Product_Ingredient";
-                string query = $"DELETE FROM {table} WHERE {id} = FK_Product_id";
-                SqlCommand sqlCommand = new(query, connection);
                 sqlCommand.ExecuteNonQuery();
             }
         }

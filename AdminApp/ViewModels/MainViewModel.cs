@@ -95,22 +95,38 @@ namespace AdminApp.ViewModels
             IngredientRepo.Instance.Update(SelectedIngredient.Id);
         }
 
-        public void RemoveIngredient(bool RemoveIngredientFromProducts)
+        public void RemoveIngredient(bool DeleteProductsWithIngredient)
         {
-            foreach (Product product in ProductRepo.Instance.RetrieveAll())
+            if (DeleteProductsWithIngredient)
             {
-                if (RemoveIngredientFromProducts)
-                {
-                    
-                }
-                else
-                {
+                List<int> productsToBeDeleted = new List<int>();
 
+                foreach (Product product in ProductRepo.Instance.RetrieveAll())
+                {
+                    bool found = false;
+                    int i = 0;
+                    while (i < product.Ingredients.Count && !found)
+                    {
+                        if (product.Ingredients[i].Id == SelectedIngredient.Id)
+                            found = true;
+                        else
+                            i++;
+                    }
+
+                    if (found)
+                        productsToBeDeleted.Add(product.Id);
+                }
+
+                for (int i = 0; i < productsToBeDeleted.Count; i++)
+                {
+                    ProductRepo.Instance.Delete(productsToBeDeleted[i]);
                 }
             }
 
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
+
+            // Update current products so they dont have ingredient
         }
 
         // EDIT ORDER
