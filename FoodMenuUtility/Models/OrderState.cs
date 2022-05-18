@@ -2,9 +2,9 @@
 {
     public enum OrderState
     {
-        Accepted,
-        Declined,
-        Awaiting,
-        Done
+        Accepted =1,
+        Declined =2,
+        Awaiting =3,
+        Done =4
     }
 }

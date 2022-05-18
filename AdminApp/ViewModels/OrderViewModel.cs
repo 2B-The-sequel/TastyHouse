@@ -71,6 +71,21 @@ namespace AdminApp.ViewModels
             }
         }
 
+        public string ProductsText
+        {
+            get
+            {
+                string products = string.Empty;
+
+                for (int i = 0; i < model.Products.Count; i++)
+                {
+                    products += model.Products[i].Name + ((i == model.Products.Count - 1) ? string.Empty : ", ");
+                }
+
+                return products;
+            }
+        }
+
         public OrderViewModel(Order model) : base(model) { }
     }
 }

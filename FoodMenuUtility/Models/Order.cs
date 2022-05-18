@@ -15,6 +15,15 @@ namespace FoodMenuUtility.Models
 
         public List<Product> Products { get; set; }
 
+        public Order(int Id, DateTime Date, DateTime DoneTime, int state)
+        {
+            this.Id = Id;
+            this.Date = Date;
+            this.DoneTime = DoneTime;
+            this.State = (OrderState)state;
+            Products = new List<Product>();
+        }
+
         public Order(int Id, DateTime Date, DateTime DoneTime)
         {
             this.Id = Id;
