@@ -23,19 +23,19 @@ namespace AdminApp
 
         private void AddProductButton_Click(object sender, RoutedEventArgs e)
         {
-            AddProductDialog addSideDialog = new();
-            if (addSideDialog.ShowDialog() == true)
+            AddProductDialog dialog = new();
+            if (dialog.ShowDialog() == true)
             {
                 List<IngredientViewModel> ingredients = new();
 
-                for (int i = 0; i < addSideDialog.IngredientBox.Items.Count; i++)
+                for (int i = 0; i < dialog.IngredientBox.Items.Count; i++)
                 {
-                    for (int j = 0; j < addSideDialog.Ingredients[i].CountTotal; j++)
+                    for (int j = 0; j < dialog.Ingredients[i].CountTotal; j++)
                     {
-                        ingredients.Add(addSideDialog.Ingredients[i]);
+                        ingredients.Add(dialog.Ingredients[i]);
                     }
                 }
-                MVM.AddProduct(addSideDialog.ProductName, addSideDialog.Price, addSideDialog.Type, addSideDialog.ProductImage, ingredients);
+                MVM.AddProduct(dialog.ProductName, dialog.Price, dialog.Type, dialog.ProductImage, ingredients);
             } 
         }
 
@@ -116,9 +116,28 @@ namespace AdminApp
             dialog.Price = MVM.SelectedProduct.Price;
             dialog.ProductImage = MVM.SelectedProduct.Image;
 
+            foreach (Ingredient ingredient in MVM.SelectedProduct.Ingredients)
+            {
+                foreach (IngredientViewModel ingredientViewModel in dialog.Ingredients)
+                {
+                    if (ingredient.Id == ingredientViewModel.Id)
+                        ingredientViewModel.CountTotal++;
+                }
+            }
+
             if (dialog.ShowDialog() == true)
             {
-                MVM.EditProduct(dialog.ProductName, dialog.Price, dialog.ProductImage);
+                List<IngredientViewModel> ingredients = new();
+
+                for (int i = 0; i < dialog.IngredientBox.Items.Count; i++)
+                {
+                    for (int j = 0; j < dialog.Ingredients[i].CountTotal; j++)
+                    {
+                        ingredients.Add(dialog.Ingredients[i]);
+                    }
+                }
+
+                MVM.EditProduct(dialog.ProductName, dialog.Price, dialog.ProductImage, ingredients);
             }
         }
     }

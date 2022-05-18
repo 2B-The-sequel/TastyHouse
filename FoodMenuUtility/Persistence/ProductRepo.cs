@@ -99,6 +99,7 @@ namespace FoodMenuUtility.Persistence
         {
             Product product = Retrieve(id);
 
+            // UPDATE the name, price and image of the product
             using (SqlConnection connection = new(_connectionString))
             {
                 connection.Open();
@@ -111,6 +112,40 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.Parameters.Add(new SqlParameter("Name", product.Name));
                 sqlCommand.Parameters.Add(new SqlParameter("Price", product.Price));
                 sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = product.Image;
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            // DELETE all associations to ingredients with Product_id=id (Product_Ingredient Table)
+            using (SqlConnection connection = new(_connectionString))
+            {
+                connection.Open();
+
+                string table = "Product_Ingredient";
+                string CommandText = $"DELETE FROM {table} WHERE FK_Product_id=@FK_Product_id";
+
+                SqlCommand sqlCommand = new(CommandText, connection);
+                sqlCommand.Parameters.Add(new SqlParameter("FK_Product_id", id));
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            // REINSERT all ingredients after the update
+            for (int i = 0; i < product.Ingredients.Count; i++)
+            {
+                using SqlConnection connection = new(_connectionString);
+                connection.Open();
+
+                string table = "Product_Ingredient";
+                string coloumns = "FK_Ingredient_id, FK_Product_id";
+                string values = "@ing_id, @pro_id";
+
+                string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
+
+                SqlCommand sqlCommand = new(query, connection);
+
+                sqlCommand.Parameters.Add(new SqlParameter("@pro_id", product.Id));
+                sqlCommand.Parameters.Add(new SqlParameter("@ing_id", product.Ingredients[i].Id));
 
                 sqlCommand.ExecuteNonQuery();
             }

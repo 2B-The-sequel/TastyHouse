@@ -55,11 +55,18 @@ namespace AdminApp.ViewModels
         }
 
 
-        public void EditProduct(string name, double price, byte[] image)
+        public void EditProduct(string name, double price, byte[] image, List<IngredientViewModel> ingredientViewModels)
         {
+            List<Ingredient> ingredients = new();
+            for (int i = 0; i < ingredientViewModels.Count; i++)
+            {
+                ingredients.Add(IngredientRepo.Instance.Retrieve(ingredientViewModels[i].Id));
+            }
+
             SelectedProduct.Name = name;
             SelectedProduct.Price = price;
             SelectedProduct.Image = image;
+            SelectedProduct.Ingredients = ingredients;
 
             ProductRepo.Instance.Update(SelectedProduct.Id);
         }
@@ -68,11 +75,6 @@ namespace AdminApp.ViewModels
         {
             ProductRepo.Instance.Delete(SelectedProduct.Id);
             Products.Remove(SelectedProduct);
-        }
-
-        public void AddIngredientToProduct(IngredientViewModel ingredient)
-        {
-            SelectedProduct.Ingredients.Add(IngredientRepo.Instance.Retrieve(ingredient.Id));
         }
 
         // Ingredients
@@ -95,9 +97,7 @@ namespace AdminApp.ViewModels
 
         public void RemoveIngredient(bool RemoveIngredientFromProducts)
         {
-            /*List<Product> products = ProductRepo.Instance.RetrieveAll();
-
-            foreach (Product product in products)
+            foreach (Product product in ProductRepo.Instance.RetrieveAll())
             {
                 if (RemoveIngredientFromProducts)
                 {
@@ -110,7 +110,7 @@ namespace AdminApp.ViewModels
             }
 
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
-            Ingredients.Remove(SelectedIngredient);*/
+            Ingredients.Remove(SelectedIngredient);
         }
 
         // EDIT ORDER
