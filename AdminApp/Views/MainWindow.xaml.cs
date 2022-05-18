@@ -36,7 +36,7 @@ namespace AdminApp
                         ingredients.Add(addSideDialog.Ingredients[i]);
                     }
                 }
-                MVM.AddProduct(addSideDialog.ProductName, double.Parse(addSideDialog.Price), (ProductType)addSideDialog.Type, addSideDialog.ProductImage, ingredients);
+                MVM.AddProduct(addSideDialog.ProductName, addSideDialog.Price, addSideDialog.Type, addSideDialog.ProductImage, ingredients);
             } 
         }
 
@@ -115,15 +115,13 @@ namespace AdminApp
 
             AddProductDialog dialog = new();
             dialog.ProductName = MVM.SelectedProduct.Name;
-            dialog.Price = MVM.SelectedProduct.Price.ToString();
+            dialog.Price = MVM.SelectedProduct.Price;
             dialog.ProductImage = MVM.SelectedProduct.Image;
 
             if (dialog.ShowDialog() == true)
             {
-                MVM.EditProduct(dialog.ProductName, double.Parse (dialog.Price), dialog.ProductImage);
+                MVM.EditProduct(dialog.ProductName, dialog.Price, dialog.ProductImage);
             }
-
-
         }
 
     }

@@ -33,8 +33,8 @@ namespace AdminApp.Views
             }
         }
 
-        private string price = string.Empty;
-        public string Price
+        private double price = 0.0;
+        public double Price
         {
             get 
             { 
@@ -115,7 +115,12 @@ namespace AdminApp.Views
 
         private void SaveProductButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            if (ProductName == null || ProductName.Trim() == string.Empty)
+                MessageBox.Show("Madvaren skal have et navn.", "Fejl", MessageBoxButton.OK, MessageBoxImage.Error);
+            else if (ProductImage == null)
+                MessageBox.Show("Du har ikke valgt et billede til madvaren.", "Fejl", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+                DialogResult = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

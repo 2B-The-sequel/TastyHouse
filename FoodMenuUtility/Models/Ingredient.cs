@@ -15,7 +15,7 @@ namespace FoodMenuUtility.Models
             get { return id; }
             set { id = value; }
         }
-        private byte[] image;
+        private byte[] image = Array.Empty<byte>();
 
         public byte[] Image
         {
