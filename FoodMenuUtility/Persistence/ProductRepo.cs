@@ -13,7 +13,7 @@ namespace FoodMenuUtility.Persistence
         // Fields & Props
         // ======================================================
 
-        private readonly List<Product> Products;
+        private readonly List<Product> products;
         private readonly string connectionString = Properties.Settings.Default.WPF_Connection;
 
         // Singleton
@@ -34,7 +34,65 @@ namespace FoodMenuUtility.Persistence
 
         public ProductRepo()
         {
-            Products = RetrieveAll();
+            products = new List<Product>();
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                byte[] image = null;
+                // Hvis billeder skal være der skal de tilføjes til table og values
+                string values = "Product_id, Name, Price, FK_PT_id, Image";
+
+                string table = "Product";
+                string CommandText = $"SELECT {values} FROM {table}";
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+                while (sqldatareader.Read() != false)
+                {
+                    int id = sqldatareader.GetInt32("Product_id");
+                    string name = sqldatareader.GetString("Name");
+                    double price = sqldatareader.GetDouble("Price");
+                    int type = sqldatareader.GetInt32("FK_PT_id");
+                    if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
+                    {
+                        image = (byte[])sqldatareader["Image"];
+                    }
+
+                    type--;
+                    Product product = new(id, name, price, (ProductType)type, image);
+
+                    products.Add(product);
+                }
+            }
+
+            List<int> FK_Ingredients = new();
+            List<int> FK_Products = new();
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+
+                string table = "Product_Ingredient";
+                string values = "FK_Ingredient_id, FK_Product_id";
+                string CommandText = $"SELECT {values} FROM {table}";
+
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+                while (sqldatareader.Read() != false)
+                {
+                    FK_Ingredients.Add(sqldatareader.GetInt32("FK_Ingredient_id"));
+                    FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
+                }
+
+                for (int i = 0; i < FK_Products.Count; i++)
+                {
+                    foreach (Product product in products)
+                    {
+                        if (product.Id == FK_Products[i])
+                            product.Ingredients.Add(IngredientRepo.Instance.Retrieve(FK_Ingredients[i]));
+                    }
+                }
+            }
         }
 
         public void Update(int id)
@@ -131,72 +189,13 @@ namespace FoodMenuUtility.Persistence
         // Get all from database
         public List<Product> RetrieveAll()
         {
-            List<Product> products = new();
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                byte[] image = null;
-                // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Product_id, Name, Price, FK_PT_id, Image";
-
-                string table = "Product";
-                string CommandText = $"SELECT {values} FROM {table}";
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
-                while (sqldatareader.Read() != false)
-                {
-                    int id = sqldatareader.GetInt32("Product_id");
-                    string name = sqldatareader.GetString("Name");
-                    double price = sqldatareader.GetDouble("Price");
-                    int type = sqldatareader.GetInt32("FK_PT_id");
-                    if (!Convert.IsDBNull(sqldatareader["Image"]))//crash if null
-                    {
-                        image = (byte[])sqldatareader["Image"];
-                    }
-
-                    type--;
-                    Product product = new(id, name, price, (ProductType)type, image);
-
-                    products.Add(product);
-                }
-            }
-
-            List<int> FK_Ingredients = new();
-            List<int> FK_Products = new();
-
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-
-                string table = "Product_Ingredient";
-                string values = "FK_Ingredient_id, FK_Product_id";
-                string CommandText = $"SELECT {values} FROM {table}";
-
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
-                while (sqldatareader.Read() != false)
-                {
-                    FK_Ingredients.Add(sqldatareader.GetInt32("FK_Ingredient_id"));
-                    FK_Products.Add(sqldatareader.GetInt32("FK_Product_id"));
-                }
-
-                for (int i = 0; i < FK_Products.Count; i++)
-                {
-                    foreach (Product product in products)
-                    {
-                        if (product.Id == FK_Products[i])
-                            product.Ingredients.Add(IngredientRepo.Instance.Retrieve(FK_Ingredients[i]));
-                    }
-                }
-            }
-
             return products;
         }
 
         public Product Retrieve(int id)
         {
             Product result = null;
-            foreach (Product product in Products)
+            foreach (Product product in products)
             {
                 if (product.Id.Equals(id))
                 {
@@ -239,16 +238,16 @@ namespace FoodMenuUtility.Persistence
             int i = 0;
             bool found = false;
 
-            while(i < Products.Count && !found)
+            while(i < products.Count && !found)
             {
-                if (Products[i].Id == id)
+                if (products[i].Id == id)
                     found = true;
                 else
                     i++;
             }
 
             if (found)
-                Products.RemoveAt(i);
+                products.RemoveAt(i);
 
             using (SqlConnection connection = new(connectionString))
             {

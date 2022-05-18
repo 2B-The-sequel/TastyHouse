@@ -112,7 +112,6 @@ namespace AdminApp
 
         private void EditProduct_Click(object sender, RoutedEventArgs e)
         {
-
             AddProductDialog dialog = new();
             dialog.ProductName = MVM.SelectedProduct.Name;
             dialog.Price = MVM.SelectedProduct.Price;
@@ -123,6 +122,5 @@ namespace AdminApp
                 MVM.EditProduct(dialog.ProductName, dialog.Price, dialog.ProductImage);
             }
         }
-
     }
 }

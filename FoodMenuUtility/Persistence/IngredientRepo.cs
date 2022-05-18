@@ -29,9 +29,31 @@ namespace FoodMenuUtility.Persistence
         // ======================================================
         // Constructor: Adding every Ingredient entity from database to "Ingredients" list.
         // ======================================================
+        
         private IngredientRepo() // Constructor er private så man ikke kan lave flere instanser af IngredientRepo.
         {
-            Ingredients = RetrieveAll();
+            Ingredients = new List<Ingredient>();
+
+            using SqlConnection connection = new(connectionString);
+
+            connection.Open();
+            // Hvis billeder skal være der skal de tilføjes til table og values
+            string values = "Ingredient_id, Name, Extra_Price, Image, Sold_Out";
+            string table = "Ingredient";
+            string CommandText = $"SELECT {values} FROM {table}";
+            SqlCommand sQLCommand = new(CommandText, connection);
+            using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+            while (sqldatareader.Read() != false)
+            {
+                int id = sqldatareader.GetInt32("Ingredient_id");
+                string name = sqldatareader.GetString("Name");
+                double extraPrice = sqldatareader.GetDouble("Extra_Price");
+                byte[] image = (byte[])sqldatareader["Image"];
+                bool soldout = sqldatareader.GetBoolean("Sold_Out");
+
+                Ingredient ingredient = new(id, name, extraPrice, image, soldout);
+                Ingredients.Add(ingredient);
+            }
         }
 
         // ======================================================
@@ -69,46 +91,24 @@ namespace FoodMenuUtility.Persistence
         // Repository CRUD: Retrieve (Reading entity from database)
         // ======================================================
 
-        // Get all from database
         public List<Ingredient> RetrieveAll()
         {
-            List<Ingredient> Ingredients = new();
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Ingredient_id, Name, Extra_Price, Image, Sold_Out";
-                string table = "Ingredient";
-                string CommandText = $"SELECT {values} FROM {table}";
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
-                while (sqldatareader.Read() != false)
-                {
-                    int id = sqldatareader.GetInt32("Ingredient_id");
-                    string name = sqldatareader.GetString("Name");
-                    double extraPrice = sqldatareader.GetDouble("Extra_Price");
-                    byte[] image = (byte[])sqldatareader["Image"];
-                    bool soldout = sqldatareader.GetBoolean("Sold_Out");
-
-                    Ingredient ingredient = new(id, name, extraPrice, image, soldout);
-                    Ingredients.Add(ingredient);
-                }
-            }
             return Ingredients;
         }
 
         public Ingredient Retrieve(int id)
         {
             Ingredient result = null;
-            foreach (Ingredient Ingredients in Ingredients)
+            foreach (Ingredient ingredient in Ingredients)
             {
-                if (Ingredients.Id.Equals(id))
+                if (ingredient.Id.Equals(id))
                 {
-                    result = Ingredients;
+                    result = ingredient;
                 }
             }
             return result;
         }
+
         // ======================================================
         // Repository CRUD: Update (Updating existing entity in database)
         // ======================================================
@@ -120,15 +120,14 @@ namespace FoodMenuUtility.Persistence
             using SqlConnection connection = new(connectionString);
             connection.Open();
 
-            string query = $"UPDATE Ingredient SET Name=@Name, Extra_Price=@Extra_Price, Image=@Image, Sold_Out=@Sold_Out WHERE Ingredient_ID=@Ingredient_ID";
+            string query = $"UPDATE Ingredient SET Name=@Name, Extra_Price=@Extra_Price, Image=@Image, Sold_Out=@Sold_Out WHERE Ingredient_id=@Ingredient_id";
 
             SqlCommand sqlCommand = new(query, connection);
-
 
             sqlCommand.Parameters.Add(new SqlParameter("Name", ingredient.Name));
             sqlCommand.Parameters.Add(new SqlParameter("Extra_Price", ingredient.ExtraPrice));
             sqlCommand.Parameters.Add(new SqlParameter("Sold_Out", ingredient.SoldOut ? 1 : 0));
-            sqlCommand.Parameters.Add(new SqlParameter("Ingredient_ID", ingredient.Id));
+            sqlCommand.Parameters.Add(new SqlParameter("Ingredient_id", ingredient.Id));
             sqlCommand.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ingredient.Image;
 
             sqlCommand.ExecuteNonQuery();

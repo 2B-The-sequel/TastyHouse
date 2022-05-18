@@ -22,27 +22,22 @@ namespace AdminApp.ViewModels
             Ingredients = new ObservableCollection<IngredientViewModel>();
             Products = new ObservableCollection<ProductViewModel> {};
 
-
-            //TESTING
-            for (int i = 1; i <= 10; i++)
+            List<Order> orderList = OrderRepo.Instance.RetrieveAll();
+            foreach (Order order in orderList)
             {
-                Order order = new(i);
-                OrderViewModel ovm = new(order);
-                Orders.Add(ovm);
-                OrderRepo.Instance.Add(ovm.Id);
-            }
-            //TEST SLUT :(
-
-            List<Ingredient> contentList = IngredientRepo.Instance.RetrieveAll();
-            foreach (Ingredient content in contentList)
-            {
-                Ingredients.Add(new IngredientViewModel(content));
+                Orders.Add(new OrderViewModel(order));
             }
 
-            List<Product> ProList = ProductRepo.Instance.RetrieveAll();
-            foreach (Product prolist in ProList)
+            List<Ingredient> ingredientList = IngredientRepo.Instance.RetrieveAll();
+            foreach (Ingredient ingredient in ingredientList)
             {
-                Products.Add(new ProductViewModel(prolist));
+                Ingredients.Add(new IngredientViewModel(ingredient));
+            }
+
+            List<Product> productList = ProductRepo.Instance.RetrieveAll();
+            foreach (Product product in productList)
+            {
+                Products.Add(new ProductViewModel(product));
             }
         }
 
@@ -101,7 +96,7 @@ namespace AdminApp.ViewModels
 
         public void RemoveIngredient(bool RemoveIngredientFromProducts)
         {
-            List<Product> products = ProductRepo.Instance.RetrieveAll();
+            /*List<Product> products = ProductRepo.Instance.RetrieveAll();
 
             foreach (Product product in products)
             {
@@ -116,15 +111,13 @@ namespace AdminApp.ViewModels
             }
 
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
-            Ingredients.Remove(SelectedIngredient);
+            Ingredients.Remove(SelectedIngredient);*/
         }
 
         // EDIT ORDER
         public void UpdateOrder(int id)
         {
             OrderRepo.Instance.Update(id);
-
         }
-
     }
 }

@@ -25,9 +25,36 @@ namespace FoodMenuUtility.Persistence
 
         private OrderRepo()
         {
+            orders = new List<Order>();
 
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                // Hvis billeder skal være der skal de tilføjes til table og values
+                string values = "Order_id, Date, Estimate_Time";
+                string table = "[Order]";
+                string CommandText = $"SELECT {values} FROM {table}";
+                SqlCommand sQLCommand = new(CommandText, connection);
+                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
+                while (sqldatareader.Read() != false)
+                {
+                    int id = sqldatareader.GetInt32("Order_id");
+                    DateTime date = sqldatareader.GetDateTime("Date");
+                    //DateTime time = sqldatareader.GetDateTime("Estimate_Time")
+                    DateTime time = DateTime.MinValue;
 
-            orders = RetrieveAll();
+                    if (time != DateTime.MinValue)
+                    {
+                        Order order = new(id, date, time);
+                        orders.Add(order);
+                    }
+                    else
+                    {
+                        Order order = new(id, date);
+                        orders.Add(order);
+                    }
+                }
+            }
         }
 
         public int SetId()
@@ -49,13 +76,11 @@ namespace FoodMenuUtility.Persistence
                         i = sqldatareader.GetInt32("IdCount");
                     }
                 }
-
             }
             return i+1;
         }
 
         public void AddProductstoOrderFromSQL()
-          
         {
             List<int> FK_Order = new();
             List<int> FK_Products = new();
@@ -97,14 +122,11 @@ namespace FoodMenuUtility.Persistence
                 int Ord_id = Order_id;
                 int Product_id = pro_id;
                 
-
-
                 string table = "Order_Product";
                 string coloumns = "FK_Order_id, FK_Product_id";
                 string values = "@Ord_id, @pro_id";
 
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values});";
-
 
                 SqlCommand sqlCommand = new(query, connection);
 
@@ -116,45 +138,42 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
         public void AddProducts(int ord_id,int pro_id)
-            {
+        {
             Retrieve(ord_id).products.Add(ProductRepo.Instance.Retrieve(pro_id));
-            }
+        }
 
-
-        
-
-
-            public void Create(DateTime Date)
-           {
+        public Order Create(DateTime Date)
+        {
             Order order;
-            int i = 1;
 
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
+                int i = 1;
 
-                string table = "[Order]";
+                string table = "\"Order\"";
                 string coloumns = "FK_Promo_id,FK_Customer_id,FK_State_id,FK_DM_id,FK_PM_id,Date";
-                string values = "@FK_Promo_id,@FK_Customer_id.@FK_State_id.@FK_DM_id,@FK_PM_id,@Date";
+                string values = "@FK_Promo_id,@FK_Customer_id,@FK_State_id,@FK_DM_id,@FK_PM_id,@Date";
                 string query = $"INSERT INTO {table} ({coloumns}) VALUES ({values}); SELECT SCOPE_IDENTITY()";
 
                 SqlCommand sqlCommand = new(query, connection);
 
-                
                 sqlCommand.Parameters.Add(new SqlParameter("@Date", Date));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_Promo_id", i));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_Customer_id", i));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_State_id", i));
-                sqlCommand.Parameters.Add(new SqlParameter("@@FK_DM_id", i));
+                sqlCommand.Parameters.Add(new SqlParameter("@FK_DM_id", i));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_PM_id", i));
 
-                order = new(orders.Count,Date);
+                int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
+                order = new(ID, Date);
                 orders.Add(order);
             }
 
-             
-            }
+            return order;
+        }
 
         public int ShowLatestId()
         {
@@ -166,43 +185,11 @@ namespace FoodMenuUtility.Persistence
                 { j = orders[i].Id;  }
             }
 
-          return j; 
+            return j; 
         }
-
-        
 
         public List<Order> RetrieveAll()
         {
-            List<Order> orders = new();
-            using (SqlConnection connection = new(connectionString))
-            {
-                connection.Open();
-                // Hvis billeder skal være der skal de tilføjes til table og values
-                string values = "Order_id, Date, Estimate_Time";
-                string table = "[Order]";
-                string CommandText = $"SELECT {values} FROM {table}";
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using SqlDataReader sqldatareader = sQLCommand.ExecuteReader();
-                while (sqldatareader.Read() != false)
-                {
-                    int id = sqldatareader.GetInt32("Order_id");
-                    DateTime date = sqldatareader.GetDateTime("Date");
-                    //DateTime time = sqldatareader.GetDateTime("Estimate_Time")
-                    DateTime time = DateTime.MinValue;
-
-                    if (time != DateTime.MinValue)
-                    {
-                        Order order = new(id, date, time);
-                        orders.Add(order);
-                    }
-                    else
-                    {
-                        Order order = new(id, date);
-                        orders.Add(order);
-                    }
-                }
-            }
-
             return orders;
         }
 
@@ -221,7 +208,6 @@ namespace FoodMenuUtility.Persistence
 
         public void Update(int id)
         {
-
             using (SqlConnection connection = new(connectionString))
             {
                 connection.Open();
@@ -237,7 +223,6 @@ namespace FoodMenuUtility.Persistence
                     $"SET Date = @'{date}', Estimate_Time = @'{DoneTime}'" +
                     $"WHERE Order_id = {id}";
             }
-
         }
 
         public void Delete(int id)
@@ -274,14 +259,5 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.ExecuteNonQuery();
             }
         }
-
-
-
-
-
-
-
-
-
     }
 }
