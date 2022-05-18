@@ -9,6 +9,9 @@
   <ItemGroup>
     <None Remove="Resources\Background.png" />
     <None Remove="Resources\Cart.png" />
+    <None Remove="Resources\ContactGeotag.png" />
+    <None Remove="Resources\ContactMail.png" />
+    <None Remove="Resources\ContactPhone.png" />
     <None Remove="Resources\Drink.png" />
     <None Remove="Resources\Drink_Selected.png" />
     <None Remove="Resources\Food.png" />
@@ -37,6 +40,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Cart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ContactGeotag.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ContactMail.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ContactPhone.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Drink.png">
