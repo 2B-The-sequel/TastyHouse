@@ -135,7 +135,7 @@ namespace FoodMenuUtility.Persistence
             Retrieve(ord_id).Products.Add(ProductRepo.Instance.Retrieve(pro_id));
         }
 
-        public Order Create(DateTime Date)
+        public Order Create(DateTime Date,List<int> Product_IDs)
         {
             Order order;
 
@@ -143,6 +143,7 @@ namespace FoodMenuUtility.Persistence
             {
                 connection.Open();
                 int i = 1;
+                int d = 3;
 
                 string table = "[Order]";
                 string coloumns = "FK_Promo_id,FK_Customer_id,FK_State_id,FK_DM_id,FK_PM_id,Date";
@@ -154,29 +155,24 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.Parameters.Add(new SqlParameter("@Date", Date));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_Promo_id", i));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_Customer_id", i));
-                sqlCommand.Parameters.Add(new SqlParameter("@FK_State_id", i));
+                sqlCommand.Parameters.Add(new SqlParameter("@FK_State_id", 3));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_DM_id", i));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_PM_id", i));
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 order = new(ID, Date);
                 _orders.Add(order);
+
+
+                foreach (Product product in Cart)
+                {
+                    if  (product.Id == ID)
+                    { AddAssociationOrderProduct(ID, product.Id); }
+                }
+                
             }
 
             return order;
-        }
-
-        public int ShowLatestId()
-        {
-            DateTime time = DateTime.MinValue;
-            int j = 0;
-            for (int i = 0; i < _orders.Count; i++)
-            {
-                if (time.CompareTo(_orders[i].Date) != -1)
-                { j = _orders[i].Id;  }
-            }
-
-            return j; 
         }
 
         public List<Order> RetrieveAll()
