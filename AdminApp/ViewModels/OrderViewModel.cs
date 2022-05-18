@@ -29,7 +29,26 @@ namespace AdminApp.ViewModels
                 model.Id = value;
             }
         }
-        
+
+        public string OrderTotal
+        {
+            get
+            {
+                double orderTotal = 0;
+                double itemPrice;
+
+                foreach (Product item in model.Products)
+                {
+                    itemPrice = item.Price;
+
+                    orderTotal = itemPrice + orderTotal;
+                }
+
+                return orderTotal.ToString() + "Kr.";
+            }
+        }
+
+
         public string Image
         {
             get

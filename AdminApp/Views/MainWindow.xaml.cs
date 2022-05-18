@@ -72,6 +72,7 @@ namespace AdminApp
         private void Done_Click(object sender, RoutedEventArgs e)
         {
             MVM.SelectedOrder.State = OrderState.Done;
+            MVM.UpdateOrder(MVM.SelectedOrder.Id);
         }
 
         private void NewIngredient_Click(object sender, RoutedEventArgs e)
