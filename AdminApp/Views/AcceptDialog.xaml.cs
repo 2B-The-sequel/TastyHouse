@@ -79,7 +79,7 @@ namespace AdminApp.Views
                 int holder = int.Parse(s[0].ToString() + s[1].ToString());
                 int holder2 = int.Parse(s[3].ToString() + s[4].ToString());
 
-                if (holder >= 24 || holder2 > 59)
+                if (holder >= 24 || holder2 > 59 || s.Length>5)
                     onlyDigits = false;
 
                 for (int i = 0; i < s.Length && onlyDigits; i++)
