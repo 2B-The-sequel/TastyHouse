@@ -135,7 +135,7 @@ namespace FoodMenuUtility.Persistence
             Retrieve(ord_id).Products.Add(ProductRepo.Instance.Retrieve(pro_id));
         }
 
-        public Order Create(DateTime Date,List<int> Product_IDs)
+        public Order Create(DateTime Date, List<int> Product_IDs)
         {
             Order order;
 
@@ -163,11 +163,9 @@ namespace FoodMenuUtility.Persistence
                 order = new(ID, Date);
                 _orders.Add(order);
 
-
-                foreach (Product product in Cart)
+                foreach (int product in Product_IDs)
                 {
-                    if  (product.Id == ID)
-                    { AddAssociationOrderProduct(ID, product.Id); }
+                    AddAssociationOrderProduct(ID, product);
                 }
                 
             }

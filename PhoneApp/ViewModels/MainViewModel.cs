@@ -55,9 +55,10 @@ namespace PhoneApp.ViewModels
             foreach (ProductViewModel product in Cart)
             { intlist.Add(product.Id); }
 
-           int idnumber =  OrderRepo.Instance.Create(DateOfOrder,intlist).Id;
+            int idnumber =  OrderRepo.Instance.Create(DateOfOrder,intlist).Id;
             //Slet indholder i Cart når ordren er lavet
             Cart.Clear();
+            NotifyPropertyChanged(nameof(CartTotal));
         }
 
         private MainViewModel()
