@@ -46,7 +46,7 @@
             <Grid Margin="20">
                 <Label Content="+45 30 32 88 31" Margin="-24,3,24,-3"></Label>
                 <Label Content="info@tasty-house.dk" Margin="-27,36,27,-36"></Label>
-                <Label Content="Københavnsvej 19A, Roskilde 4000" Margin="-30,72,30,-72"></Label>
+                <Label Content="Københavnsvej 19A, Roskilde 4000" Margin="-30,68,30,-68"></Label>
             </Grid>
         </DockPanel>
     </StackPanel>

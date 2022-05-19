@@ -54,37 +54,6 @@
                             </Style.Triggers>
                         </Style>
                     </TabItem.Style>
-                    <ListBox Name="BurgerListBox" ItemsSource="{Binding Burgers}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
-                                    <DockPanel Width="300">
-                                        <StackPanel>
-                                            <Image Source="{Binding Image}" Width="10"></Image>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </StackPanel>
-                                        <Button Name="AddBurgerToCartButton" Tag="{Binding .}" Click="AddBurgerToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
-                                            <Button.Resources>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="CornerRadius" Value="5"></Setter>
-                                                </Style>
-                                            </Button.Resources>
-
-                                            <StackPanel>
-                                                <DockPanel>
-                                                    <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
-                                                </DockPanel>
-                                                <DockPanel>
-                                                    <TextBlock FontSize="16" Text="{Binding Price}"></TextBlock>
-                                                    <TextBlock FontSize="16" Text=" Kr."></TextBlock>
-                                                </DockPanel>
-                                            </StackPanel>
-                                        </Button>
-                                    </DockPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
                 </TabItem>
                 <TabItem Name="SandwichTab" Background="White">
                     <TabItem.Style>
