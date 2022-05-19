@@ -93,7 +93,7 @@ namespace PhoneApp.ViewModels
             List<Product> sidesList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in sidesList)
             {
-                if (product.ProductType.ToString() == "Side")
+                if (product.ProductType.ToString() == "Fingersnacks")
                 {
                     Sides.Add(new ProductViewModel(product));
                 }
@@ -102,7 +102,7 @@ namespace PhoneApp.ViewModels
             List<Product> refreshmentsList = ProductRepo.Instance.RetrieveAll();
             foreach (Product product in refreshmentsList)
             {
-                if (product.ProductType.ToString() == "Refreshment")
+                if (product.ProductType.ToString() == "Forfriskninger")
                 {
                     Refreshments.Add(new ProductViewModel(product));
                 }

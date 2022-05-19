@@ -4,7 +4,7 @@
     {
         Burger, 
         Sandwich, 
-        Side, 
-        Refreshment
+        Fingersnacks, 
+        Forfriskninger
     }
 }
