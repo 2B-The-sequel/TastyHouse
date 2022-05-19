@@ -134,6 +134,7 @@ namespace FoodMenuUtility.Persistence
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 product = new(ID, name, price, type, image);
+                _products.Add(product);
             }
 
             for (int i = 0; i < ingredients.Count; i++)
