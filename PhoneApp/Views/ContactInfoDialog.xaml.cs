@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using FoodMenuUtility.Models;
+using System.Text.RegularExpressions;
 
 namespace PhoneApp.Views
 {
@@ -24,11 +26,40 @@ namespace PhoneApp.Views
         {
             InitializeComponent();
             DataContext = this;
+           
         }
 
+        private int _payMethod;
+
+        public PaymentMethod PayMethod
+        {
+            get
+            { 
+                return (PaymentMethod)_payMethod; 
+            }
+            set 
+            {
+                _payMethod = (int)value;
+                 NotifyPropertyChanged(nameof(_payMethod));   
+            }
+        }
+
+        private int _delMethod;
+        public DeliveryMethod delMethod
+        {
+            get
+            {
+                return (DeliveryMethod)_delMethod;
+            }
+            set
+            {
+                _delMethod = (int)value;
+                NotifyPropertyChanged(nameof(_delMethod));
+            }
+        }
 
         private string _firstName;
-        public string firstName
+        public string FirstName
         {
             get
             {
@@ -37,12 +68,12 @@ namespace PhoneApp.Views
             set
             {
                 _firstName = value;
-                NotifyPropertyChanged(nameof(firstName));
+                NotifyPropertyChanged(nameof(FirstName));
             }
         }
 
         private string _lastName;
-        public string lastName
+        public string LastName
         {
             get
             {
@@ -51,7 +82,7 @@ namespace PhoneApp.Views
             set
             {
                 _lastName = value;
-                NotifyPropertyChanged(nameof(lastName));
+                NotifyPropertyChanged(nameof(LastName));
             }
         }
 
@@ -70,7 +101,7 @@ namespace PhoneApp.Views
         }
 
         private string _zipCode;
-        public string zipCode
+        public string ZipCode
         {
             get
             {
@@ -78,8 +109,36 @@ namespace PhoneApp.Views
             }
             set
             {
-                _zipCude = value;
-                NotifyPropertyChanged(nameof(zipCode));
+                _zipCode = value;
+                NotifyPropertyChanged(nameof(ZipCode));
+            }
+        }
+
+        private string _hour;
+        public string Hour
+        {
+            get
+            {
+                return _hour;
+            }
+            set
+            {
+                _hour = value;
+                NotifyPropertyChanged(nameof(Hour));
+            }
+        }
+
+        private string _minute;
+        public string Minute
+        {
+            get
+            {
+                return _minute;
+            }
+            set
+            {
+                _minute = value;
+                NotifyPropertyChanged(nameof(Minute));
             }
         }
 
@@ -97,10 +156,6 @@ namespace PhoneApp.Views
             }
         }
 
-
-
-
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(string propertyName)
         {
@@ -117,12 +172,46 @@ namespace PhoneApp.Views
 
         private void ContactAcceptButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            string datestring = Hour + ":" + Minute;
+            if (OnlyDigits(datestring))
+            {
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Leveringstidspunkt må kun være tal imellem \n 00 - 23 : 00 - 59", "Input fejl", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ContactDeclineButton_Click(object sender, RoutedEventArgs e)
         {
+            
             DialogResult = false;
+        }
+
+        public static bool OnlyDigits(string s)
+        {
+            bool onlyDigits = true;
+
+            try
+            {
+                int holder = int.Parse(s[0].ToString() + s[1].ToString());
+                int holder2 = int.Parse(s[3].ToString() + s[4].ToString());
+
+                if (holder >= 24 || holder2 > 59 || s.Length > 5)
+                    onlyDigits = false;
+
+                for (int i = 0; i < s.Length && onlyDigits; i++)
+                {
+                    if (!char.IsNumber(s[i]) && s[i] != ':')
+                    {
+                        onlyDigits = false;
+                    }
+                }
+            }
+            catch (Exception) { onlyDigits = false; }
+
+            return onlyDigits;
         }
     }
 }

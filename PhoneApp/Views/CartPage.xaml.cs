@@ -1,6 +1,7 @@
 ﻿using PhoneApp.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.IO;
 
 namespace PhoneApp.Views
 {
@@ -9,6 +10,7 @@ namespace PhoneApp.Views
     /// </summary>
     public partial class CartPage : Page
     {
+        
         public CartPage()
         {
             InitializeComponent();
@@ -24,10 +26,14 @@ namespace PhoneApp.Views
 
         private void CompleteOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            //Alle produkter i Cart skal gemmes i order, samt datoen bestillingen er lavet.
-            //Dette skal så persisteres hen til SQL-database, samt relationerne mellem den besteme ordre og produkterne
-            //Måske en god idé med en ekstra attribut i Order "WantedDone"
-            MainViewModel.Instance.AcceptOrder();
+            ContactInfoDialog Dialog = new();
+            if (Dialog.ShowDialog() == true)
+            {
+                string datestring = Dialog.Hour + ":" + Dialog.Minute;
+                
+                MainViewModel.Instance.AcceptOrder((int)Dialog.delMethod,(int)Dialog.PayMethod, datestring);
+            }
+           
         }
     }
 }
