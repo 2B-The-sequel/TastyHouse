@@ -97,9 +97,10 @@ namespace AdminApp.ViewModels
 
         public void RemoveIngredient(bool DeleteProductsWithIngredient)
         {
+            // Delete all products with ingredient, if the user wants it.
             if (DeleteProductsWithIngredient)
             {
-                List<int> productsToBeDeleted = new List<int>();
+                List<int> productsToBeDeleted = new();
 
                 foreach (Product product in ProductRepo.Instance.RetrieveAll())
                 {
@@ -123,10 +124,17 @@ namespace AdminApp.ViewModels
                 }
             }
 
+            // Remove ingrediens
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
             Ingredients.Remove(SelectedIngredient);
 
             // Update current products so they dont have ingredient
+            Products.Clear();
+            List<Product> productList = ProductRepo.Instance.RetrieveAll();
+            foreach (Product product in productList)
+            {
+                Products.Add(new ProductViewModel(product));
+            }
         }
 
         // EDIT ORDER

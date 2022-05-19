@@ -162,6 +162,11 @@ namespace FoodMenuUtility.Persistence
 
                 sqlCommand.ExecuteNonQuery();
             }
+
+            foreach (Product product in ProductRepo.Instance.RetrieveAll())
+            {
+                product.Ingredients.RemoveAll(x => x.Id == id);
+            }
         }
     }
 }
