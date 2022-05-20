@@ -35,6 +35,19 @@ namespace PhoneApp.ViewModels
 
         public AccountViewModel AVM { get; set; }
 
+        private DeliveryMethod _selectedDeliveryMethod = DeliveryMethod.Delivery;
+        public DeliveryMethod SelectedDeliveryMethod 
+        {
+            get
+            {
+                return _selectedDeliveryMethod;
+            }
+            set
+            {
+                _selectedDeliveryMethod = value;
+            }
+        }
+
         // Singleton
         private static MainViewModel s_instance;
         public static MainViewModel Instance

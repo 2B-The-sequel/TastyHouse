@@ -82,6 +82,7 @@ namespace FoodMenuUtility.Persistence
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
                 ingredient = new(ID, name, price, image, soldOut);
+                _ingredients.Add(ingredient);
             }
 
             return ingredient;
@@ -151,12 +152,21 @@ namespace FoodMenuUtility.Persistence
             if (found)
                 _ingredients.Remove(_ingredients[i]);
 
-            using SqlConnection connection = new(_connectionString);
-            connection.Open();
-            string table = "Ingredient";
-            string query = $"DELETE from Product_Ingredient WHERE FK_Ingredient_id = {id}; Delete from {table} where Ingredient_id = {id};";
-            SqlCommand sqlCommand = new(query, connection);
-            sqlCommand.ExecuteNonQuery();
+            using (SqlConnection connection = new(_connectionString))
+            {
+                connection.Open();
+                string query = $"DELETE from Product_Ingredient WHERE FK_Ingredient_id=@Ingredient_id; DELETE FROM Ingredient WHERE Ingredient_id=@Ingredient_id;";
+                
+                SqlCommand sqlCommand = new(query, connection);
+                sqlCommand.Parameters.Add(new SqlParameter("Ingredient_id", id));
+
+                sqlCommand.ExecuteNonQuery();
+            }
+
+            foreach (Product product in ProductRepo.Instance.RetrieveAll())
+            {
+                product.Ingredients.RemoveAll(x => x.Id == id);
+            }
         }
     }
 }

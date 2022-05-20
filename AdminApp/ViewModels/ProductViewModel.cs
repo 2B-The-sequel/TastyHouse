@@ -55,6 +55,7 @@ namespace AdminApp.ViewModels
             { 
                 model.Ingredients  = value;
                 NotifyPropertyChanged(nameof(Ingredients));
+                NotifyPropertyChanged(nameof(IngredientsText));
             } 
         }
 

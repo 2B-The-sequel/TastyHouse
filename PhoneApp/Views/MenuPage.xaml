@@ -69,7 +69,6 @@
                                                     <Setter Property="CornerRadius" Value="5"></Setter>
                                                 </Style>
                                             </Button.Resources>
-
                                             <StackPanel>
                                                 <DockPanel>
                                                     <TextBlock FontSize="16" Text="Tilføj"></TextBlock>
