@@ -31,7 +31,7 @@ namespace FoodMenuUtility.Persistence
 
             connection.Open();
             // Hvis billeder skal være der skal de tilføjes til table og values
-            string values = "Order_id, Date, Estimate_Time,FK_State_id,FK_PM_id";
+            string values = "Order_id, Date, Estimate_Time,FK_State_id,FK_PM_id,FK_DM_id";
             string table = "[Order]";
             string CommandText = $"SELECT {values} FROM {table}";
             SqlCommand sQLCommand = new(CommandText, connection);
@@ -138,7 +138,7 @@ namespace FoodMenuUtility.Persistence
             Retrieve(ord_id).Products.Add(ProductRepo.Instance.Retrieve(pro_id));
         }
 
-        public Order Create(DateTime dateOrdered,DateTime timeDone, List<int> Product_IDs,int delMethod, int payMethod)
+        public Order Create(DateTime dateOrdered,DateTime timeDone, List<int> Product_IDs, DeliveryMethod delMethod, PaymentMethod payMethod)
         {
             Order order;
 
@@ -159,12 +159,12 @@ namespace FoodMenuUtility.Persistence
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_Promo_id", i));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_Customer_id", i));
                 sqlCommand.Parameters.Add(new SqlParameter("@FK_State_id", d));
-                sqlCommand.Parameters.Add(new SqlParameter("@FK_DM_id", delMethod));
-                sqlCommand.Parameters.Add(new SqlParameter("@FK_PM_id", payMethod));
+                sqlCommand.Parameters.Add(new SqlParameter("@FK_DM_id", (int)delMethod));
+                sqlCommand.Parameters.Add(new SqlParameter("@FK_PM_id", (int)payMethod));
                 sqlCommand.Parameters.Add(new SqlParameter("@Estimate_Time", timeDone));
 
                 int ID = int.Parse(sqlCommand.ExecuteScalar().ToString());
-                order = new(dateOrdered, timeDone,3, payMethod, delMethod);
+                order = new(dateOrdered, timeDone,3, (int)payMethod, (int)delMethod);
                 _orders.Add(order);
 
                 foreach (int product in Product_IDs)

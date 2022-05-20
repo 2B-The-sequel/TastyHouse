@@ -1,7 +1,7 @@
 ﻿using PhoneApp.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.IO;
+using System;
 
 namespace PhoneApp.Views
 {
@@ -10,7 +10,6 @@ namespace PhoneApp.Views
     /// </summary>
     public partial class CartPage : Page
     {
-        
         public CartPage()
         {
             InitializeComponent();
@@ -27,13 +26,17 @@ namespace PhoneApp.Views
         private void CompleteOrderButton_Click(object sender, RoutedEventArgs e)
         {
             ContactInfoDialog Dialog = new();
+
+            Dialog.FirstName = MainViewModel.Instance.AVM.FirstName;
+            Dialog.LastName = MainViewModel.Instance.AVM.LastName;
+            Dialog.Address = MainViewModel.Instance.AVM.Address;
+            Dialog.ZipCode = MainViewModel.Instance.AVM.ZipCode.ToString();
+            Dialog.City = MainViewModel.Instance.AVM.City;
+
             if (Dialog.ShowDialog() == true)
             {
-                string datestring = Dialog.Hour + ":" + Dialog.Minute;
-                
-                MainViewModel.Instance.AcceptOrder((int)Dialog.delMethod,(int)Dialog.PayMethod, datestring);
+                MainViewModel.Instance.AcceptOrder(Dialog.DelMethod, Dialog.PayMethod, DateTime.ParseExact(Dialog.Hour + ":" + Dialog.Minute, "HH:mm", null));
             }
-           
         }
     }
 }

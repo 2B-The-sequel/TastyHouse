@@ -47,17 +47,16 @@ namespace PhoneApp.ViewModels
             }
         }
 
-        public void AcceptOrder(int delMethod, int payMethod,string DoneTime)
+        public void AcceptOrder(DeliveryMethod delMethod, PaymentMethod payMethod, DateTime DoneTime)
         {
             //Sætter date til tidspunkt "Gennemfør bestilling")
             DateTime DateOfOrder = DateTime.Now;
-            DateTime DeliveryTime = DateTime.ParseExact(DoneTime, "t", null);
+            DateTime DeliveryTime = DoneTime;
             List<int> intlist = new();
             foreach (ProductViewModel product in Cart)
             { intlist.Add(product.Id); }
 
             OrderRepo.Instance.Create(DateOfOrder,DeliveryTime,intlist,delMethod,payMethod);
-
 
             //Slet indholder i Cart når ordren er lavet
             Cart.Clear();

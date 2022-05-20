@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.ComponentModel;
 using FoodMenuUtility.Models;
 using System.Text.RegularExpressions;
@@ -26,35 +16,33 @@ namespace PhoneApp.Views
         {
             InitializeComponent();
             DataContext = this;
-           
         }
 
-        private int _payMethod;
-
+        private PaymentMethod _payMethod = PaymentMethod.Credit_Card;
         public PaymentMethod PayMethod
         {
             get
             { 
-                return (PaymentMethod)_payMethod; 
+                return _payMethod; 
             }
             set 
             {
-                _payMethod = (int)value;
-                 NotifyPropertyChanged(nameof(_payMethod));   
+                _payMethod = value;
+                NotifyPropertyChanged(nameof(PayMethod));   
             }
         }
 
-        private int _delMethod;
-        public DeliveryMethod delMethod
+        private DeliveryMethod _delMethod = DeliveryMethod.Delivery;
+        public DeliveryMethod DelMethod
         {
             get
             {
-                return (DeliveryMethod)_delMethod;
+                return _delMethod;
             }
             set
             {
-                _delMethod = (int)value;
-                NotifyPropertyChanged(nameof(_delMethod));
+                _delMethod = value;
+                NotifyPropertyChanged(nameof(DelMethod));
             }
         }
 
@@ -86,17 +74,17 @@ namespace PhoneApp.Views
             }
         }
 
-        private string _adress;
-        public string Adress
+        private string _address;
+        public string Address
         {
             get
             {
-                return _adress;
+                return _address;
             }
             set
             {
-                _adress = value;
-                NotifyPropertyChanged(nameof(Adress));
+                _address = value;
+                NotifyPropertyChanged(nameof(Address));
             }
         }
 
@@ -114,7 +102,7 @@ namespace PhoneApp.Views
             }
         }
 
-        private string _hour;
+        private string _hour = DateTime.Now.Hour.ToString("00");
         public string Hour
         {
             get
@@ -128,7 +116,7 @@ namespace PhoneApp.Views
             }
         }
 
-        private string _minute;
+        private string _minute = DateTime.Now.Minute.ToString("00");
         public string Minute
         {
             get
@@ -168,8 +156,6 @@ namespace PhoneApp.Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
-       
-
         private void ContactAcceptButton_Click(object sender, RoutedEventArgs e)
         {
             string datestring = Hour + ":" + Minute;
@@ -185,7 +171,6 @@ namespace PhoneApp.Views
 
         private void ContactDeclineButton_Click(object sender, RoutedEventArgs e)
         {
-            
             DialogResult = false;
         }
 
