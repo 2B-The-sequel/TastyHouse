@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Accept.png" />
     <None Remove="Resources\Background.png" />
     <None Remove="Resources\Cart.png" />
+    <None Remove="Resources\Decline.png" />
     <None Remove="Resources\Drink.png" />
     <None Remove="Resources\Drink_Selected.png" />
     <None Remove="Resources\Food.png" />
@@ -33,10 +35,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Accept.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Cart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Decline.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Drink.png">

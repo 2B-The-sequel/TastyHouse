@@ -41,6 +41,8 @@ namespace AdminApp
             if (MessageBox.Show("Er du sikker på at du vil afvise orderen?", "Bekræftelse", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 MVM.SelectedOrder.State = OrderState.Declined;
+                //Er det order som skal
+                MVM.UpdateOrder(MVM.SelectedOrder.Id);
             }
         }
 
@@ -106,6 +108,12 @@ namespace AdminApp
 
                 MVM.EditProduct(dialog.ProductName, dialog.Price, dialog.ProductImage, ingredients);
             }
+        }
+
+        private void Done_Click(object sender, RoutedEventArgs e)
+        {
+            MVM.SelectedOrder.State = OrderState.Done;
+            MVM.UpdateOrder(MVM.SelectedOrder.Id);
         }
 
         // Ingredient
