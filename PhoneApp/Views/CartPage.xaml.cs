@@ -32,6 +32,7 @@ namespace PhoneApp.Views
             Dialog.Address = MainViewModel.Instance.AVM.Address;
             Dialog.ZipCode = MainViewModel.Instance.AVM.ZipCode.ToString();
             Dialog.City = MainViewModel.Instance.AVM.City;
+            Dialog.DelMethod = MainViewModel.Instance.SelectedDeliveryMethod;
 
             if (Dialog.ShowDialog() == true)
             {

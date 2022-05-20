@@ -31,7 +31,7 @@ namespace AdminApp
                 string datestring = dialog.Hour + ":" + dialog.Minute;
 
                 MVM.SelectedOrder.State = OrderState.Accepted;
-                MVM.SelectedOrder.DoneTime = DateTime.ParseExact(datestring, "t", null);
+                MVM.SelectedOrder.DoneTime = DateTime.ParseExact(datestring, "HH:mm", null);
                 MVM.UpdateOrder(MVM.SelectedOrder.Id);
             }
         }
@@ -44,11 +44,6 @@ namespace AdminApp
                 //Er det order som skal
                 MVM.UpdateOrder(MVM.SelectedOrder.Id);
             }
-        }
-
-        private void Done_Click(object sender, RoutedEventArgs e)
-        {
-            MVM.SelectedOrder.State = OrderState.Done;
         }
 
         // Product
