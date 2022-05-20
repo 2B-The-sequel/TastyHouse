@@ -1,5 +1,6 @@
 ﻿using PhoneApp.ViewModels;
 using PhoneApp.Views;
+using FoodMenuUtility.Models;
 using System.Windows;
 
 namespace DesignIdeTastyHouse
@@ -51,6 +52,18 @@ namespace DesignIdeTastyHouse
             MainFrameWindow.Navigate(acpa);
             Index.Visibility = Visibility.Hidden;
             MainFrameWindow.Visibility = Visibility.Visible;
+        }
+
+        private void Delivery_Click(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.Instance.SelectedDeliveryMethod = DeliveryMethod.Delivery;
+            MenuButton_Click(sender, e);
+        }
+
+        private void TakeAway_Click(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.Instance.SelectedDeliveryMethod = DeliveryMethod.TakeAway;
+            MenuButton_Click(sender, e);
         }
     }
 }

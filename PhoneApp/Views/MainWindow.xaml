@@ -24,7 +24,7 @@
             <Image Source="../Resources/Logo.png" Height="200" Margin="0,56,0,588"></Image>
             <StackPanel Margin="50,392,50,289">
                 <Border Margin="0 20" BorderThickness="1" BorderBrush="Black" CornerRadius="10">
-                    <Button Content="Levering">
+                    <Button Content="Levering" Click="Delivery_Click">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
@@ -33,7 +33,7 @@
                     </Button>
                 </Border>
                 <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10">
-                    <Button Content="Take-away">
+                    <Button Content="Take-away" Click="TakeAway_Click">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>

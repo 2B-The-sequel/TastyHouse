@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Accept.png" />
     <None Remove="Resources\Background.png" />
     <None Remove="Resources\Cart.png" />
     <None Remove="Resources\ContactGeotag.png" />
     <None Remove="Resources\ContactMail.png" />
     <None Remove="Resources\ContactPhone.png" />
+    <None Remove="Resources\Decline.png" />
     <None Remove="Resources\Drink.png" />
     <None Remove="Resources\Drink_Selected.png" />
     <None Remove="Resources\Food.png" />
@@ -36,6 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Accept.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -49,6 +54,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\ContactPhone.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Decline.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Drink.png">

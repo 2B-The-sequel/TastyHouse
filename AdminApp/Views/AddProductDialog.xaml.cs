@@ -71,7 +71,7 @@ namespace AdminApp.Views
             set 
             { 
                 _productImage = value; 
-                NotifyPropertyChanged(nameof(_productImage)); 
+                NotifyPropertyChanged(nameof(ProductImage)); 
             }
         }
 
