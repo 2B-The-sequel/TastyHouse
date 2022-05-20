@@ -7,7 +7,7 @@ namespace AdminApp.Views
     /// </summary>
     public partial class DeleteIngredientDialog : Window
     {
-        public bool RemoveIngredientFromProduct { get; set; }
+        public bool DeleteProductsWithIngredient { get; set; }
 
         public DeleteIngredientDialog()
         {
@@ -17,13 +17,13 @@ namespace AdminApp.Views
 
         private void RemoveIngredientFromProduct_Click(object sender, RoutedEventArgs e)
         {
-            RemoveIngredientFromProduct = true;
+            DeleteProductsWithIngredient = false;
             DialogResult = true;
         }
 
         private void RemoveProductsWithIngredient_Click(object sender, RoutedEventArgs e)
         {
-            RemoveIngredientFromProduct = false;
+            DeleteProductsWithIngredient = true;
             DialogResult = true;
         }
 

@@ -35,6 +35,19 @@ namespace PhoneApp.ViewModels
 
         public AccountViewModel AVM { get; set; }
 
+        private DeliveryMethod _selectedDeliveryMethod = DeliveryMethod.Delivery;
+        public DeliveryMethod SelectedDeliveryMethod 
+        {
+            get
+            {
+                return _selectedDeliveryMethod;
+            }
+            set
+            {
+                _selectedDeliveryMethod = value;
+            }
+        }
+
         // Singleton
         private static MainViewModel s_instance;
         public static MainViewModel Instance
@@ -49,17 +62,16 @@ namespace PhoneApp.ViewModels
 
         public void AcceptOrder()
         {
+            //Sætter date til tidspunkt "Gennemfør bestilling")
             DateTime DateOfOrder = DateTime.Now;
-            OrderRepo.Instance.Create(DateOfOrder);
-            int IdNumber = OrderRepo.Instance.ShowLatestId() +4;
-
+            List<int> intlist = new();
             foreach (ProductViewModel product in Cart)
-            {
+            { intlist.Add(product.Id); }
 
-                OrderRepo.Instance.AddAssociationOrderProduct(IdNumber, product.Id);
-            }
-
+            int idnumber =  OrderRepo.Instance.Create(DateOfOrder,intlist).Id;
+            //Slet indholder i Cart når ordren er lavet
             Cart.Clear();
+            NotifyPropertyChanged(nameof(CartTotal));
         }
 
         private MainViewModel()
