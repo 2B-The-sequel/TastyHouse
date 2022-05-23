@@ -37,17 +37,24 @@
         <Label Content="Åbningstider:" FontSize="24" HorizontalAlignment="Center" Foreground="#FFFFA900" ></Label>
         <Label Content="Alle ugens dage: 11.00 - 20.45" HorizontalAlignment="Center" Foreground="#FF9E2A2A" ></Label>
         <Label Content="Søndage og helligdage: 12.00 - 20.45" HorizontalAlignment="Center" Foreground="#FF9E2A2A"></Label>
-        <DockPanel>
-            <StackPanel Margin="20">
+        
+        <StackPanel Margin="20">
+            <DockPanel>
+                <Image Source="\Resources\ContactSite.png" Width="32"/>
+                <Label Content="tasty-house.dk" VerticalAlignment="Center" Margin="10 0"></Label>
+            </DockPanel>
+            <DockPanel Margin="0 3 0 0">
                 <Image Source="\Resources\ContactPhone.png" Width="32"/>
-                <Image Source="\Resources\ContactMail.png" Width="32"></Image>
-                <Image Source="\Resources\ContactGeotag.png" Width="32"></Image>
-            </StackPanel>
-            <Grid Margin="20">
-                <Label Content="+45 30 32 88 31" Margin="-24,3,24,-3"></Label>
-                <Label Content="info@tasty-house.dk" Margin="-27,36,27,-36"></Label>
-                <Label Content="Københavnsvej 19A, Roskilde 4000" Margin="-30,68,30,-68"></Label>
-            </Grid>
-        </DockPanel>
+                <Label Content="+45 30 32 88 31" VerticalAlignment="Center" Margin="10 0"></Label>
+            </DockPanel>
+            <DockPanel Margin="0 3">
+                <Image Source="\Resources\ContactMail.png" Width="32"/>
+                <Label Content="info@tasty-house.dk" VerticalAlignment="Center" Margin="10 0"></Label>
+            </DockPanel>
+            <DockPanel>
+                <Image Source="\Resources\ContactGeotag.png" Width="32"/>
+                <Label Content="Københavnsvej 19A, Roskilde 4000" VerticalAlignment="Center" Margin="10 0"></Label>
+            </DockPanel>
+        </StackPanel>
     </StackPanel>
 </Page>
