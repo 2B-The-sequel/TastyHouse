@@ -55,11 +55,18 @@ namespace AdminApp.ViewModels
         }
 
 
-        public void EditProduct(string name, double price, byte[] image)
+        public void EditProduct(string name, double price, byte[] image, List<IngredientViewModel> ingredientViewModels)
         {
+            List<Ingredient> ingredients = new();
+            for (int i = 0; i < ingredientViewModels.Count; i++)
+            {
+                ingredients.Add(IngredientRepo.Instance.Retrieve(ingredientViewModels[i].Id));
+            }
+
             SelectedProduct.Name = name;
             SelectedProduct.Price = price;
             SelectedProduct.Image = image;
+            SelectedProduct.Ingredients = ingredients;
 
             ProductRepo.Instance.Update(SelectedProduct.Id);
         }
@@ -68,11 +75,6 @@ namespace AdminApp.ViewModels
         {
             ProductRepo.Instance.Delete(SelectedProduct.Id);
             Products.Remove(SelectedProduct);
-        }
-
-        public void AddIngredientToProduct(IngredientViewModel ingredient)
-        {
-            SelectedProduct.Ingredients.Add(IngredientRepo.Instance.Retrieve(ingredient.Id));
         }
 
         // Ingredients
@@ -93,24 +95,46 @@ namespace AdminApp.ViewModels
             IngredientRepo.Instance.Update(SelectedIngredient.Id);
         }
 
-        public void RemoveIngredient(bool RemoveIngredientFromProducts)
+        public void RemoveIngredient(bool DeleteProductsWithIngredient)
         {
-            /*List<Product> products = ProductRepo.Instance.RetrieveAll();
-
-            foreach (Product product in products)
+            // Delete all products with ingredient, if the user wants it.
+            if (DeleteProductsWithIngredient)
             {
-                if (RemoveIngredientFromProducts)
-                {
-                    
-                }
-                else
-                {
+                List<int> productsToBeDeleted = new();
 
+                foreach (Product product in ProductRepo.Instance.RetrieveAll())
+                {
+                    bool found = false;
+                    int i = 0;
+                    while (i < product.Ingredients.Count && !found)
+                    {
+                        if (product.Ingredients[i].Id == SelectedIngredient.Id)
+                            found = true;
+                        else
+                            i++;
+                    }
+
+                    if (found)
+                        productsToBeDeleted.Add(product.Id);
+                }
+
+                for (int i = 0; i < productsToBeDeleted.Count; i++)
+                {
+                    ProductRepo.Instance.Delete(productsToBeDeleted[i]);
                 }
             }
 
+            // Remove ingrediens
             IngredientRepo.Instance.Delete(SelectedIngredient.Id);
-            Ingredients.Remove(SelectedIngredient);*/
+            Ingredients.Remove(SelectedIngredient);
+
+            // Update current products so they dont have ingredient
+            Products.Clear();
+            List<Product> productList = ProductRepo.Instance.RetrieveAll();
+            foreach (Product product in productList)
+            {
+                Products.Add(new ProductViewModel(product));
+            }
         }
 
         // EDIT ORDER

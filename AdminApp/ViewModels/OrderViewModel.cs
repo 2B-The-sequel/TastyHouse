@@ -29,7 +29,26 @@ namespace AdminApp.ViewModels
                 model.Id = value;
             }
         }
-        
+
+        public string OrderTotal
+        {
+            get
+            {
+                double orderTotal = 0;
+                double itemPrice;
+
+                foreach (Product item in model.Products)
+                {
+                    itemPrice = item.Price;
+
+                    orderTotal = itemPrice + orderTotal;
+                }
+
+                return orderTotal.ToString() + "Kr.";
+            }
+        }
+
+
         public string Image
         {
             get
@@ -68,6 +87,21 @@ namespace AdminApp.ViewModels
                 model.State = value;
                 NotifyPropertyChanged(nameof(State));
                 NotifyPropertyChanged(nameof(Image));
+            }
+        }
+
+        public string ProductsText
+        {
+            get
+            {
+                string products = string.Empty;
+
+                for (int i = 0; i < model.Products.Count; i++)
+                {
+                    products += model.Products[i].Name + ((i == model.Products.Count - 1) ? string.Empty : ", ");
+                }
+
+                return products;
             }
         }
 

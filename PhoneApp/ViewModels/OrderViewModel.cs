@@ -71,6 +71,33 @@ namespace PhoneApp.ViewModels
             }
         }
 
+        public PaymentMethod PaymentMethod
+        {
+            get 
+            {
+                return model.PaymentMethod; 
+            }
+            set 
+            { 
+                model.PaymentMethod = value;
+                NotifyPropertyChanged(nameof(PaymentMethod));
+            }
+        }
+
+        public DeliveryMethod DeliveryMethod
+        {
+            get 
+            { 
+                return model.DeliveryMethod; 
+            }
+            set
+            { 
+                model.DeliveryMethod = value;
+                NotifyPropertyChanged(nameof(DeliveryMethod));
+            }
+
+        }
+
         public OrderViewModel(Order model) : base(model) { }
     }
 }

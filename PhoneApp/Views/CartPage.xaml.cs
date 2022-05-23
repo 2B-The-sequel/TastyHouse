@@ -1,6 +1,7 @@
 ﻿using PhoneApp.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System;
 
 namespace PhoneApp.Views
 {
@@ -24,10 +25,19 @@ namespace PhoneApp.Views
 
         private void CompleteOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            //Alle produkter i Cart skal gemmes i order, samt datoen bestillingen er lavet.
-            //Dette skal så persisteres hen til SQL-database, samt relationerne mellem den besteme ordre og produkterne
-            //Måske en god idé med en ekstra attribut i Order "WantedDone"
-            MainViewModel.Instance.AcceptOrder();
+            ContactInfoDialog Dialog = new();
+
+            Dialog.FirstName = MainViewModel.Instance.AVM.FirstName;
+            Dialog.LastName = MainViewModel.Instance.AVM.LastName;
+            Dialog.Address = MainViewModel.Instance.AVM.Address;
+            Dialog.ZipCode = MainViewModel.Instance.AVM.ZipCode.ToString();
+            Dialog.City = MainViewModel.Instance.AVM.City;
+            Dialog.DelMethod = MainViewModel.Instance.SelectedDeliveryMethod;
+
+            if (Dialog.ShowDialog() == true)
+            {
+                MainViewModel.Instance.AcceptOrder(Dialog.DelMethod, Dialog.PayMethod, DateTime.ParseExact(Dialog.Hour + ":" + Dialog.Minute, "HH:mm", null));
+            }
         }
     }
 }

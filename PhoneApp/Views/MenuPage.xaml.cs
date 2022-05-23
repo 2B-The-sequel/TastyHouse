@@ -28,6 +28,7 @@ namespace PhoneApp.Views
 
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
+            MessageBox.Show($"{obj.Name}" + " " + "er blevet tilføjet til kurven");
         }
 
         private void AddSandwichToCartButton_Click(object sender, RoutedEventArgs e)
@@ -35,8 +36,10 @@ namespace PhoneApp.Views
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
 
+
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
+            MessageBox.Show($"{obj.Name}" + " " + "er blevet tilføjet til kurven");
         }
 
         private void AddSideToCartButton_Click(object sender, RoutedEventArgs e)
@@ -46,6 +49,7 @@ namespace PhoneApp.Views
 
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
+            MessageBox.Show($"{obj.Name}" + " " + "er blevet tilføjet til kurven");
         }
 
         private void AddRefreshmentToCartButton_Click(object sender, RoutedEventArgs e)
@@ -55,6 +59,7 @@ namespace PhoneApp.Views
 
             MVM.Cart.Add(obj);
             NotifyPropertyChanged("CartTotal");
+            MessageBox.Show($"{obj.Name}" + " " + "er blevet tilføjet til kurven");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
