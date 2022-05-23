@@ -62,7 +62,7 @@
                                         <DockPanel>
                                             <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
                                             <StackPanel>
-                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                                <TextBlock VerticalAlignment="Center" Width="100" TextWrapping="Wrap" Text="{Binding Name}"/>
                                                 <TextBlock Text="{Binding IngredientsText}" Width="100" TextWrapping="Wrap" FontSize="10"></TextBlock>
                                             </StackPanel>
                                         </DockPanel>
@@ -112,11 +112,10 @@
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
                                     <DockPanel Width="300">
-                                        <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
                                         <DockPanel>
                                             <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
                                             <StackPanel>
-                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                                <TextBlock VerticalAlignment="Center" Width="100" TextWrapping="Wrap" Text="{Binding Name}"/>
                                                 <TextBlock Text="{Binding IngredientsText}" Width="100" TextWrapping="Wrap" FontSize="10"></TextBlock>
                                             </StackPanel>
                                         </DockPanel>
@@ -168,7 +167,7 @@
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
                                     <DockPanel Width="300">
                                         <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
-                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}"></TextBlock>
+                                        <TextBlock VerticalAlignment="Center" Width="100" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
                                         <Button Tag="{Binding .}" Name="AddSideToCartButton" Click="AddSideToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
@@ -216,7 +215,7 @@
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
                                     <DockPanel Width="300">
                                         <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
-                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}"></TextBlock>
+                                        <TextBlock VerticalAlignment="Center" Width="100" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
                                         <Button Tag="{Binding .}" Name="AddRefreshmentToCartButton" Click="AddRefreshmentToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
