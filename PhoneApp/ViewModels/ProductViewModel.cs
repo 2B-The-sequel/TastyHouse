@@ -52,6 +52,33 @@ namespace PhoneApp.ViewModels
             }
         }
 
+        public byte[] Image
+        {
+            get
+            {
+                return model.Image;
+            }
+            set
+            {
+                model.Image = value;
+            }
+        }
+
+        public string IngredientsText
+        {
+            get
+            {
+                string ingredients = string.Empty;
+
+                for (int i = 0; i < model.Ingredients.Count; i++)
+                {
+                    ingredients += model.Ingredients[i].Name + ((i == model.Ingredients.Count - 1) ? string.Empty : ", ");
+                }
+
+                return ingredients;
+            }
+        }
+
         public ProductViewModel(Product model) : base(model) { }
     }
 }

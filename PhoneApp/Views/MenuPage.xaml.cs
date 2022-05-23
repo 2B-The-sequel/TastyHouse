@@ -12,6 +12,7 @@ namespace PhoneApp.Views
     {
         public MainViewModel MVM;
         public CartViewModel cartViewModel;
+        public ProductViewModel PVM;
 
         public MenuPage()
         {

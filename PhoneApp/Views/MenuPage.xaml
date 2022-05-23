@@ -59,10 +59,13 @@
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
                                     <DockPanel Width="300">
-                                        <StackPanel>
-                                            <Image Source="{Binding Image}" Width="10"></Image>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </StackPanel>
+                                        <DockPanel>
+                                            <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
+                                            <StackPanel>
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                                <TextBlock Text="{Binding IngredientsText}" Width="100" TextWrapping="Wrap" FontSize="10"></TextBlock>
+                                            </StackPanel>
+                                        </DockPanel>
                                         <Button Name="AddBurgerToCartButton" Tag="{Binding .}" Click="AddBurgerToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
@@ -110,9 +113,14 @@
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
                                     <DockPanel Width="300">
-                                        <Image Source="{Binding Image}" Width="10"></Image>
-                                        <TextBlock Text="{Binding Name}"></TextBlock>
-                                        <TextBlock Text=" kr."></TextBlock>
+                                        <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
+                                        <DockPanel>
+                                            <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
+                                            <StackPanel>
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                                <TextBlock Text="{Binding IngredientsText}" Width="100" TextWrapping="Wrap" FontSize="10"></TextBlock>
+                                            </StackPanel>
+                                        </DockPanel>
                                         <Button Tag="{Binding .}" Name="AddSandwichToCartButton" Click="AddSandwichToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
@@ -160,8 +168,8 @@
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
                                     <DockPanel Width="300">
-                                        <Image Source="{Binding Image}" Width="10"></Image>
-                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                        <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}"></TextBlock>
                                         <Button Tag="{Binding .}" Name="AddSideToCartButton" Click="AddSideToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
@@ -208,8 +216,8 @@
                             <DataTemplate>
                                 <Border Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Padding="5">
                                     <DockPanel Width="300">
-                                        <Image Source="{Binding Image}" Width="10"></Image>
-                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                        <Image HorizontalAlignment="Left" Margin="0 10 10 10" Source="{Binding Image}" Width="60"></Image>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}"></TextBlock>
                                         <Button Tag="{Binding .}" Name="AddRefreshmentToCartButton" Click="AddRefreshmentToCartButton_Click" HorizontalAlignment="Right" Width="100" Padding="5">
                                             <Button.Resources>
                                                 <Style TargetType="Border">
