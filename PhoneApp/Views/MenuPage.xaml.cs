@@ -21,38 +21,7 @@ namespace PhoneApp.Views
             MVM = MainViewModel.Instance;
         }
 
-        private void AddBurgerToCartButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = (Button)sender;
-            var obj = (ProductViewModel)button.DataContext;
-
-            MVM.Cart.Add(obj);
-            NotifyPropertyChanged("CartTotal");
-            MessageBox.Show($"{obj.Name}" + " " + "er blevet tilføjet til kurven");
-        }
-
-        private void AddSandwichToCartButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = (Button)sender;
-            var obj = (ProductViewModel)button.DataContext;
-
-
-            MVM.Cart.Add(obj);
-            NotifyPropertyChanged("CartTotal");
-            MessageBox.Show($"{obj.Name}" + " " + "er blevet tilføjet til kurven");
-        }
-
-        private void AddSideToCartButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = (Button)sender;
-            var obj = (ProductViewModel)button.DataContext;
-
-            MVM.Cart.Add(obj);
-            NotifyPropertyChanged("CartTotal");
-            MessageBox.Show($"{obj.Name}" + " " + "er blevet tilføjet til kurven");
-        }
-
-        private void AddRefreshmentToCartButton_Click(object sender, RoutedEventArgs e)
+        private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
             var obj = (ProductViewModel)button.DataContext;
