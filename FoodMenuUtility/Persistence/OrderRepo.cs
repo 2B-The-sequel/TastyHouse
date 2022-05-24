@@ -51,29 +51,6 @@ namespace FoodMenuUtility.Persistence
             AddProductstoOrderFromSQL();
         }
 
-        public int SetId()
-        {
-            int i=0;
-            using (SqlConnection connection = new(_connectionString))
-            {
-                connection.Open();
-
-                string table = "[Order]";
-                string values = "COUNT(Order_Id) AS IdCount";
-                string CommandText = $"SELECT {values} FROM {table} ";
-
-                SqlCommand sQLCommand = new(CommandText, connection);
-                using (SqlDataReader sqldatareader = sQLCommand.ExecuteReader())
-                {
-                    while (sqldatareader.Read() != false)
-                    {
-                        i = sqldatareader.GetInt32("IdCount");
-                    }
-                }
-            }
-            return i+1;
-        }
-
         public void AddProductstoOrderFromSQL()
         {
             List<int> FK_Order = new();
