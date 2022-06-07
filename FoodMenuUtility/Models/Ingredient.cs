@@ -4,9 +4,13 @@ namespace FoodMenuUtility.Models
 {
     public class Ingredient
     {
+        // Også en property
         public int Id { get; set; }
 
-        private byte[] image = Array.Empty<byte>();
+        // Private backing field
+        private byte[] image = Array.Empty<byte>(); // Sat til tomt array i stedet for null, da null giver fejl
+        
+        // Property
         public byte[] Image
         {
             get 

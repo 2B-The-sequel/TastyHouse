@@ -20,8 +20,8 @@ namespace FoodMenuUtility.Persistence
         {
             get
             {
-                if (s_instance == null)
-                    s_instance = new IngredientRepo();
+                if (s_instance == null) // I starten af programmet er det null
+                    s_instance = new IngredientRepo(); // Der laves ét instans i starten
                 return s_instance;
             }
         }
@@ -38,7 +38,7 @@ namespace FoodMenuUtility.Persistence
 
             connection.Open();
             // Hvis billeder skal være der skal de tilføjes til table og values
-            string values = "Ingredient_id, Name, Extra_Price, Image, Sold_Out";
+            string values = "Ingredient_id, Name, Extra_Price, Image, Sold_Out"; // Leif siger vi ikke må bruge *
             string table = "Ingredient";
             string CommandText = $"SELECT {values} FROM {table}";
             SqlCommand sQLCommand = new(CommandText, connection);

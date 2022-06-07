@@ -2,12 +2,14 @@
 
 namespace FoodMenuUtility.Models
 {
+    // Er abstract ligesom et pattedyr, hvor IngredientViewModel er ligesom et menneske som kan laves
     public abstract class ViewModel<T> : INotifyPropertyChanged
     {
         /// <summary>
         /// Reference model used by getters and setters.
         /// </summary>
-        protected readonly T model;
+        protected readonly T model; // Protected kan tilgås af klasser der nedarver fra den
+        // Ikke public så views ikke kan tilgå den.
 
         /// <summary>
         /// Create a ViewModel using a model.

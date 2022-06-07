@@ -54,6 +54,8 @@ namespace AdminApp
             {
                 List<IngredientViewModel> ingredients = new();
 
+                ingredients[0].Id = 5;
+
                 for (int i = 0; i < dialog.IngredientBox.Items.Count; i++)
                 {
                     for (int j = 0; j < dialog.Ingredients[i].CountTotal; j++)
